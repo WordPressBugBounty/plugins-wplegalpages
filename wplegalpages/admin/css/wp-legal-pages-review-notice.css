@@ -1,0 +1,71 @@
+
+/* css added for the review-notice banner */
+
+.wplp-review-notice .updated{
+	padding-bottom: 1.3rem;
+	display: flex;
+	flex-direction: column;
+  }
+
+.wplp-review-btns {
+	background-color: #2271b1;
+	padding: 10px;
+	max-width: 150px;
+	text-align: center;
+	border-radius: 2px;
+	color: white;
+	border: solid 1px gray;
+	cursor: pointer;
+	margin-bottom: 15px;
+  }
+  
+  .wplp-review-already-done-btn {
+	margin-left: 10px;
+  }
+  .wplp-review-btns-container {
+	display: flex;
+	flex-direction: row;
+  }
+  .wplp-review-btns:hover {
+	background-color: #135e96;
+  }
+  .wplp-review-btns > a {
+	color: #fff;
+	text-decoration: none;
+  }
+  .wplp-review-already-done-btn > a > i,
+  .wplp-review-rate-us-btn > a > i {
+	margin-left: 5px;
+  }
+  .wplp-review-notice-text-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+  }
+  .wplp-review-notice .wplp-review-notice-text-container .wplp-review-dismiss-btn{
+	margin-top: 1em;
+  }
+  .wplp-review-notice .wplp-review-notice-text-container p{
+	margin-top:0.8em;
+  }
+  .wplp-review-dismiss-btn {
+	display: flex;
+	margin-top: 10px;
+	text-decoration: none;
+	cursor: pointer;
+  
+	:hover {
+	  scale: 110%;
+	}
+  }
+  .wplp-review-dismiss-btn > i {
+	font-size: 15px;
+  }
+  .wplp-review-dismiss-btn > .dashicons-dismiss:before {
+	vertical-align: middle;
+  }
+  @media (max-width: 768px) {
+	.wplp-review-notice.updated {
+	  padding-bottom: 2% !important;
+	}
+  }
