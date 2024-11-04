@@ -58,6 +58,10 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 		public $wc_am_plugin_name             = '';
 		public $wc_am_product_id              = '';
 		public $wc_am_software_version        = '';
+		public $wc_am_settings_menu_title     = '';
+		public $wc_am_settings_title		  = '';
+		public $wc_am_menu_tab_activation_title = '';
+		public $wc_am_menu_tab_deactivation_title = '';
 		public $legalpages_activated          = false;
 
 		public function __construct( $file, $product_id, $software_version, $plugin_or_theme, $api_url, $software_title = '', $text_domain = '' ) {
@@ -246,7 +250,10 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 		 */
 		public function license_key_deactivation() {
 			$activation_status = get_option( $this->wc_am_activated_key );
-			$api_key           = $this->data[ $this->wc_am_api_key_key ];
+			$api_key = '';
+			if ( is_array( $this->data ) && isset( $this->data[ $this->wc_am_api_key_key ] ) ) {
+				$api_key = $this->data[ $this->wc_am_api_key_key ];
+			} 
 
 			$args = array(
 				'api_key' => $api_key,
@@ -452,6 +459,10 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 			if ( empty( $transient->checked ) ) {
 				return $transient;
 			}
+			$api_key = '';
+			if ( is_array( $this->data ) && isset( $this->data[ $this->wc_am_api_key_key ] ) ) {
+				$api_key = $this->data[ $this->wc_am_api_key_key ];
+			} 
 
 			$args = array(
 				'wc_am_action' => 'update',
@@ -459,7 +470,7 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 				'plugin_name'  => $this->plugin_name,
 				'version'      => $this->wc_am_software_version,
 				'product_id'   => $this->product_id,
-				'api_key'      => $this->data[ $this->wc_am_api_key_key ],
+				'api_key'      => $api_key,
 				'instance'     => $this->wc_am_instance_id,
 			);
 

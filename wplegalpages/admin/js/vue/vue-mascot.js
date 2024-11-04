@@ -4,7 +4,8 @@ var vm = new Vue({
     data: function() {
         return {
             showMenu: !1,
-            isPro:data.is_pro
+            isUserConnected:data.is_user_connected,
+            apiUserPlan:data.api_user_plan
         }
     },
     computed: (
@@ -36,11 +37,11 @@ var vm = new Vue({
                         key: 'documentation'
                     }
                 ];
-                if(!this.isPro) {
+                if(this.isUserConnected && this.apiUserPlan === "free") {
                     mItems.push({
                         icon: 'dashicons-star-filled',
                         tooltip: data.menu_items.upgrade_text,
-                        link: data.menu_items.upgrade_url,
+                        link: '',
                         key: 'upgrade'
                     });
                 }
@@ -56,22 +57,36 @@ var vm = new Vue({
             var html = [];
             if(this.showMenu) {
                 this.menuItems.forEach((value, index) => {
-                    html.push(createElement('a', {
-                        key: value.key,
-                        class: this.linkClass(value.key),
-                        attrs: {
-                            href: value.link,
-                            'data-index': index,
-                            target: '_blank'
-                        }
-                    }, [createElement('span', {
-                        class: 'dashicons '+ value.icon
-                    }), createElement('span', {
-                        staticClass: 'wplegal-mascot-quick-link-title',
-                        domProps: {
-                            innerHTML: value.tooltip
-                        }
-                    })]));
+                    if(value.key === "upgrade") {
+                        html.push(createElement('a', {
+                            key: value.key,
+                            class: this.linkClass(value.key),
+                            }, [createElement('span', {
+                                class: 'dashicons '+ value.icon
+                            }), createElement('span', {
+                            staticClass: 'wplegal-mascot-quick-link-title',
+                            domProps: {
+                                innerHTML: value.tooltip
+                            }
+                        })]));
+                    } else {
+                        html.push(createElement('a', {
+                                key: value.key,
+                                class: this.linkClass(value.key),
+                                attrs: {
+                                    href: value.link,
+                                    'data-index': index,
+                                    target: '_blank'
+                                }
+                            }, [createElement('span', {
+                                class: 'dashicons '+ value.icon
+                            }), createElement('span', {
+                                staticClass: 'wplegal-mascot-quick-link-title',
+                                domProps: {
+                                    innerHTML: value.tooltip
+                                }
+                        })]));
+                    }
                 })
             }
             return html;

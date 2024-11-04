@@ -217,6 +217,84 @@ jQuery(document).ready(function () {
 	}
 
 
+	/**
+   * Clicked on connect to exiting account.
+   */
+	jQuery(document).on("click", ".wplegal-mascot-quick-links-item-upgrade", wplegalPaidAuth);
+
+
+	/**
+   * Store the Authentication Data
+   * @param {*} data
+   */
+
+	function wplegalPaidAuth(event) {
+		// Prevent the default action of the event.
+		event.preventDefault();
+
+		var is_new_user = this.classList.contains('wplegal-api-connect-new');
+
+		// Create spinner element
+		var spinner = jQuery('<div class="wplegal-ajax-spinner"></div>');
+
+		// Append spinner to #wpbody-content div.
+
+		var container = jQuery('#wpbody-content');
+		container.css('position', 'relative'); // Ensure container has relative positioning.
+		container.append(spinner);
+
+
+		// Make an AJAX request.
+		jQuery
+		.ajax({
+		  url: wplp_localize_data.ajaxurl,
+		  type: "POST",
+		  data: {
+			action: "wp_legal_pages_app_paid_start_auth",
+			_ajax_nonce: wplp_localize_data._ajax_nonce,
+		  },
+		  beforeSend: function () {
+			// Show spinner before AJAX call starts
+			spinner.show();
+		  },
+		  complete: function () {
+			// Hide spinner after AJAX call completes
+			spinner.hide();
+		  },
+		})
+		.done(function (response) {
+		  // Get the width and height of the viewport
+		  var viewportWidth = window.innerWidth;
+		  var viewportHeight = window.innerHeight;
+  
+		  // Set the dimensions of the popup
+		  var popupWidth = 1260;
+		  var popupHeight = 740;
+  
+		  // Calculate the position to center the popup
+		  var leftPosition = (viewportWidth - popupWidth) / 2;
+		  var topPosition = (viewportHeight - popupHeight) / 2;
+		  // Open the popup window at the calculated position
+		  var e = window.open(
+			response.data.url,
+			"_blank",
+			"location=no,width=" +
+			  popupWidth +
+			  ",height=" +
+			  popupHeight +
+			  ",left=" +
+			  leftPosition +
+			  ",top=" +
+			  topPosition +
+			  ",scrollbars=0"
+		  );
+		  if (null == e) {
+			console.log("error while opening the popup window");
+		  }
+		});
+	}
+
+
 
 	/**
 	 * modal pop after successfull connection or disconnection
