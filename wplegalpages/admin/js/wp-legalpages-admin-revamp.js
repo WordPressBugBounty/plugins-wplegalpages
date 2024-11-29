@@ -86,12 +86,23 @@ jQuery(document).ready(function () {
 	/**
 	 * Add an event listener to listen for messages sent from the server.
 	*/
-	 window.addEventListener("message", function(event) {// 	//event is originated on server
+	 window.addEventListener("message", function(event) {
+		// Check if the event is originated on server and not successful
 		if ( event.isTrusted && event.origin === wplp_localize_data.wplegal_app_url ) {
-	 		storeAuth(event.data)
+			if (!event.data.success) {
+				const popup = jQuery("#popup-site-excausted");
+				const cancelButton = jQuery(".popup-image");
+		
+				popup.fadeIn();
+		
+				cancelButton.off("click").on("click", function (e) {
+				  popup.fadeOut();
+				});
+			  } else{
+				storeAuth(event.data)
+			  }
 	 	}
-	 },false);
-
+	 });
 	/**
 	 * Store the Authentication Data
 	 * @param {*} data
@@ -122,10 +133,23 @@ jQuery(document).ready(function () {
 				//remove disconnect from local storage when user connects to the api
 				localStorage.removeItem('wplegalDisconnect');
 
-				//reload the window after settimeout.
-				setTimeout(function() {
-					location.reload();
-				}, 100);
+				// redirection for the user if user connection through connection popup.
+				var baseUrl = window.location.origin;
+				var relativePath = "/wp-admin/admin.php?page=legal-pages";
+				var tabHash = "#settings#general";
+
+				 // Construct the full URL
+				 var fullUrl = baseUrl + relativePath + tabHash;
+
+				 //reload the window after settimeout.
+				 setTimeout(function () {
+				   window.location.href = fullUrl;
+				   location.reload();
+				 }, 100);
+				// //reload the window after settimeout.
+				// setTimeout(function() {
+				// 	location.reload();
+				// }, 100);
 
 			},
 			error: function(error) {
@@ -139,6 +163,8 @@ jQuery(document).ready(function () {
 	/**
 	 * Clicked on connect to exiting account.
 	*/
+	jQuery(".gdpr-start-auth").on("click", startAuth);
+	jQuery('.api-connect-to-account-btn').on('click', startAuth );
 	jQuery('.wplegal-api-connect-existing').on('click', startAuth );
 
 	/**
@@ -221,6 +247,7 @@ jQuery(document).ready(function () {
    * Clicked on connect to exiting account.
    */
 	jQuery(document).on("click", ".wplegal-mascot-quick-links-item-upgrade", wplegalPaidAuth);
+	jQuery(document).on("click", ".wplegalpages-admin-upgrade-button", wplegalPaidAuth);
 
 
 	/**
@@ -231,8 +258,8 @@ jQuery(document).ready(function () {
 	function wplegalPaidAuth(event) {
 		// Prevent the default action of the event.
 		event.preventDefault();
-
 		var is_new_user = this.classList.contains('wplegal-api-connect-new');
+		var is_user_from_connection_popup = this.classList.contains('wplegalpages-connection-popup');
 
 		// Create spinner element
 		var spinner = jQuery('<div class="wplegal-ajax-spinner"></div>');
@@ -252,6 +279,7 @@ jQuery(document).ready(function () {
 		  data: {
 			action: "wp_legal_pages_app_paid_start_auth",
 			_ajax_nonce: wplp_localize_data._ajax_nonce,
+			is_user_from_connection_popup: is_user_from_connection_popup ? true :false,
 		  },
 		  beforeSend: function () {
 			// Show spinner before AJAX call starts

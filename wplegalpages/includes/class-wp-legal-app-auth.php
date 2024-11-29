@@ -236,7 +236,8 @@ class WP_Legal_Pages_App_Auth {
 
 		$site_address = rawurlencode( get_site_url() );
 		$rest_url     = rawurlencode( get_rest_url() );
-
+		// adding the condition for check whether user is connecting from popup.
+		$is_user_from_connection_popup = $_POST['is_user_from_connection_popup'];
 		// Require necessary file and get settings.
 		require_once plugin_dir_path( __DIR__ ) . 'includes/settings/class-wp-legal-pages-settings.php';
 		$settings = new WP_Legal_Pages_Settings();
@@ -247,18 +248,33 @@ class WP_Legal_Pages_App_Auth {
 		$software_version = $wcam_lib_legalpages->wc_am_software_version;
 		$api_auth_url     = $this->get_api_url( 'pricing' );
 
-		$auth_url = add_query_arg(
-			array(
-				'platform'         => 'wordpress',
-				'site'             => $site_address,
-				'rest_url'         => $rest_url,
-				'src_plugin'       => 'wplegalpages',
-				'instance_id'      => rawurldecode( $instance_id ),
-				'object'           => rawurldecode( $object ),
-				'software_version' => rawurldecode( $software_version ),
-			),
-			$api_auth_url
-		);
+		if($is_user_from_connection_popup){
+			$auth_url = add_query_arg(
+				array(
+					'platform'         => 'wordpress',
+					'site'             => $site_address,
+					'rest_url'         => $rest_url,
+					'is_user_from_connection_popup'       => $is_user_from_connection_popup,
+					'instance_id'      => rawurldecode( $instance_id ),
+					'object'           => rawurldecode( $object ),
+					'software_version' => rawurldecode( $software_version ),
+				),
+				$api_auth_url
+			);
+		}else{
+			$auth_url = add_query_arg(
+				array(
+					'platform'         => 'wordpress',
+					'site'             => $site_address,
+					'rest_url'         => $rest_url,
+					'src_plugin'       => 'wplegalpages',
+					'instance_id'      => rawurldecode( $instance_id ),
+					'object'           => rawurldecode( $object ),
+					'software_version' => rawurldecode( $software_version ),
+				),
+				$api_auth_url
+			);
+		}
 		wp_send_json_success(
 			array(
 				'url' => $auth_url,
