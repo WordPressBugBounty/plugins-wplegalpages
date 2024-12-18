@@ -366,7 +366,7 @@ Vue.component("Feature", {
               {
                 staticClass: "wplegal-feature-header-link-button",
                 attrs: {
-                  href: "https://app.wplegalpages.com/pricing/",
+                  href: "https://wplegalpages.com/pricing/?utm_source=wplegalpagesplugin&utm_medium=upgrade&utm_campaign=button",
                   target: "_blank",
                 },
               },
