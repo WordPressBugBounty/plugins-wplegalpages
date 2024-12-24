@@ -4972,22 +4972,36 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		 * @since 2.3.5
 		 */
 		public function create_popup_delete_process() {
-
 			global $wpdb;
 
 			if ( class_exists( 'WP_Legal_Pages' ) ) {
-
 				$lp_obj = new WP_Legal_Pages();
 			}
+
 			if ( isset( $_REQUEST['mode'] ) && 'deletepopup' === $_REQUEST['mode'] && current_user_can( 'manage_options' ) ) {
 				if ( isset( $_REQUEST['nonce'] ) ) {
-					wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'lp-submit-create-popups' );
+					$nonce = sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) );
+					
+					// Verify the nonce and stop execution if it is invalid.
+					if ( ! wp_verify_nonce( $nonce, 'lp-submit-create-popups' ) ) {
+						wp_die( __( 'Security check failed. Please try again.', 'text-domain' ) );
+					}
+				} else {
+					wp_die( __( 'Missing nonce. Please try again.', 'text-domain' ) );
 				}
-				$lpid = isset( $_REQUEST['lpid'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['lpid'] ) ) : '';
-				$wpdb->delete( $lp_obj->popuptable, array( 'id' => $lpid ), array( '%d' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+
+				$lpid = isset( $_REQUEST['lpid'] ) ? intval( sanitize_text_field( wp_unslash( $_REQUEST['lpid'] ) ) ) : 0;
+
+				// Proceed only if a valid ID is provided.
+				if ( $lpid > 0 ) {
+					$wpdb->delete( $lp_obj->popuptable, array( 'id' => $lpid ), array( '%d' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				}
+
 				wp_redirect( admin_url( 'admin.php?page=legal-pages#create_popup' ) );
+				exit; // Always exit after a redirect.
 			}
 		}
+
 
 		/**
 		 * Create Popup Edit Process.
