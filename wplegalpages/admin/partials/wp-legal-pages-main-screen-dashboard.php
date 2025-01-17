@@ -173,11 +173,8 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 		</div>
 		<!-- tabs -->
 		<div class="wp-legalpages-admin-tabs-section">
-			<div class="wp-legalpages-admin-tabs">
-				<!-- Dashboard tab  -->
-				<?php 
-					
-					if ($is_gdpr_active) {
+		<div class="wp-legalpages-admin-tabs">
+			<?php if ($is_gdpr_active) {
 						$plugin_slug = 'gdpr-cookie-consent/gdpr-cookie-consent.php';
 						
 						// Fetch the plugin data
@@ -186,20 +183,19 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 						// Get the version
 						$gdpr_version = $plugin_data['Version'];
 						if($gdpr_version >= '3.7.0') { ?>
-							<a href="?page=wplp-dashboard" class="wp-legalpages-admin-tab-link dashboard-tab">
-								<div class="wp-legalpages-admin-wplp-tab" >
-										<?php echo esc_html('Dashboard','wplegalpages'); ?>
-								</div>
-							</a>
-				<?php } }else{
+			
+				<!-- Dashboard tab  -->
+				<div class="wp-legalpages-admin-tab wp-legalpages-admin-wplp-dashboard-tab" data-tab="getting_started">
+						<p class="wp-legalpages-admin-tab-name"><?php echo esc_html('Dashboard','wplegalpages'); ?></p>
+					</div>
+					<?php } } 
+					else{
 					?>
-					<a href="?page=wplp-dashboard" class="wp-legalpages-admin-tab-link dashboard-tab">
-								<div class="wp-legalpages-admin-wplp-tab" >
-										<?php echo esc_html('Dashboard','wplegalpages'); ?>
-								</div>
-							</a>
+					<div class="wp-legalpages-admin-tab wp-legalpages-admin-wplp-dashboard-tab" data-tab="getting_started">
+						<p class="wp-legalpages-admin-tab-name"><?php echo esc_html('Dashboard','wplegalpages'); ?></p>
+					</div>
 				<?php
-					} ?>
+					}?>
 
 				<?php
 				// if terms are accepted only then show rest of the tabs
@@ -214,7 +210,6 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 					</div>
 					</a>
 					<!-- Cookie Consent tab  -->
-					
 					<a href="?page=gdpr-cookie-consent" class="wp-legalpages-admin-tab-link gdpr-cookie-consent-tab">
 
 					<div class="wp-legalpages-admin-wplp-tab">
@@ -222,7 +217,7 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 					</div>
 					</a>
 					<!-- Help tab  -->
-					<?php if ($is_gdpr_active) {
+					 <?php if ($is_gdpr_active) {
 						$plugin_slug = 'gdpr-cookie-consent/gdpr-cookie-consent.php';
 						
 						// Fetch the plugin data
@@ -231,71 +226,22 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 						// Get the version
 						$gdpr_version = $plugin_data['Version'];
 						if($gdpr_version >= '3.7.0') {  ?>
-					<a href="?page=wplp-dashboard#help-page" class="wp-legalpages-admin-tab-link">
-					<div class="wp-legalpages-admin-wplp-tab">
-						<?php echo esc_html('Help','wplegalpages'); ?>
+					<div class="wp-legalpages-admin-tab wp-legalpages-admin-help-tab" data-tab="help-page">
+					<p class="wp-legalpages-admin-tab-name"><?php echo esc_html('Help','wplegalpages'); ?></p>
 					</div>
-					</a>
-					<?php }} else{
+					 <?php } } else{
 						?>
-					<a href="?page=wplp-dashboard#help-page" class="wp-legalpages-admin-tab-link">
-					<div class="wp-legalpages-admin-wplp-tab">
-						<?php echo esc_html('Help','wplegalpages'); ?>
+						<div class="wp-legalpages-admin-tab wp-legalpages-admin-help-tab" data-tab="help-page">
+					<p class="wp-legalpages-admin-tab-name"><?php echo esc_html('Help','wplegalpages'); ?></p>
 					</div>
-					</a>
 						<?php
-					} ?>
+					 }?>
 					<?php
 
 				}
 
 				?>
 				
-
-			</div>
-
-			<div class="wp-legalpages-admin-tabs wplp-sub-tabs">
-				<!-- Gettins Started tab  -->
-				<div class="wp-legalpages-admin-tab wp-legalpages-admin-getting-started-tab" data-tab="getting_started">
-					Getting&nbsp;Started
-				</div>
-
-				<?php
-				// if terms are accepted only then show rest of the tabs
-				if ( $if_terms_are_accepted ) {
-
-					?>
-
-					<!-- Create Legal Pages tab  -->
-					<div class="wp-legalpages-admin-tab wp-legalpages-admin-create_legalpages-tab" data-tab="create_legal_page">
-						Create&nbsp;Legal&nbsp;Pages
-					</div>
-					<!-- Settings tab  -->
-					<div class="wp-legalpages-admin-tab wp-legalpages-admin-settings-tab" data-tab="settings">
-						Settings
-					</div>
-					<!-- All Legal Pages data tab  -->
-					<div class="wp-legalpages-admin-tab wp-legalpages-admin-all_legalpages-tab" data-tab="all_legal_pages">
-					All Legal Pages
-					</div>
-					<?php
-
-				}
-
-				?>
-				<!-- tab for create popup  -->
-				<?php
-				// first check if popup is activated
-				if ( $popup ) {
-					?>
-						<div class="wp-legalpages-admin-tab wp-legalpages-admin-create-popups-tab" data-tab="create_popup">
-						<p class="wp-legalpages-admin-tab-name">Create&nbsp;Popups</p>
-						</div>
-
-					<?php
-				}
-
-				?>
 
 			</div>
 		</div>
@@ -310,31 +256,20 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 				<?php require_once plugin_dir_path( __FILE__ ) . 'wp-legal-pages-getting-started-template.php'; ?>
 
 				</div>
-				<!-- create cookie content  -->
-				<div class="wp-legalpages-admin-create-cookie-content wp-legalpages-admin-tab-content" id="create_legal_page">
-
-				</div>
-				<!-- settings content -->
-				<div class="wp-legalpages-admin-cookie-settings-content wp-legalpages-admin-tab-content" id="settings">
+			
+				<!-- legalpages content -->
+				<div class="wp-legalpages-admin-cookie-settings-content wp-legalpages-admin-tab-content" id="legal-pages">
 
 				<?php require_once plugin_dir_path( __FILE__ ) . 'wp-legal-pages-settings-template.php'; ?>
 
 				</div>
-				<!-- all legalpages data content  -->
-				<div class="wp-legalpages-admin-all-legalpages-data-content wp-legalpages-admin-tab-content" id="all_legal_pages">
+				<!-- WP Cookie Consent plugin content  -->
+				<div class="wp-legalpages-admin-all-legalpages-data-content wp-legalpages-admin-tab-content" id="cookie_consent">
 
 				<?php require_once plugin_dir_path( __FILE__ ) . 'wp-legal-pages-all-legalpages-template.php'; ?>
 
 				</div>
-				<!-- create popup  -->
-				<div class="wp-legalpages-admin-legal-pages-content wp-legalpages-admin-tab-content" id="create_popup">
-
-				<?php
-					require_once plugin_dir_path( __FILE__ ) . 'wp-legal-pages-create-popups-template.php';
-				?>
-
-
-				</div>
+				
 				<!-- help content  -->
 				<div class="wp-legalpages-admin-help-page-content wp-legalpages-admin-tab-content" id="help-page">
 

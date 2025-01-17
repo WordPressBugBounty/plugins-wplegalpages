@@ -532,6 +532,13 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 	gap: 20px;
 	width: 100%;
 }
+#wplegalpages-help-app .wplegalpages-settings-nav{
+	display: flex;
+	margin: 0 auto;
+	gap: 20px;
+	width: 83%;
+	padding-top: 20px;
+}
 
 #wplegalpages-settings-general {
 	margin-bottom: 0px;
@@ -613,16 +620,22 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 }
 
 #wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1),
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2) {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2),
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1),
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2) {
 	display: flex;
 	justify-content: left;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2) {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2),
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2) 
+	{
 	width: 84%;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) .nav {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) .nav,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) .nav
+	{
 	display: block;
 	text-align: center;
 	margin-top: 10px;
@@ -630,7 +643,9 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 
 #wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) ul li.nav-item {}
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) ul li.nav-item a.nav-link {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) ul li.nav-item a.nav-link,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) ul li.nav-item a.nav-link 
+	{
 	color: #3c4b64;
 	font-weight: 600;
 	display: flex;
@@ -647,7 +662,9 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 	padding-top: 25px;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) ul li.nav-item a.nav-link.active {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) ul li.nav-item a.nav-link.active,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(1) ul li.nav-item a.nav-link.active 
+	{
 	color: #0059b3;
 	background-color: #f4f8ff;
 	display: flex;
@@ -661,11 +678,15 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 	border-bottom: 0px;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2) .tab-content {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2) .tab-content,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav>div:nth-child(2) .tab-content 
+	{
 	width: 100%;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card 
+	{
 	padding: 0;
 	margin: 0;
 	max-width: 99%;
@@ -674,11 +695,15 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 	border: none;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-header {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-header,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-header 
+	{
 	font-weight: 600;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-top {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-top,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-top 
+	{
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -702,7 +727,8 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 	float: right;
 }
 
-.wplegalpages-save-button button {
+.wplegalpages-save-button button,
+.wplegalpages-save-button input[type="submit"] {
 	padding: 12px 35px 12px 35px;
 	border: 1px solid #7195d0;
 	color: #2a4a7e;
@@ -714,13 +740,16 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 }
 
 .wplegalpages-save-button button:hover,
-.wplegalpages-save-button button:focus {
+.wplegalpages-save-button button:focus,
+.wplegalpages-save-button input[type="submit"]:hover,
+.wplegalpages-save-button input[type="submit"]:focus {
 	background-color: #0059b3;
 	color: #ffffff;
 }
 
 /* form elements css */
-#wplegalpages-settings-app .form-control {
+#wplegalpages-settings-app .form-control,
+#wplegalpages-help-app .form-control {
 	border-color: #d8dbe0;
 	color: #3c4b64;
 	font-size: 14px;
@@ -730,72 +759,113 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 	margin-top: 3px;
 	margin-left: 1px;
 }
+#wplegalpages-help-app .form-textarea {
+	border-color: #d8dbe0;
+	color: #3c4b64;
+	font-size: 14px;
+	border-radius: 4px;
+	border: 1px solid #d4d4d8;
+	margin-top: 3px;
+	margin-left: 1px;
+	width: 100%;
+}
 
-#wplegalpages-settings-app .form-control:focus {
+#wplegalpages-settings-app .form-control:focus,
+#wplegalpages-help-app .form-control:focus {
+	color: #768192;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+#wplegalpages-help-app .form-textarea:focus {
 	color: #768192;
 	box-shadow: 0 0 0 1px #2271b1;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 
+	{
 	display: flex;
 	align-items: center;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 label {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 label,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 label 
+	{
 	vertical-align: unset;
 	margin-bottom: 1rem;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 .c-icon {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 .c-icon,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 .c-icon 
+	{
 	vertical-align: text-bottom;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 div.tooltip-old {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 div.tooltip-old,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 div.tooltip-old 
+	{
 	top: -0.25rem !important;
 	padding: 0.5rem 0 !important;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 div.tooltip-old div.arrow {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 div.tooltip-old div.arrow,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-4 div.tooltip-old div.arrow 
+	{
 	left: 0 !important;
 	margin-left: 5.75rem !important;
 	height: 0.5rem !important;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 label.c-switch {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 label.c-switch,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 label.c-switch 
+	{
 	margin-bottom: 1rem;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group select {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group select ,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group select 
+	{
 	max-width: 100%;
 	font-size: 14px;
 	color: #3c4b64;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select input[type="search"] {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select input[type="search"],
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select input[type="search"] 
+ {
 	border: unset;
 	color: inherit;
 	margin: 0;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select input[type="search"]:focus {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select input[type="search"]:focus,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select input[type="search"]:focus 
+	{
 	box-shadow: unset;
 	margin: 0;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select:focus-within {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select:focus-within,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 div.form-group.v-select:focus-within 
+	{
 	box-shadow: 0 0 0 1px #2271b1;
 	border-radius: 0.25rem;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch-input:focus~.c-switch-slider {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch-input:focus~.c-switch-slider,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch-input:focus~.c-switch-slider 
+	{
 	box-shadow: 0 0 0 1px #2271b1;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch[class*="-3d"] .c-switch-slider {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch[class*="-3d"] .c-switch-slider,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch[class*="-3d"] .c-switch-slider 
+	{
 	border-color: #d8dbe0;
 }
 
-#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch-3d-success .c-switch-input:checked+.c-switch-slider {
+#wplegalpages-settings-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch-3d-success .c-switch-input:checked+.c-switch-slider,
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-content .wplegalpages-settings-nav .tab-content .card .card-body .row .col.col-sm-8 .c-switch-3d-success .c-switch-input:checked+.c-switch-slider 
+	{
 	border-color: #0059b3;
 	background-color: #0059b3;
 }
@@ -1403,6 +1473,9 @@ body.toplevel_page_legal-pages #wpcontent {
 	padding: 0 20px 0 20px;
 	min-height: 44px;
 	margin-top: 20px;
+	position: sticky;
+    top: 39px;
+    z-index: 99;
 }
 
 .wp-legalpages-admin-tab {
@@ -1420,7 +1493,8 @@ body.toplevel_page_legal-pages #wpcontent {
 	align-items: center;
 }
 
-.wp-legalpages-admin-tab {
+.wp-legalpages-admin-tab,
+.wp-legalpages-admin-tab-link {
 	display: flex;
 	min-width: 250px;
 	height: 44px;
@@ -1431,6 +1505,10 @@ body.toplevel_page_legal-pages #wpcontent {
 	border: 1px solid var(--gray-200, #e4e4e7);
 	background: var(--gray-50, #fafafa);
 	cursor: pointer;
+	text-decoration: none;
+}
+.wp-legalpages-admin-tab-link:hover{
+	text-decoration: none;
 }
 
 /* Media query for MacBook Air */
@@ -1474,27 +1552,26 @@ body.toplevel_page_legal-pages #wpcontent {
 	}
 }
 
-.wp-legalpages-admin-tab .wp-legalpages-admin-tab-name {
+.wp-legalpages-admin-tab .wp-legalpages-admin-tab-name,
+.wp-legalpages-admin-tab-link .wp-legalpages-admin-wplp-tab {
 	color: var(--gray-700, #3f3f46);
 	padding: 10px 20px;
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 600;
 	line-height: 20px;
+	text-decoration: none;
 }
 
 .wp-legalpages-admin-tab .wp-legalpages-admin-tab-name.lp-terms-not-acpt {
 	padding: 0;
 }
 
-.wp-legalpages-admin-tab.active-tab {
+.wp-legalpages-admin-tab.active-tab,
+.wp-legalpages-admin-tab-link.legalpages-tab.active-tab {
 	border-radius: 4px 4px 0px 0px;
 	border: 1px solid var(--gray-200, #e4e4e7);
-	background: var(--secondary-secondary-light-200, #f4f8ff);
-}
-
-.wp-legalpages-admin-tab.active-tab .wp-legalpages-admin-tab-name {
-	color: #0059b3;
+	background: #0059B3;
 }
 
 .wp-legalpages-admin-tabs-content {
@@ -1520,10 +1597,13 @@ body.toplevel_page_legal-pages #wpcontent {
 	min-width: 225px;
 }
 
-.wp-legalpages-admin-tab.active-tab {
+.wp-legalpages-admin-tab.active-tab,
+.wp-legalpages-admin-tab-link.legalpages-tab.active-tab {
 	border-bottom-color: #0059b3;
 }
-
+.wp-legalpages-admin-tab-link.legalpages-tab.active-tab .wp-legalpages-admin-wplp-tab{
+	color: #ffffff !important;
+}
 .wp-legalpages-settings-nav {
 	display: flex;
 }
@@ -2090,4 +2170,52 @@ table tbody tr td .table-link-alert:hover {
 	line-height: 31px;
 	color: #4C4C4C;
 	text-align: center;
+}
+#wplegalpages-help-general .col-sm-12{
+	margin-top: 20px;
+}
+#wplegalpages-help-general h4{
+	font-size: 20px;
+	font-weight: 500;
+	text-align: center;
+	margin-top: 10px;
+}
+#wplegalpages-help-general p{
+	width: 30%;
+    margin: 15px auto;
+	font-size: 14px;
+	font-weight: 400;
+	text-align: center;
+}
+#wplegalpages-help-general .card{
+	box-shadow: none !important;
+}
+#wplegalpages-help-app .wplegalpages-settings-container .wplegalpages-settings-bottom 
+{
+	display: flex;
+	justify-content: center;
+	padding-right: 30px;
+}
+.wplp-sub-tabs{
+	width: 100%;
+	background: #ffffff;
+}
+.wplp-sub-tabs .wp-legalpages-admin-tab {
+	background: #ffffff;
+	border: none;
+	margin-top: 20px;
+	font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+}
+.wplp-sub-tabs .wp-legalpages-admin-tab.active-tab{
+	border-bottom-color: #0059b3 !important;
+    border-top-color: transparent !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+	border: 1px solid var(--gray-200, #e4e4e7);
+	color: #0059b3 !important;
+}
+.wp-legalpages-admin-tab.active-tab .wp-legalpages-admin-tab-name{
+	color: #ffffff;
 }

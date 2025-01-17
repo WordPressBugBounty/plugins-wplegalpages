@@ -250,23 +250,27 @@ body {
 	font-size: 14px;
 }
 /* Create Legal Page */
-.wplegal-container .wplegal-container-main .wplegal-create-legal{
+.wplegal-container .wplegal-container-main .wplegal-create-legal,
+.wplegal-container .wplegal-container-main .wplegal-create-gdpr{
 	padding: 28px;
 	background-color: #FFFFFF;
 	border-radius: 6px;
 	box-shadow: 0px 0px 56px 0px rgb(10 62 118 / 9%);
 	
 }
-.wplegal-container .wplegal-container-main .wplegal-create-legal-container{
+.wplegal-container .wplegal-container-main .wplegal-create-legal-container,
+.wplegal-container .wplegal-container-main .wplegal-create-gdpr-container{
 	padding: 20px;
 }
-.wplegal-create-legal{
+.wplegal-create-legal,
+.wplegal-create-gdpr{
 	display: flex;
     justify-content: space-between;
     align-items: center;
 	padding: 20px;
 	padding-top: 0px;
 	border: 1px solid #E4E4E7;
+	height: 115px;
 }
 .wplegal-create-legal-all-pages{
 	display: flex;
@@ -291,27 +295,37 @@ body {
 .wplegal-feature-icon{
 	display: flex;
 	gap: 15px;
+	align-items:center;
 }
-.wplegal-create-legal-subtext{
+.wplegal-feature-icon img{
+	width: 39px;
+	height: 39px;
+}
+.wplegal-create-legal-subtext,
+.wplegal-create-gdpr-subtext{
 	display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
-.wplegal-create-legal-subtext .wplegal-create-legal-subheading{
+.wplegal-create-legal-subtext .wplegal-create-legal-subheading,
+.wplegal-create-gdpr-subtext .wplegal-create-gdpr-subheading{
 	font-size: 16px;
 	font-weight: 500;
 	color: #27272A;
 }
-#wplegal-settings-create-legal .wplegal-create-legal-subtext .wplegal-create-legal-page-subheading{
+#wplegal-settings-create-legal .wplegal-create-legal-subtext .wplegal-create-legal-page-subheading,
+#wplegal-settings-create-gdpr .wplegal-create-gdpr-subtext .wplegal-create-gdpr-page-subheading{
 	font-size: 16px;
 	font-weight: 500;
 	color: #27272A;
 	height: 8px;
 }
-.wplegal-create-legal-subtext .wplegal-create-legal-content{
+.wplegal-create-legal-subtext .wplegal-create-legal-content,
+.wplegal-create-gdpr-subtext .wplegal-create-gdpr-content{
 	font-weight: 400;
 	font-size: 14px;
+	text-align: left;
 }
 .wplegal-create-legal-icon{
 	height: 39px;
@@ -341,21 +355,34 @@ c-container.wplegalpages-settings-container{
 	text-decoration: none;
 
 }
-.wplegal-create-legal-link .wplegal-create-legal-button{
+.wplegal-create-legal-link .wplegal-create-legal-button,
+.wplegal-create-gdpr-link .install-gdpr-button,
+.wplegal-create-gdpr-link .create-gdpr-button{
 	background: #14873E;
-    padding: 12px 40px 12px 40px;
+    padding: 11px 12px;
 	border-radius: 4px;
 	color: #FFFFFF;
-	font-weight: 700;
-	font-size: 16px;
+	font-weight: 600;
+	font-size: 14px;
 	text-decoration: none;
+	width: max-content;
+    display: block;
+    margin-left: 17px;
 
 }
-.wplegal-create-legal-button span{
+.wplegal-create-gdpr-link .install-gdpr-button:focus,
+.wplegal-create-gdpr-link .create-gdpr-button:focus{
+	color: #ffffff !important;
+}
+.wplegal-create-legal-button span,
+.install-gdpr-button span,
+.create-gdpr-button span{
 	color: #FFFFFF;
 	text-decoration: none;
 }
-.wplegal-create-legal-button img{
+.wplegal-create-legal-button img,
+.install-gdpr-button img,
+.create-gdpr-button img{
 	margin-left: 5px;
 }
 
@@ -832,4 +859,8 @@ c-container.wplegalpages-settings-container{
 /* Revamp Style  */
 .wp-legalpages-admin-tabs-content .wp-legalpages-admin-tabs-inner-content .wplegal-container .wplegal-logo{
 	margin-top: 30px;
+}
+.wplegal-create-legal-container {
+    display: inline-block;
+    width: 50%;
 }
