@@ -276,7 +276,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$current_version = $this->version;
 		
 			// Target version to hide the submenu
-			$target_version = '3.3.0';
+			$target_version = '3.3.1';
 		
 			// Check if the current version is below the target version
 			if (version_compare($current_version, $target_version, '<')) {
@@ -470,7 +470,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			if ( '1' !== $lp_pro_installed ) {
 				$links = array_merge(
 					array(
-						'<a href="' . esc_url( 'https://club.wpeka.com/product/wplegalpages/?utm_source=plugins&utm_campaign=wplegalpages&utm_content=upgrade-to-pro' ) . '" target="_blank" rel="noopener noreferrer"><strong style="color: #11967A; display: inline;">' . __( 'Upgrade to Pro', 'wplegalpages' ) . '</strong></a>',
+						'<a href="' . esc_url( 'https://app.wplegalpages.com/pricing/?utm_source=plugin&utm_medium=wplegalpages&utm_campaign=upgrade' ) . '" target="_blank" rel="noopener noreferrer"><strong style="color: #11967A; display: inline;">' . __( 'Upgrade to Pro', 'wplegalpages' ) . '</strong></a>',
 					),
 					$links
 				);
@@ -1923,7 +1923,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 					'is_pro'               => $is_pro,
 					'video_url'            => 'https://www.youtube-nocookie.com/embed/iqdLl9qsBHc',
 					'image_url'            => WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/',
-					'welcome_text'         => __( 'Welcome to WPLegalPages!', 'wplegalpages' ),
+					'welcome_text'         => __( 'Welcome to WPLP Compliance Platform!', 'wplegalpages' ),
 					'welcome_subtext'      => __( 'Privacy Policy Generator For WordPress', 'wplegalpages' ),
 					'welcome_description'  => __( 'Thank you for choosing WP Legal Pages plugin - A robust plugin for hassle-free legal compliance. ', 'wplegalpages' ),
 					'legal_pages_installed' => $legal_pages_installed,
@@ -2552,6 +2552,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				wp_die( -1 );
 			}
+			
 			if ( isset( $_POST['lp-analytics-on'] ) ) {
 				$ask_for_usage_analytics = true === sanitize_text_field( wp_unslash( $_POST['lp-analytics-on'] ) ) || 'true' === sanitize_text_field( wp_unslash( $_POST['lp-analytics-on'] ) ) ? '1' : '0';
 				update_option( 'wplegalpages-ask-for-usage-optin', $ask_for_usage_analytics );
@@ -3180,7 +3181,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 					'is_user_connected'  => $is_user_connected,
 					'plan_name'          => $plan_name,
 					'_ajax_nonce'        => wp_create_nonce( 'wp-legal-pages' ),
-					'promotion_link'     => 'https://app.wplegalpages.com/checkout/?add-to-cart=143&utm_source=wplegalpagesplugin&utm_medium=floating_bar',
+					'promotion_link'     => 'https://app.wplegalpages.com/pricing/?utm_source=plugin&utm_medium=wplegalpages&utm_campaign=upgrade',
 					'welcome'            => array(
 						'create'     => __( 'Create', 'wplegalpages' ),
 						'edit'       => __( 'Edit', 'wplegalpages' ),

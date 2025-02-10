@@ -97,22 +97,7 @@ var gen = new Vue({
             age_no_button: obj.age_no_button ? obj.age_no_button : 'No, I am not',
             age_description: obj.age_description ? obj.age_description : `You must be atleast {age} years of age to visit this site.\n{form}`,
             invalid_age_description: obj.invalid_age_description ? obj.invalid_age_description : `We are Sorry. You are not of valid age.`,
-            is_cookie_bar: obj.lp_eu_cookie_enable ? obj.lp_eu_cookie_enable : 'off',
-            cookie_enable: this.is_cookie_bar === 'ON'? true : false,
-            show_cookie_form:false,
-            cookie_bar_title: obj.lp_eu_cookie_title ? obj.lp_eu_cookie_title :'A note to our visitors.',
-            cookie_message: obj.lp_eu_cookie_message ? obj.lp_eu_cookie_message : 'This website has updated its privacy policy in compliance with changes to European Union data protection law, for all members globally. We’ve also updated our Privacy Policy to give you more information about your rights and responsibilities with respect to your privacy and personal information. Please read this to review the updates about which cookies we use and what information we collect on our site. By continuing to use this site, you are agreeing to our updated privacy policy.',
-            cookie_button_text : obj.lp_eu_button_text ? obj.lp_eu_button_text : 'I agree',
-            cookie_link_text : obj.lp_eu_link_text ? obj.lp_eu_link_text : '',
-            cookie_link_url : obj.lp_eu_link_url ?  obj.lp_eu_link_url : '',
-            cookie_use_theme_css : obj.lp_eu_theme_css ? obj.lp_eu_theme_css : '0',
-            cookie_use_theme_enabled : this.cookie_use_theme_css === '1' ? true :false,
-            cookie_box_background_color : obj.lp_eu_box_color ? obj.lp_eu_box_color : '#000000',
-            cookie_box_text_color : obj.lp_eu_text_color ? obj.lp_eu_text_color : '#FFFFFF',
-            cookie_button_background_color : obj.lp_eu_button_color ? obj.lp_eu_button_color : '#e3e3e3',
-            cookie_button_text_color : obj.lp_eu_button_text_color ? obj.lp_eu_button_text_color : '#333333',
-            cookie_link_color : obj.lp_eu_link_color ? obj.lp_eu_link_color : '#8f0410',
-            cookie_text_size : obj.lp_eu_text_size ? obj.lp_eu_text_size : '10',
+            
             cookie_text_size_options: Array.from(obj.cookie_text_size_options),
 			create_popup_clicked: false,
         }
@@ -138,8 +123,7 @@ var gen = new Vue({
             this.age_type_option = this.$refs.hasOwnProperty('age_type_option_mount') ? this.$refs.age_type_option_mount.value : 'Yes/No Buttons';
             this.age_button_content = this.is_age === 'site' ? true : false;
             this.age_buttons = this.age_type_option === 'Yes/No Buttons' ? true : false;
-            this.cookie_enable = this.is_cookie_bar === 'ON' ? true :false;
-            this.cookie_use_theme_enabled = this.cookie_use_theme_css === '1' ? true : false;
+            
             let navLinks = j('.nav-link').map(function () {
                 return this.getAttribute('href');
             });
@@ -343,24 +327,7 @@ var gen = new Vue({
             }
 			this.create_popup_clicked = true;
         },
-        onClickCookie(){
-            this.cookie_enable = !this.cookie_enable;
-            this.is_cookie_bar = this.cookie_enable ? 'ON' : 'off';
-            this.$refs.cookie_bar.value = this.cookie_bar ? '1' : '0';
-        },
-        showCookieBar(){
-            this.show_cookie_form = !this.show_cookie_form;
-        },
-        onSwitchCookie() {
-            this.is_cookie_bar = this.is_cookie_bar === 'ON' ? 'off' : 'ON';
-            this.$refs.switch_cookie = this.is_cookie_bar;
-            this.cookie_enable = this.is_cookie_bar === 'off' ? false : true;
-        },
-        onClickUseTheme(){
-            this.cookie_use_theme_css = this.cookie_use_theme_css === '1' ? '0' : '1';
-            this.$refs.cookie_use_theme_css_ref = this.cookie_use_theme_css;
-            this.cookie_use_theme_enabled = this.cookie_use_theme_css === '0' ? false : true;
-        },
+        
 		saveFooterData() {
             jQuery("#wplegalpages-save-settings-alert").fadeIn(400);
             var show_footer = this.is_footer;
@@ -477,46 +444,6 @@ var gen = new Vue({
             this.showAgeVerificationForm();
         },
 
-        saveCookieData() {
-            jQuery("#wplegalpages-save-settings-alert").fadeIn(400);
-            var is_cookie_bar = this.is_cookie_bar;
-            var cookie_bar_title = this.cookie_bar_title;
-            var cookie_button_text = this.cookie_button_text;
-            var cookie_link_text = this.cookie_link_text;
-            var cookie_link_url = this.cookie_link_url;
-            var cookie_use_theme_css = this.cookie_use_theme_css;
-            var cookie_box_background_color = this.cookie_box_background_color;
-            var cookie_box_text_color = this.cookie_box_text_color;
-            var cookie_button_background_color = this.cookie_button_background_color;
-            var cookie_button_text_color = this.cookie_button_text_color;
-            var cookie_link_color = this.cookie_link_color;
-            var cookie_text_size = this.cookie_text_size;
-            j.ajax({
-                type: 'POST',
-                url: obj.ajaxurl,
-                data: {
-                'action': 'save_cookie_bar_form',
-                'lp-cookie-bar-enable': is_cookie_bar,
-                'lp-cookie-bar-title': cookie_bar_title,
-                'lp-cookie-message-body': j('#wplegalpages-lp-cookie-message-body').text(),
-                'lp-cookie-button-text' : cookie_button_text,
-                'lp-cookie-link-text' : cookie_link_text,
-                'lp-cookie-link-url' : cookie_link_url,
-                'lp-cookie-use-theme-css' : cookie_use_theme_css,
-                'lp-cookie-box-background-color' : cookie_box_background_color,
-                'lp-cookie-box-text-color' : cookie_box_text_color,
-                'lp-cookie-button-background-color' : cookie_button_background_color,
-                'lp-cookie-button-text-color' : cookie_button_text_color,
-                'lp-cookie-link-color': cookie_link_color,
-                'lp-cookie-text-size' : cookie_text_size,
-                'lp-cookie-bar-nonce': j('#wplegalpages-cookie-bar-nonce').val(),
-            },
-            success: function(data) {
-                j("#wplegalpages-save-settings-alert").fadeOut(2500);
-            }
-            })
-            this.showCookieBar();
-        },
 
         savePopupData() {
             jQuery("#wplegalpages-save-settings-alert").fadeIn(400);

@@ -17,7 +17,7 @@ Vue.component("WelcomeSection", {
           [
             createElement("img", {
               domProps: {
-                src: obj.image_url + "Wp-Legal-pages-logo.png",
+                src: obj.image_url + "WPLPCompliancePlatform.png",
               },
             }),
             createElement("p", {

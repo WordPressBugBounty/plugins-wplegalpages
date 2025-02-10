@@ -37,14 +37,11 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 				<div class="wp-legalpages-admin-logo-and-label">
 					<div class="wp-legalpages-admin-logo">
 						<!-- //image  -->
-						<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/Wp_Legal_pages_logo_icon.png'; ?>" alt="WP Cookie Consent Logo">
+						<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/WPLPCompliancePlatformWhite.png'; ?>" alt="WP Cookie Consent Logo">
 					</div>
-					<div class="wp-legalpages-admin-label">
-						<!-- //label  -->
-						<div class="wp-legalpages-admin-label_wp_label"><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/Wp_Legal_pages_text_logo.png'; ?>" alt="WP Cookie Consent Label"></div>
-					</div>
+					
 				</div>
-				<div id="wplegalpages-save-settings-alert"><img src="<?php echo WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/settings_saved.svg'; ?>" alt="create legal" class="wplegal-save-settings-icon"><?php esc_attr_e( 'Settings saved successfully', 'wplegalpages' ); ?></div>
+				<!-- <div id="wplegalpages-save-settings-alert"><img src="<?php echo WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/settings_saved.svg'; ?>" alt="create legal" class="wplegal-save-settings-icon"><?php esc_attr_e( 'Settings saved successfully', 'wplegalpages' ); ?></div> -->
 				<div class="wp-legalpages-admin-help-and-support">
 				<div class="wp-legalpages-admin-help">
 						<div class="wp-legalpages-admin-help-icon">

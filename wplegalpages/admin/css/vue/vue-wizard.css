@@ -1762,3 +1762,7 @@ button[data-v-09b2f69e] {
 .wplegal-settings-input-radio{
 	margin-top: 25px;
 }
+.wplegal-wizard .wplegal-wizard-header img{
+	height: 96px;
+    width: 96px;
+}
