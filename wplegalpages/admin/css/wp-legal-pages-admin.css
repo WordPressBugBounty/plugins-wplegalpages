@@ -1776,10 +1776,13 @@ table tbody tr td .table-link-alert:hover {
 	display: flex;
 	padding: 60px;
 	border: 1px solid #ddd;
+	justify-content: space-between;
   }
   
   .gdpr-api-detailed-info {
 	flex: 75%;
+ 	padding: 0px 20px;
+	margin: 0px 20px;
   }
   .gdpr-api-detailed-info p span img {
 	height: 25px;
@@ -1791,7 +1794,7 @@ table tbody tr td .table-link-alert:hover {
 	display: flex;
 	flex-direction: column;
 	margin: auto;
-	padding-left: 90px;
+	padding-left: 45px;
   }
   
   .gdpr-api-info-content .gdpr-api-detailed-info h2 {
@@ -2220,3 +2223,51 @@ table tbody tr td .table-link-alert:hover {
 .wp-legalpages-admin-tab.active-tab .wp-legalpages-admin-tab-name{
 	color: #ffffff;
 }
+
+/* Banner Redesign */
+.gdpr-api-detailed-info-wrapper{
+	flex: 45%;
+}
+.gdpr-api-detailed-info-wrapper .gdpr-api-connection-btns button[class="gdpr-start-auth"]{
+	width: 215px;
+	height: 52px;
+	border-radius: 4px;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #0059B3;
+	background: transparent;
+	border: 1px solid #346DB1;
+  }
+  .gdpr-api-detailed-info-wrapper .gdpr-api-connection-btns a[class="gdpr-start-auth"]{
+	width: 215px;
+	height: 52px;
+	border: none;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	color: #074EA8;
+	padding: 0 2px;
+	background: transparent;
+  }
+  .gdpr-api-connection-btns p{
+	font-size: 14px;
+	line-height: 20px;
+  }
+  .gdpr-api-detailed-info-wrapper .gdpr-api-connection-btns .gdpr-cookie-consent-admin-upgrade-button {
+	width: 215px;
+	height: 52px;
+	padding: 16px 23px;
+	border-radius: 4px;
+	background: #074EA8;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #fff;
+	border: none;
+	margin-top: 0px;
+  }

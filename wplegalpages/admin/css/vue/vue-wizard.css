@@ -1762,7 +1762,42 @@ button[data-v-09b2f69e] {
 .wplegal-settings-input-radio{
 	margin-top: 25px;
 }
-.wplegal-wizard .wplegal-wizard-header img{
+/* Overlay Redesign */
+.wplegal-button-wrapper {
+	display: flex;
+	padding: 0 20%;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+}
+.wplegal-button-wrapper .wplegal-api-connect-existing{
+	width: 215px;
+	height: 52px;
+	border-radius: 4px;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #0059B3;
+	background: transparent;
+	border: 1px solid #346DB1;
+}
+.wplegal-button-wrapper .wplegal-paid-api-connect{
+	width: 215px;
+	height: 52px;
+	padding: 16px 23px;
+	border-radius: 4px;
+	background: #074EA8;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #fff;
+	border: none;
+	margin-bottom: 0px;
+}.wplegal-wizard .wplegal-wizard-header img{
 	height: 96px;
     width: 96px;
 }
