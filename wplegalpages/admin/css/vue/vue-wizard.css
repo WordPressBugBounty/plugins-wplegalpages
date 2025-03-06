@@ -1703,6 +1703,7 @@ button[data-v-09b2f69e] {
     text-align: center;
     color: #fff;
     border: none;
+	width: 190px;
 	cursor: pointer;
 }
 
@@ -1800,4 +1801,19 @@ button[data-v-09b2f69e] {
 }.wplegal-wizard .wplegal-wizard-header img{
 	height: 96px;
     width: 96px;
+}
+.wplegal-button-wrapper .wplegal-api-connect-existing {
+	width: 190px;
+	height: 52px;
+	border-radius: 4px;
+	font-family: Roboto;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #2A4A7E;
+	border: 1px solid #7195D0;
+	background-color: transparent;
+	margin-right: 8px;
 }

@@ -101,8 +101,8 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 						</p>
 					</div>
 				<div class="gdpr-api-connection-btns">
-					<button class="gdpr-start-auth"><?php echo esc_html( 'Sign Up for Free', 'gdpr-cookie-consent' ); ?></button>
-					<p><?php echo esc_html( 'Already have an account?', 'gdpr-cookie-consent' ); ?><a class="gdpr-start-auth" href=""><?php esc_html_e( 'Connect your existing account', 'gdpr-cookie-consent' ); ?></a></p>
+					<button class="gdpr-start-auth gdpr-signup"><?php echo esc_html( 'Sign Up for Free', 'gdpr-cookie-consent' ); ?></button>
+					<p><?php echo esc_html( 'Already have an account?', 'gdpr-cookie-consent' ); ?><a class="gdpr-start-auth gdpr-login" href=""><?php esc_html_e( 'Connect your existing account', 'gdpr-cookie-consent' ); ?></a></p>
 				</div>
 			</div>
 
@@ -320,7 +320,7 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 				if ( $popup ) {
 					?>
 						<div class="wp-legalpages-admin-tab wp-legalpages-admin-create-popups-tab" data-tab="create_popup">
-						<p class="wp-legalpages-admin-tab-name">Create&nbsp;Popups</p>
+						Create&nbsp;Popups
 						</div>
 
 					<?php

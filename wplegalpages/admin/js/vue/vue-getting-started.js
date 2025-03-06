@@ -1,3 +1,6 @@
+const is_user_connected = wplp_localize_data.is_user_connected;
+const plan_name = wplp_localize_data.plan_name;
+
 $ = jQuery.noConflict();
 var localised_data = obj;
 
@@ -501,7 +504,7 @@ Vue.component("Feature", {
       {
         staticClass: "wplegal-feature-section",
       },
-      [
+      [ !(is_user_connected && plan_name !== "free") &&
         createElement(
           "div",
           {

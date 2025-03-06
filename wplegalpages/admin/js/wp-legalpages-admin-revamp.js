@@ -188,7 +188,7 @@ jQuery(document).ready(function () {
 		// Prevent the default action of the event.
 		event.preventDefault();
 
-		var is_new_user = this.classList.contains('wplegal-api-connect-new');
+		var is_new_user = this.classList.contains("gdpr-signup");
 
 		// Create spinner element
 		var spinner = jQuery('<div class="wplegal-ajax-spinner"></div>');

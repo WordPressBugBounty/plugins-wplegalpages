@@ -755,7 +755,7 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 	font-size: 14px;
 	border-radius: 4px;
 	border: 1px solid #d4d4d8;
-	height: 46px;
+	height: 37px;
 	margin-top: 3px;
 	margin-left: 1px;
 }
@@ -885,21 +885,22 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 
 #wplegalpages-save-settings-alert {
 	position: fixed;
-	width: 250px;
-	height: 43px;
+	/* width: 250px; */
+	max-width: 350px;
+	/* height: 43px; */
 	background-color: #72b85c;
-	padding: 10px 16px 10px 16px;
-	font-size: 14px;
-	font-weight: 500;
+	padding: 10px;
+	font-size: 18px;
 	text-align: center;
 	display: none;
 	z-index: 1002;
 	background-color: #ecfdf3;
-	font-weight: 500;
+	font-weight: 800;
 	color: #027a48;
 	border: 1px solid #027a4833;
-	left: 70%;
-    top: 40%;
+	border-radius: 5px;
+	left: 44%;
+    top: 35%;
 }
 
 div.ql-toolbar.ql-snow {
@@ -1049,6 +1050,7 @@ div.ql-toolbar.ql-snow {
 .wplegalpages-color-select input {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
+	padding: 2px;
 }
 
 .wplegalpages-modal-buttons {
@@ -2224,6 +2226,30 @@ table tbody tr td .table-link-alert:hover {
 	color: #ffffff;
 }
 
+/* Footer Links COnfiguration */
+#wplp-conf-wrapper {
+	max-width: 200% !important;
+}
+
+#wplp-conf-save-btn{
+	border-radius: 4px;
+	font-family: Roboto;
+	background-color: #0059b3;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 600;
+	color: #fff;
+	border: none;
+}
+#wplp-conf-cancel-btn{
+	border-radius: 4px;
+	font-family: Roboto;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 600;
+	border: none;
+}
+
 /* Banner Redesign */
 .gdpr-api-detailed-info-wrapper{
 	flex: 45%;
@@ -2241,7 +2267,7 @@ table tbody tr td .table-link-alert:hover {
 	background: transparent;
 	border: 1px solid #346DB1;
   }
-  .gdpr-api-detailed-info-wrapper .gdpr-api-connection-btns a[class="gdpr-start-auth"]{
+  .gdpr-api-detailed-info-wrapper .gdpr-api-connection-btns a.gdpr-start-auth {
 	width: 215px;
 	height: 52px;
 	border: none;

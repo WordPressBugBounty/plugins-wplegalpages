@@ -442,7 +442,7 @@ if ( '1' === $lpterms ) {
 					<input type="hidden" ref="footer_text_align" v-model="footer_text_align" name="lp-footer-text-align">
 					<input type="hidden" ref="footer_text_align_mount" value="<?php echo esc_html( stripslashes( $lp_footer_options['footer_text_align'] ) ); ?>">
 					<v-modal :append-to="appendField" :based-on="show_footer_form" title="Add Legal Pages Link to the Footer" @close="showFooterForm">
-						<c-card>
+						<c-card id="wplp-conf-wrapper">
 							<c-card-body>
 								<c-row>
 									<?php
@@ -657,8 +657,8 @@ if ( '1' === $lpterms ) {
 								<c-row class="wplegalpages-modal-footer">
 									<c-col class="col-sm-4"><input type="hidden" id="wplegalpages-footer-form-nonce" name="lp-footer-form-nonce" value="<?php echo esc_attr( wp_create_nonce( 'settings_footer_form_nonce' ) ); ?>"/></c-col>
 									<c-col class="col-sm-8 wplegalpages-modal-buttons">
-										<c-button class="wplegalpages-modal-button" @click="saveFooterData" color="info"><span>Save</span></c-button>
-										<c-button class="wplegalpages-modal-button" color="secondary" @click="showFooterForm"><span>Cancel</span></c-button>
+										<c-button id="wplp-conf-save-btn" class="wplegalpages-modal-button" @click="saveFooterData" color="info"><span>Save</span></c-button>
+										<c-button id="wplp-conf-cancel-btn" class="wplegalpages-modal-button" color="secondary" @click="showFooterForm"><span>Cancel</span></c-button>
 									</c-col>
 								</c-row>
 							</c-card-body>
@@ -676,7 +676,7 @@ if ( '1' === $lpterms ) {
 					<input type="hidden" ref="banner_font_size" v-model="banner_font_size" name="lp-banner-font-size">
 					<input type="hidden" ref="banner_font_size_mount" value="<?php echo esc_html( stripslashes( isset( $lp_banner_options['banner_font_size'] ) ? $lp_banner_options['banner_font_size'] : '20px' ) ); ?>">
 						<v-modal :append-to="appendField" :based-on="show_banner_form" title="Announcement Banner for Legal Pages" @close="showBannerForm">
-							<c-card>
+							<c-card id="wplp-conf-wrapper">
 								<c-card-body>
 									<c-row>
 									<?php
@@ -926,8 +926,8 @@ if ( '1' === $lpterms ) {
 									<c-row class="wplegalpages-modal-footer">
 										<c-col class="col-sm-4"><input type="hidden" id="wplegalpages-banner-form-nonce" name="lp-banner-form-nonce" value="<?php echo esc_attr( wp_create_nonce( 'settings_banner_form_nonce' ) ); ?>"/></c-col>
 										<c-col class="col-sm-8 wplegalpages-modal-buttons">
-											<c-button class="wplegalpages-modal-button" @click="saveBannerData" color="info"><span>Save</span></c-button>
-											<c-button class="wplegalpages-modal-button" color="secondary" @click="showBannerForm"><span>Cancel</span></c-button>
+											<c-button id="wplp-conf-save-btn" class="wplegalpages-modal-button" @click="saveBannerData" color="info"><span>Save</span></c-button>
+											<c-button id="wplp-conf-cancel-btn" class="wplegalpages-modal-button" color="secondary" @click="showBannerForm"><span>Cancel</span></c-button>
 										</c-col>
 									</c-row>
 								</c-card-body>
@@ -950,7 +950,7 @@ if ( '1' === $lpterms ) {
 						<input type="hidden" ref="age_type_option" v-model="age_type_option" name="lp-age-type-option">
 						<input type="hidden" ref="age_type_option_mount" value="<?php echo esc_html( stripslashes( $age_type_option_value ) ); ?>">
 						<v-modal :append-to="appendField" :based-on="show_age_verification_form" title="Add Age Verification popup" @close="showAgeVerificationForm">
-							<c-card>
+							<c-card id="wplp-conf-wrapper">
 								<c-card-body>
 									<c-row>
 										<?php
@@ -1054,11 +1054,11 @@ if ( '1' === $lpterms ) {
 										<?php
 										if ( ! $lp_show_improved_ui ) {
 											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verification Pop-up Description', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'Here {age} is used as the minimum age you provide for any user and {form} is used as the display option you have selected.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
+											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verification Pop-up', 'wplegalpages' ); ?><br><?php esc_attr_e( 'Description', 'wplegalpages' ); ?>  <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'Here {age} is used as the minimum age you provide for any user and {form} is used as the display option you have selected.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
 											<?php
 										} else {
 											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verification Pop-up Description', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'Here {age} is used as the minimum age you provide for any user and {form} is used as the display option you have selected.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
+										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verification Pop-up', 'wplegalpages' ); ?><br><?php esc_attr_e( 'Description', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'Here {age} is used as the minimum age you provide for any user and {form} is used as the display option you have selected.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
 											<?php
 										}
 										?>
@@ -1083,8 +1083,8 @@ if ( '1' === $lpterms ) {
 									<c-row class="wplegalpages-modal-footer">
 										<c-col class="col-sm-4"><input type="hidden" id="wplegalpages-age-form-nonce" name="lp-age-form-nonce" value="<?php echo esc_attr( wp_create_nonce( 'settings_age_form_nonce' ) ); ?>"/></c-col>
 										<c-col class="col-sm-8 wplegalpages-modal-buttons">
-											<c-button class="wplegalpages-modal-button" @click="saveAgeData" color="info"><span>Save</span></c-button>
-											<c-button class="wplegalpages-modal-button" color="secondary" @click="showAgeVerificationForm"><span>Cancel</span></c-button>
+											<c-button id="wplp-conf-save-btn" class="wplegalpages-modal-button" @click="saveAgeData" color="info"><span>Save</span></c-button>
+											<c-button id="wplp-conf-cancel-btn" class="wplegalpages-modal-button" color="secondary" @click="showAgeVerificationForm"><span>Cancel</span></c-button>
 										</c-col>
 									</c-row>
 								</c-card-body>
@@ -1092,7 +1092,7 @@ if ( '1' === $lpterms ) {
 						</v-modal>
 						<input type="hidden" class="wplegalpages-popup-switch" name="lp-popup-enable" v-model="is_popup">
 						<v-modal :append-to="appendField" :based-on="show_popup_form" title="Create Popups" @close="showPopupForm">
-							<c-card>
+							<c-card id="wplp-conf-wrapper">
 								<c-card-body>
 									<c-row>
 										<?php
@@ -1113,8 +1113,8 @@ if ( '1' === $lpterms ) {
 									<c-row class="wplegalpages-modal-footer">
 										<c-col class="col-sm-4"><input type="hidden" id="wplegalpages-popup-form-nonce" name="lp-popup-form-nonce" value="<?php echo esc_attr( wp_create_nonce( 'settings_popup_form_nonce' ) ); ?>"/></c-col>
 										<c-col class="col-sm-8 wplegalpages-modal-buttons">
-											<c-button class="wplegalpages-modal-button" @click="savePopupData" color="info"><span>Save</span></c-button>
-											<c-button class="wplegalpages-modal-button" color="secondary" @click="showPopupForm"><span>Cancel</span></c-button>
+											<c-button id="wplp-conf-save-btn" class="wplegalpages-modal-button" @click="savePopupData" color="info"><span>Save</span></c-button>
+											<c-button id="wplp-conf-cancel-btn" class="wplegalpages-modal-button" color="secondary" @click="showPopupForm"><span>Cancel</span></c-button>
 										</c-col>
 									</c-row>
 								</c-card-body>

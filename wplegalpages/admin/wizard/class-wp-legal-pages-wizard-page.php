@@ -515,6 +515,9 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 			);
 			$is_pro        = get_option( '_lp_pro_active' );
 			$business_name = ! empty( $lp_general['business'] ) ? esc_attr( $lp_general['business'] ) : '';
+			//Display quotes in the business name
+			$business_name = str_replace( '&#039;', "'", $business_name );
+			$business_name = str_replace( '&quot;', '"', $business_name );
 			$street        = ! empty( $lp_general['street'] ) ? esc_attr( $lp_general['street'] ) : '';
 			$city_state    = ! empty( $lp_general['cityState'] ) ? esc_attr( $lp_general['cityState'] ) : '';
 			$country       = ! empty( $lp_general['country'] ) ? esc_attr( $lp_general['country'] ) : '';
