@@ -65,8 +65,8 @@ $current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_
 				</a>
 			</div>
 		</div>
-<h2 class="hndle myLabel-head"> <?php esc_attr_e( 'Available Pages', 'wplegalpages' ); ?> </h2>
-<table class="widefat fixed comments table table-striped-all-pages">
+<h2 class="hndle myLabel-head all-pages"> <?php esc_attr_e( 'Available Pages', 'wplegalpages' ); ?> </h2>
+<table class="widefat fixed comments table table-striped-all-pages all-pages">
 	<thead>
 		<tr class="wplegalpages-all-pages-heading">
 			<th width="6%" ><?php esc_attr_e( 'S.No.', 'wplegalpages' ); ?></th>

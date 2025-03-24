@@ -319,8 +319,9 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 				// first check if popup is activated
 				if ( $popup ) {
 					?>
-						<div class="wp-legalpages-admin-tab wp-legalpages-admin-create-popups-tab" data-tab="create_popup">
+						<div class="wp-legalpages-admin-tab wp-legalpages-admin-create-popups-tab" data-tab="create_popup"> 			
 						Create&nbsp;Popups
+
 						</div>
 
 					<?php

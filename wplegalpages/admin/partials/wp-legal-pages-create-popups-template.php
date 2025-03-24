@@ -30,8 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	$lp_obj->wplegalpages_pro_enqueue_editor();
 	$baseurl = esc_url( get_bloginfo( 'wpurl' ) );
 	?>
-		<div style="width:1000px;float:left;">
-			<h1><?php esc_attr_e( 'WPLegalPages', 'wplegalpages' ); ?></h1> </div>
+		
 		<div style="clear:both;"></div>
 		<div class="wrap">
 			<?php
@@ -168,8 +167,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								width: 800px;
 							}
 						</style>
-						<h2 class="hndle title-head"> <?php esc_attr_e( 'Available Popups', 'wplegalpages' ); ?> : </h2>
-						<table class="widefat fixed comments table table-striped">
+						<h2 class="hndle myLabel-head create-popup"> <?php esc_attr_e( 'Available Popups', 'wplegalpages' ); ?> : </h2>
+						<table class="widefat fixed comments table table-striped create-popup">
 							<thead>
 								<tr>
 									<th width="5%"><?php esc_attr_e( 'S.No.', 'wplegalpages' ); ?></th>
@@ -221,9 +220,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</tr>
 							</tfoot>
 						</table>
-						<br/>
-						<br/>
-						<div class="postbox" style="float:left; width:300px; margin-left:0px;">
+						<div class="postbox create-popup" style="float:left;">
 							<h3 class="hndle title-head" style=" padding:7px 10px; font-size:20px;"><?php esc_attr_e( 'Use Template Shortcode', 'wplegalpages' ); ?> :</h3>
 							<div style="padding:0 10px 10px; line-height:18px;"><?php esc_attr_e( ' Select the template from below drop down for which you need to have popup and copy paste the shortcodes to the editor.', 'wplegalpages' ); ?>
 								<br/>
@@ -257,7 +254,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<div style="clear:both;"></div>
 							</div>
 						</div>
-						<div class="postbox" style="width:850px; float:left;">
+						<div class="postbox create-popup" style="width:850px; float:left;">
 							<?php $row = ''; ?>
 								<?php
 								if ( get_option( 'wplegalpalges_flag_key' ) ) {

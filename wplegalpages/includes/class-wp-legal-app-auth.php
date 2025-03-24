@@ -356,6 +356,9 @@ class WP_Legal_Pages_App_Auth {
 				}
 			}
 		}
+		else{
+			update_option($wcam_lib_legalpages->wc_am_activated_key, 'Activated');
+		}
 
 		$this->auth_data = $data;
 

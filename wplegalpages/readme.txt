@@ -7,71 +7,217 @@ Tags: CCPA, GDPR, Privacy Policy, Terms and conditions, Cookie Policy
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 6.7.1
-Stable tag: 3.3.3
+Stable tag: 3.3.4
 
 Easiest way to generate legal pages (Privacy, Terms, Disclaimers & more) on your website. Ideal for blogs, ecommerce and marketing websites.
 
 == Description ==
 
-= Simplify Legal Compliance for Your WordPress Website =
+== Create Legal Pages for Your WordPress Website in Minutes ==
 
-[WP Legal Pages](https://wplegalpages.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link) is a trusted, user-friendly plugin designed to help WordPress users create professional legal policies with ease. From Privacy Policies and Terms of Service to eCommerce Refund Policies and Affiliate Disclaimers, generate over [25+ expertly vetted legal pages](https://wplegalpages.com/legal-pages/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link) in just a few clicks.
+[WP Legal Pages](https://wplegalpages.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link) is a simple yet powerful plugin that helps WordPress users generate professional legal policies quickly. Whether you need Privacy Policies, Terms of Service, Refund Policies, or Affiliate Disclaimers, this plugin offers **25+ ready-to-use legal templates** to ensure compliance with major regulations.
 
-Join the 370,000+ downloads by bloggers, affiliate marketers, corporate websites, eCommerce stores, and consultants who trust WP Legal Pages for their compliance needs.
+Join **900,000+ website owners**—bloggers, affiliate marketers, businesses, and eCommerce stores—who rely on WP Legal Pages to meet their legal requirements.
 
-[youtube  https://youtu.be/j8FpzV--5vM]
+[youtube https://www.youtube.com/watch?v=93LIh4ARMN8]
 
-= Why Choose WP Legal Pages? =
-- **Quick Setup**: Install and create your legal pages in under 5 minutes.
-- **Guided Page Creation**: Step-by-step wizards for policies like GDPR, CCPA, and Terms of Service.
-- **Customizable Templates**: Tailor pages for eCommerce sites, SaaS providers, or blogs.
-- **Global Compliance**: Ensure compliance across multiple geographies.
+== Why Choose WP Legal Pages? ==
+✅ **Quick & Easy Setup**: Generate legal pages in just a few clicks.
+
+✅ **Step-by-Step Wizard**: Easily create policies for GDPR, CCPA, and more.
+
+✅ **Customizable Templates**: Edit and personalize policies to fit your needs.
+
+✅ **Global Compliance**: Supports legal policies across different regions.
 
 [Learn More About WP Legal Pages](https://wplegalpages.com/legal-pages/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link)
 
-= Key Features  =
-= 1. Free Features =
-- **Privacy Policy Generator**: Comply with ad networks, analytics tools, and marketing platforms.
-- **CCPA Privacy Notice**: Align with California’s CCPA and CalOPPA.
-- **Terms & Conditions Generator**: Standard templates for all websites.
-- **DMCA Policy Generator**: Safeguard your content-sharing sites.
-- **Age Verification Popups**: Restrict access for underage users.
-- **Force User Agreements**: Require visitors to accept policies before accessing content.
-- **Customizable Popups**: Display important policy updates or legal notices.
-- **Affiliate Disclosure**: Add FTC-compliant disclosures to your posts or pages.
+== Free Features  ==
 
-= 2. Advanced Pro Features =
-- **Premium Policy Templates**: 25+ ready-to-use templates for GDPR, Cookie Policies, Medical Disclaimers, Affiliate Agreements, and more.
-- **TTDSG-Compliant Cookie Policy**: Stay ahead of Germany’s latest data protection laws with GDPR-aligned cookie policies.
+= 1. Privacy Policy Generator =
+**Why it’s important:** Protects user data privacy by informing visitors how their data is collected, stored, and used, ensuring transparency.
 
-[Explore WP Legal Pages Pro](https://wplegalpages.com/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link)
+**Who needs it:** All websites, including blogs, eCommerce, SaaS, and businesses handling user data.
 
-= 3. Compliance Enhancements =
-- **Footer Links**: Automatically add legal page links to your site’s footer.
-- **Update Announcements**: Notify users with customizable banners when policies change.
-- **Integrated Consent Forms**: Seamlessly link policies to WPForms, Contact Form 7, Gravity Forms, and more to ensure informed user consent.
+= 2. CCPA Privacy Notice Generator =
+**Why it’s important:** Required for websites serving California residents, allowing users to understand their data rights under CCPA and CalOPPA.
 
-= Top Premium Templates =
+**Who needs it:** Businesses, eCommerce stores, and marketers targeting California consumers.
 
-- **GDPR Privacy Policy**: Comply with EU data protection laws (includes versions for France and Germany).
-- **Facebook Privacy Policy**: Tailored policies for apps, ads, and websites.
-- **eCommerce Policies**: Generate Returns, Refunds, and Digital Goods Refunds pages.
-Affiliate Policies: Amazon Affiliate Disclosures, Earnings Disclaimers, and more.
-- **Children’s Privacy (COPPA)**: Designed for sites with audiences under 13 years old.
+= 3. Terms & Conditions Generator =
+**Why it’s important:** Defines the rules and conditions for using a website, helping to protect owners from legal disputes.
 
-[See All Policy Templates](https://wplegalpages.com/legal-pages/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link)
+**Who needs it:** All website owners, including businesses, SaaS providers, and bloggers.
+
+= 4. DMCA Policy Generator =
+**Why it’s important:** Helps website owners protect their content from copyright infringement and provides a process to report unauthorized use.
+
+**Who needs it:** Content creators, bloggers, and businesses that publish original content.
+
+= 5. Legal Pages Footer Links =
+Automatically insert legal page links in your website’s footer. Customize their appearance as needed.
+
+= 6. Announcement Banner for Legal Pages =
+Notify users whenever legal pages are updated by displaying a customizable banner. Set duration and styling as per your choice.
+
+== Pro Features  ==
+
+⭐ **25+ Premium Legal Templates** (See full list below)
+
+⭐ **TTDSG-Compliant Cookie Policy** – Stay updated with Germany’s data protection laws.
+
+⭐ **Footer Legal Links** – Auto-add legal pages to your site’s footer.
+
+⭐ **Policy Update Notifications** – Notify users with banners when policies change.
+
+⭐ **Form Integrations** – Link policies to WPForms, Contact Form 7, Gravity Forms, and more.
+
+⭐ **Age Verification Popup** – Restrict access to age-sensitive content with Yes/No buttons or date-of-birth input.
+
+⭐ **Custom Popups for Legal Pages** – Display important policy updates or notices via popups linked to specific legal pages.
+
+== Pro Version Includes These Legal Templates ==
+
+= 1. GDPR Privacy Policy =
+**Why it’s important:** Ensures compliance with GDPR by informing EU users about data collection, processing, and storage.
+
+**Who needs it:** Websites collecting data from EU visitors, including businesses, SaaS platforms, and bloggers.
+
+= 2. Terms & Conditions =
+**Why it’s important:** Defines the legal obligations and rights of both the website owner and users.
+
+**Who needs it:** Any website that provides products, services, or content.
+
+= 3. CCPA (California Consumer Privacy Act) =
+**Why it’s important:** Complies with California’s strict privacy laws by providing users with opt-out and data rights information.
+
+**Who needs it:** Businesses and websites serving California residents.
+
+= 4. Amazon Affiliate Disclosure =
+**Why it’s important:** Required by Amazon’s affiliate program to disclose earnings from affiliate links.
+
+**Who needs it:** Bloggers, review sites, and affiliate marketers.
+
+= 5. Linking Policy =
+**Why it’s important:** Specifies how your website links to external pages and your liability for those links.
+
+**Who needs it:** Websites linking to third-party resources.
+
+= 6. General Disclaimers =
+**Why it’s important:** Protects website owners from legal issues related to content accuracy or usage.
+
+**Who needs it:** Bloggers, businesses, and informational websites.
+
+= 7. FTC Disclosure Statement =
+**Why it’s important:** Required by the FTC for websites displaying endorsements, advertisements, or sponsored content.
+
+**Who needs it:** Influencers, bloggers, and businesses running affiliate or sponsorship programs.
+
+= 8. Refund Policy =
+**Why it’s important:** Clarifies refund conditions to avoid disputes and chargebacks.
+
+**Who needs it:** eCommerce businesses, service providers, and subscription-based platforms.
+
+= 9. GDPR Cookie Policy =
+**Why it’s important:** Informs users about cookie usage and collects their consent as per GDPR regulations.
+**Who needs it:** Websites tracking visitors through cookies.
+
+= 10. Blog Comments Policy =
+**Why it’s important:** Helps maintain a respectful and spam-free comment section by setting clear guidelines.
+
+**Who needs it:** Blogs and websites with active comment sections.
+
+= 11. Affiliate Agreement =
+**Why it’s important:** Defines terms between website owners and affiliates, covering commission structures and promotional guidelines.
+
+**Who needs it:** Businesses running an affiliate program.
+
+= 12. Children’s Online Privacy Policy (COPPA) =
+**Why it’s important:** Complies with COPPA regulations for websites collecting data from children under 13.
+
+**Who needs it:** Educational websites, gaming platforms, and kid-focused businesses.
+
+= 13. Affiliate Marketing Disclosures =
+**Why it’s important:** Discloses affiliate relationships to comply with FTC regulations.
+
+**Who needs it:** Affiliate marketers and bloggers.
+
+= 14. External Links Policy =
+**Why it’s important:** States that your website is not responsible for third-party content linked on your site.
+
+**Who needs it:** Websites linking to external resources.
+
+= 15. DoubleClick DART Cookie Policy =
+**Why it’s important:** Required for websites using Google Ads to disclose data collection via DoubleClick cookies.
+
+**Who needs it:** Websites displaying Google AdSense ads.
+
+= 16. Returns & Refunds Policy =
+**Why it’s important:** Defines the return and refund process, reducing disputes.
+
+**Who needs it:** eCommerce stores and digital product sellers.
+
+= 17. FTC Testimonials Disclosure =
+**Why it’s important:** Required by the FTC to disclose when testimonials are paid or incentivized.
+
+**Who needs it:** Businesses using testimonials for marketing.
+
+= 18. Digital Goods Refunds Policy =
+**Why it’s important:** Specifies refund terms for digital goods, preventing disputes.
+
+**Who needs it:** Digital product sellers, course creators, and SaaS providers.
+
+= 19. Anti-Spam Policy (CASL Compliant) =
+**Why it’s important:** Ensures compliance with Canada’s anti-spam laws by defining responsible email marketing practices.
+
+**Who needs it:** Email marketers and businesses sending promotional emails.
+
+= 20. Facebook Privacy Policy =
+**Why it’s important:** Required for businesses running Facebook ads and apps to explain data handling.
+
+**Who needs it:** Businesses using Facebook for advertising and data collection.
+
+= 21. Medical Disclaimers =
+**Why it’s important:** Protects healthcare websites from liability related to medical content.
+
+**Who needs it:** Health blogs, telemedicine providers, and fitness coaches.
+
+= 22. Earnings Disclaimer =
+**Why it’s important:** Prevents legal claims from users misinterpreting earnings claims.
+
+**Who needs it:** Finance bloggers, online coaches, and business consultants.
+
+= 23. California Privacy Rights Policy =
+**Why it’s important:** Complies with California privacy laws by informing users about their data rights.
+
+**Who needs it:** Websites collecting data from California residents.
+
+= 24. Newsletter Subscription Policy =
+**Why it’s important:** Explains how subscriber data is collected and used.
+
+**Who needs it:** Websites running email marketing campaigns.
+
+= 25. Impressum =
+**Why it’s important:** Legally required for businesses operating in Germany to disclose ownership and contact details.
+
+**Who needs it:** German-based businesses and websites.
 
 = How WP Legal Pages Works =
 
-1. **Add Business Information**: Input your company details.
-2. **Choose a Template**: Select from 25+ pre-built legal page templates.
-3. **Generate & Publish**: Click ‘Generate’ and instantly publish your legal pages.
+1️⃣ **Enter Business Details** – Add your website/company information.
+
+2️⃣ **Select a Template** – Choose from 25+ pre-built legal policies.
+
+3️⃣ **Generate & Publish** – Instantly create and display your legal pages.
 
 = What Makes WP Legal Pages Stand Out? =
 
 - **Ease of Use**: Perfect for non-technical users.
+
 - **Regular Updates**: Stay compliant with evolving global laws.
+
 - **Comprehensive Documentation**: Access tutorials, help guides, and FAQs anytime.
+
 - **Outstanding Support**: Share suggestions, and we’ll work to add your wishlist features.
 
 == Screenshots ==
@@ -90,19 +236,54 @@ Affiliate Policies: Amazon Affiliate Disclosures, Earnings Disclaimers, and more
 
 == Frequently Asked Questions ==
 
-= Can I use WP Legal Pages for GDPR compliance? =
-Yes, WP Legal Pages includes a GDPR-compliant privacy policy template and cookie policy.
+= What is WP Legal Pages? =
+WP Legal Pages is a WordPress plugin that helps you generate legal policies such as Privacy Policy, Terms & Conditions, Cookie Policy, and more in just a few clicks. It offers pre-built, customizable templates to help websites comply with various global regulations.
 
-= Are the legal pages customizable? =
-Absolutely! You can edit the templates to match your specific requirements.
+= Is WP Legal Pages free to use? =
+Yes! WP Legal Pages offers a free version that includes essential legal page templates like Privacy Policy, Terms & Conditions, CCPA Notice, and DMCA Policy. A Pro version is available with additional templates and advanced compliance features.
+
+= What legal policies can I generate with the free version? =
+The free version includes templates for:
+- Privacy Policy
+- CCPA Privacy Notice
+- Terms & Conditions
+- DMCA Policy
+
+=  What additional features do I get with WP Legal Pages Pro? =
+The Pro version includes:
+- 25+ premium legal templates (GDPR Privacy Policy, Cookie Policy, Refund Policy, Earnings Disclaimer, and more)
+- Footer link integration for legal pages
+- Announcement banners for legal updates
+- Custom popups for legal notices
+- Age verification popups
+
+= Can I customize the legal page templates? =
+Yes! WP Legal Pages allows full customization. You can edit the text, add/remove sections, and personalize it according to your business requirements.
+
+= Does WP Legal Pages help with GDPR and CCPA compliance? =
+Yes. WP Legal Pages Pro includes GDPR-compliant Privacy and Cookie Policy templates, as well as a CCPA Privacy Notice to help you align with major data protection laws.
+
+= How do I add legal pages to my website? =
+Once installed, WP Legal Pages allows you to generate and publish legal pages instantly. You can add them as standalone pages, display them in your footer, or use popups for important notices.
+
+= Is WP Legal Pages compatible with all WordPress themes? =
+Yes! WP Legal Pages works seamlessly with all modern WordPress themes and page builders.
+
+= Can I use WP Legal Pages on multiple sites? =
+The free version can be used on only 1 site. If you upgrade to WP Legal Pages Pro, you can choose a plan based on the number of sites you need it for.
+
+= How do I get support for WP Legal Pages? =
+For free users, support is available through the WordPress.org forums. Pro users get dedicated customer support via email and helpdesk.
 
 = Does WP Legal Pages support other plugins? =
 Yes, WP Legal Pages integrates seamlessly with WPForms, Contact Form 7, Gravity Forms, and more.
 
-== Notes ==
-For more information, visit [Official WP Legal Pages Website](https://www.yourwebsite.com/).
-
 == Changelog ==
+
+= 3.3.4 =
+
+* Improvement: Revamped the menu structure for a more intuitive and seamless user experience.
+* Fix: Bug fixes and improvements.
 
 = 3.3.3 =
 * Fix: Bug fixes and improvements.
@@ -413,6 +594,3 @@ Upgrade to **WP Legal Pages Pro** for advanced features, premium templates, and 
   - [WP Cookie Consent](https://wplegalpages.com/cookie-consent/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link)
    - [WP AdCenter](https://club.wpeka.com/product/wpadcenter/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link)
     - [Woo Auction Software](https://club.wpeka.com/product/woo-auction-software/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link)
-
-== Official Site ==
-Empower your website with legal policies that protect your business and build trust with your audience. [Get started with WP Legal Pages today!](https://wplegalpages.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=link)

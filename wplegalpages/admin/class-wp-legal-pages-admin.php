@@ -128,7 +128,52 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				},
 			)
 		);
+		register_rest_route(
+			'wpl/v2', // Namespace
+			'/delete_activation', 
+			array(
+				'methods'  => 'POST',
+				'callback' => array($this, 'disconnect_account_request'), // Function to handle the request
+				'permission_callback' => function() use ($is_user_connected) {
+					// Check if user is connected and the API plan is valid
+					if ($is_user_connected) {
+						return true; // Allow access
+					}
+					return new WP_Error('rest_forbidden', 'Unauthorized access', array('status' => 401));
+				},
+			)
+		);
 		
+	}
+
+
+	/**
+	 * Fucntion to disconnect account when site deleted from saas dashboard
+	 */
+	public function disconnect_account_request(){
+
+		require_once plugin_dir_path( __DIR__ ) . 'includes/settings/class-wp-legal-pages-settings.php';
+		$settings   = new WP_Legal_Pages_Settings();
+		$options    = $settings->get_defaults();
+		$product_id = $settings->get( 'account', 'product_id' );
+
+		global $wcam_lib_legalpages;
+		$activation_status = get_option( $wcam_lib_legalpages->wc_am_activated_key );
+
+		$args = array(
+			'api_key' => $settings->get( 'api', 'token' ),
+		);
+		update_option( 'wpeka_api_framework_app_settings', $options );
+
+		if ( false !== get_option( 'wplegal_api_framework_app_settings' ) ) {
+			update_option( 'wplegal_api_framework_app_settings', $options );
+		}
+
+		update_option( $wcam_lib_legalpages->wc_am_activated_key, 'Deactivated' );
+
+		if ( isset( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ] ) ) {
+			update_option( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ], 'Deactivated' );
+		}
 	}
 
 	/* Added endpoint to send dashboard data from plugin to the saas appwplp server */
@@ -276,7 +321,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$current_version = $this->version;
 		
 			// Target version to hide the submenu
-			$target_version = '3.3.3';
+			$target_version = '3.3.4';
 		
 			// Check if the current version is below the target version
 			if (version_compare($current_version, $target_version, '<')) {

@@ -51,7 +51,7 @@ Vue.component("WelcomeSection", {
           [
             createElement("iframe", {
               attrs: {
-                width: "550",
+                width: "450",
                 height: "260",
                 src: obj.video_url,
                 style: "border-radius: 20px; margin-top: 15px;",

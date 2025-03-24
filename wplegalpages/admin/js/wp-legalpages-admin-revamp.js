@@ -604,3 +604,26 @@ jQuery(document).ready(function () {
 	});
 
 });
+document.addEventListener("DOMContentLoaded", alignSideBar);
+function alignSideBar(){
+  var side_bar = document.querySelector(".wplp-sub-tabs");
+
+  function updateTopBasedOnTab(tabList) {
+        if (tabList.includes("settings") || tabList.includes("all_legal_pages")) {
+            side_bar.style.top = "185px";
+        } 
+		else {
+            side_bar.style.top = "65px"; // Default value
+        }
+    }
+    // Get the hash (part after #)
+    var urlParts = window.location.href.split("#");
+    updateTopBasedOnTab(urlParts);
+
+    document.querySelectorAll(".wplp-sub-tabs .wp-legalpages-admin-tab").forEach(function(tab){
+        tab.addEventListener("click", function () {
+            var tabValue = this.getAttribute("data-tab");
+            updateTopBasedOnTab([tabValue]);
+        });
+    });
+}
