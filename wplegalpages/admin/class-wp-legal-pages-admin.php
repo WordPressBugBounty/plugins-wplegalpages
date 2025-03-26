@@ -321,7 +321,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$current_version = $this->version;
 		
 			// Target version to hide the submenu
-			$target_version = '3.3.4';
+			$target_version = '3.3.4.1';
 		
 			// Check if the current version is below the target version
 			if (version_compare($current_version, $target_version, '<')) {

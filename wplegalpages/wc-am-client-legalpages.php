@@ -241,7 +241,7 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 
 						delete_option( $option );
 					}
-				require_once plugin_dir_path( file: __DIR__ ) . 'wplegalpages/includes/settings/class-wp-legal-pages-settings.php';
+				require_once plugin_dir_path( __DIR__ ) . 'wplegalpages/includes/settings/class-wp-legal-pages-settings.php';
 				$settings   = new WP_Legal_Pages_Settings();
 				$options    = $settings->get_defaults();
 				update_option( 'wpeka_api_framework_app_settings', $options );
