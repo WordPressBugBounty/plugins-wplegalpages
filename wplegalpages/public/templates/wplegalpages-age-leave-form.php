@@ -11,29 +11,23 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$lp_eu_button_text    = get_option( 'lp_eu_button_text' );
-$lp_eu_button_text_no = get_option( 'lp_eu_button_text_no' );
-$data                 = apply_filters( 'wplegalpages_pro_invalid_description', get_option( '_lp_invalid_description', __( 'We are Sorry.', 'wplegalpages' ) ) );
-?>
 
-				<div class="verify">
-						<div class="buttons-set">
-							<span class="agebutton">
-								<input type="submit" name="lp_verify" id="lp_verify_no" value=" <?php echo esc_attr( $lp_eu_button_text_no ); ?> " href="#" />
-							</span>
-							<span class="agebutton">
-								<input type="submit" name="lp_verify" id="lp_verify_yes" value="<?php echo esc_attr( $lp_eu_button_text ); ?>" />
-							</span>
-						<br>
-						</div>
-				</div>
-				<a id="inline" style="display:none" href="#data">This shows content of element who has id="data"</a>
-				<div id="is_adult_thickbox" style="display:none">
-				<div id="data">
-					<?php echo esc_html( $data ); ?>
-					</div>
-					</div>
-				<script>
+$age_type = get_option('_lp_display_option'); 
+$redirect_url = get_option('_lp_redirect_url'); 
+?> 
+
+    <div class="verify"> 
+        <div class="buttons-set"> 
+            <span class="ageleavebutton"> 
+                <input type="submit" name="lp_verify" id="lp_verify_leave" value="<?php echo esc_html__('Leave', 'wplegalpages')?>" onclick="window.location.href='<?php echo esc_url($redirect_url); ?>'" /> 
+            </span> 
+			<span class="ageleavebutton"> 
+                <input type="submit" name="lp_verify" id="lp_verify_yes" value="<?php echo esc_html__('Continue with the website.', 'wplegalpages')?>" /> 
+            </span> 
+        </div> 
+    </div>
+
+    <script>
 					jQuery(document).ready(function($) {
 							$('#lp_verify_yes').click(function(){
 								$.cookie("wplegalpages", 1, { expires : 1 });
@@ -73,4 +67,3 @@ $data                 = apply_filters( 'wplegalpages_pro_invalid_description', g
 						});
 					});
 					</script>
-<?php

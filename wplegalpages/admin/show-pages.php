@@ -100,7 +100,7 @@ $current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_
 				<td><?php echo esc_attr( $count ); ?></td>
 				<td><?php echo esc_attr( $res->post_title ); ?></td>
 				<td><?php echo esc_attr( $res->ID ); ?></td>
-				<td><?php echo '[wplegalpage pid=' . esc_attr( $res->ID ) . ']'; ?></td>
+				<td><?php echo '[wplegalpage tid=' . esc_attr( $res->ID ) . ']'; ?></td>
 				<td><?php echo esc_attr( ucfirst( $author[0]->user_login ) ); ?></td>
 				<td><?php echo esc_attr( gmdate( 'Y/m/d', strtotime( $res->post_date ) ) ); ?></td>
 				<td class="wplegal-table-link">

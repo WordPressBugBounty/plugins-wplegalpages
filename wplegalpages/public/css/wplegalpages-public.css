@@ -3,6 +3,7 @@
  * included in this file.
  */
 
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 ul.legalfooter li{
 	list-style:none;
 	float:left;
@@ -37,21 +38,34 @@ ul.legalfooter li{
 
 .buttons-set {
 	text-align: center;
+	display: flex;
+    gap: 4px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 #lp-overlay {
 	text-align: center;
 	position: fixed;
-	top: 0;
+	top: 280px;
 	left: 0;
-	height: 100%;
-	width: 100%;
+	height: auto;
+	width: 40%;
 	background: white;
 	z-index: 10001;
-	padding: 30px 40px 34px;
+	color: #1F2937;
+	font-family: 'Roboto', sans-serif;
+	padding: 32px 56px 32px 56px;
 	-webkit-box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
 	-moz-box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
 	box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+	border-radius: 8px;
+	font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+	gap: 24px;
 }
 #lp-overlay h1 {
 	margin-bottom: 20px;
@@ -60,6 +74,7 @@ ul.legalfooter li{
 	margin-bottom: 10px;
 }
 #lp-overlay .submit {
+	display: flex;
 	margin-bottom: 0;
 	text-align: center;
 }
@@ -67,9 +82,6 @@ ul.legalfooter li{
 #lp-overlay input[type=text] {
 	width: 50px;
 	outline: none;
-}
-#lp-overlay #lp_verify_y {
-	width: 70px;
 }
 
 #lp-overlay .error {
@@ -85,12 +97,63 @@ input#lp_verify_remember
 {
 	margin: auto;
 	margin-right: 5px;
+	font-size: 16px;
+	line-height: 24px;
+}
 
+#lp_verify_remember_wrap{
+	display: flex;
+	align-items: center;
+	flex-direction: row;
 }
 
 input#lp_verify
 {
 	margin-left: 5%;
+	font-size: 16px;
+	height: 42px;
+	width: auto;
+	white-space: normal;
+	word-wrap: break-word;
+	border: 1px solid;
+	border-radius: 8px;
+	padding: 8px 32px 8px 32px;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 500;
+	background-color: #074EA8;
+	color: #fff;
+	border-color: #074EA8;
+	cursor: pointer;
+}
+
+#lp_verify_m, #lp_verify_d, #lp_verify_y{
+	background-color: white;
+	border: 1px solid #9CA3AF;
+	border-radius: 	4px;
+	padding: 10px 14px 10px 14px;
+	font-size: 14px;
+	line-height: 24px;
+	height: 42px;
+	margin-right: 10px;
+	appearance: none; /* Remove default styling */
+    -webkit-appearance: none; /* Safari */
+    -moz-appearance: none;
+	background-image: url('./icons/select-arrow-down.png');
+	background-position: right 8px top 14px;
+    background-repeat: no-repeat;
+}
+
+#lp_verify_m{
+	width: 116px;
+}
+
+#lp_verify_d{
+	width: 68px;
+}
+
+#lp_verify_y{
+	width: 84px;
 }
 
 form#lp_age_verify_form table.form-table label
@@ -111,9 +174,8 @@ form#lp_age_verify_form table.form-table label span.description
 
 	#lp-overlay {
 		position: relative;
-		top: auto;
 		left: auto;
-		width: 40%;
+		width: 35%;
 		height: auto;
 		margin: 100px auto 0 auto;
 	}
@@ -123,7 +185,6 @@ form#lp_age_verify_form table.form-table label span.description
 
 	#lp-overlay {
 		position: relative;
-		top: auto;
 		left: auto;
 		width: 90%;
 		height: auto;
@@ -131,14 +192,35 @@ form#lp_age_verify_form table.form-table label span.description
 	}
 }
 
-.buttons-set input#lp_verify_yes, .buttons-set input#lp_verify_no {
+.buttons-set input#lp_verify_yes, .buttons-set input#lp_verify_no,  .buttons-set input#lp_verify_leave{
 	font-size: 16px;
+	height: 42px;
+	width: auto;
 	white-space: normal;
 	word-wrap: break-word;
+	border: 1px solid;
+	border-radius: 8px;
+	padding: 8px 32px 8px 32px;
+	font-size: 14px;
+	line-height: 20px;
+	cursor: pointer;
+	font-weight: 500;
+}
+
+.buttons-set input#lp_verify_no,  .buttons-set input#lp_verify_leave{
+	border-color: #074EA8;
+	background-color: transparent;
+	color: #074EA8;
+}
+
+.buttons-set input#lp_verify_yes{
+	background-color: #074EA8;
+	color: #fff;
+	border-color: #074EA8;
 }
 
 .verify{
-	margin-top: 3%;
+	margin-top: 6%;
 	margin-bottom: 3%;
 }
 
@@ -154,4 +236,12 @@ div.wplegalpages-addon-promotion > a {
 	display: block;
 	margin: 1% auto;
 	text-align: center;
+}
+
+#lp_verify_form {
+	display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+    margin-top: 16px;
 }

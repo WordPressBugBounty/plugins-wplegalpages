@@ -7,7 +7,7 @@ Tags: CCPA, GDPR, Privacy Policy, Terms and conditions, Cookie Policy
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 6.7.1
-Stable tag: 3.3.4.1
+Stable tag: 3.3.5
 
 Easiest way to generate legal pages (Privacy, Terms, Disclaimers & more) on your website. Ideal for blogs, ecommerce and marketing websites.
 
@@ -221,12 +221,15 @@ Notify users whenever legal pages are updated by displaying a customizable banne
 - **Outstanding Support**: Share suggestions, and we’ll work to add your wishlist features.
 
 == Screenshots ==
-1. Dashboard
-2. List of available
-3. General Tab
-4. Compliance Settings Tab
-5. Advanced Tab
-6. Create Popup Tabs
+1. WP Legal Pages Wizard
+2. WP Legal Pages Step Wise Policy Settings
+3. WP Legal Pages Policy Template Preview
+4. WP Legal Pages Getting Started
+5. WP Legal Pages General Settings
+6. WP Legal Pages Advanced Settings
+7. WP Legal Pages Compliance Settings
+8. WP Legal Pages Templates
+9. WP Legal Pages Features
 
 == Installation ==
 1. Download the plugin from WordPress.org.
@@ -279,6 +282,10 @@ For free users, support is available through the WordPress.org forums. Pro users
 Yes, WP Legal Pages integrates seamlessly with WPForms, Contact Form 7, Gravity Forms, and more.
 
 == Changelog ==
+= 3.3.5 =
+* Bug Fixes: Resolved minor issues to enhance stability and performance.
+* UI Enhancements: Improved the design and user experience of the Age Verification Popup for better accessibility and usability.
+
 = 3.3.4.1 =
 * Fix: Minor bug fixes and improvements within the plugin.
 

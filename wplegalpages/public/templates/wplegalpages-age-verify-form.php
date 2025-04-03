@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 $input_type          = $this->wplegalpages_pro_get_input_type();
-$submit_button_label = apply_filters( 'wplegalpages_pro_form_submit_label', __( 'VERIFY AGE &raquo;', 'wplegalpages' ) );
+$submit_button_label = apply_filters( 'wplegalpages_pro_form_submit_label', __( 'VERIFY AGE', 'wplegalpages' ) );
 $err                 = false;
 if ( isset( $_GET['verify-error'] ) ) {
 	if ( isset( $_GET['nonce'] ) ) {
@@ -85,7 +85,7 @@ switch ( $input_type ) {
 			<?php
 		endforeach;
 		?>
-		</select> - <select name="lp_verify_d" id="lp_verify_d">
+		</select>  <select name="lp_verify_d" id="lp_verify_d">
 		<?php
 		foreach ( range( 1, 31 ) as $day ) :
 			?>
@@ -93,7 +93,7 @@ switch ( $input_type ) {
 			<?php
 		endforeach;
 		?>
-		</select> - <select name="lp_verify_y" id="lp_verify_y">
+		</select>  <select name="lp_verify_y" id="lp_verify_y">
 		<?php
 		foreach ( range( 1910, gmdate( 'Y' ) ) as $year_number ) :
 			$selected = gmdate( 'Y' ) === $year_number ? 'selected="selected"' : '';
@@ -132,9 +132,8 @@ switch ( $input_type ) {
 		do_action( 'wplegalpages_pro_form_after_inputs' );
 ?>
 		<div class="buttons-set">
-			<p class="submit">
-				<label for="lp_verify_remember">
+				<label for="lp_verify_remember" id="lp_verify_remember_wrap">
 					<input type="checkbox" name="lp_verify_remember" id="lp_verify_remember" value="1" /><?php echo esc_html__( 'Remember me', 'wplegalpages' ); ?></label>
-		<input type="submit" name="lp_verify" id="lp_verify" value="<?php echo esc_attr( $submit_button_label ); ?>" /></p></div>
+		<input type="submit" name="lp_verify" id="lp_verify" value="<?php echo esc_attr( $submit_button_label ); ?>" /></div>
 		</form>
 <?php

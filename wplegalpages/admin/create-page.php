@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 $lp_obj        = new WP_Legal_Pages();
 $baseurl       = esc_url( get_bloginfo( 'url' ) );
-$privacy       = file_get_contents( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/privacy.html' );
 $lp_pro_active = get_option( '_lp_pro_active' );
 ?>
 <div class="wrap">

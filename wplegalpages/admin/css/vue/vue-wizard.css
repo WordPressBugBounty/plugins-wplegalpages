@@ -1817,3 +1817,8 @@ button[data-v-09b2f69e] {
 	background-color: transparent;
 	margin-right: 8px;
 }
+
+/* Connection popup for create popup page */
+#create_popup .wplegal-api-connection-popup, #create_popup .wplegal-api-overlay {
+	display: none;
+}

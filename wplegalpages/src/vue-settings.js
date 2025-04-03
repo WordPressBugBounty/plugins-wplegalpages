@@ -90,14 +90,17 @@ var gen = new Vue({
             age_verify_for: 'Guests only',
             age_verify_for_options: ['Guests only', 'All visitors'],
             minimum_age: obj.minimum_age ? obj.minimum_age : 18,
-            age_type_options: ['Input Date of Birth', 'Yes/No Buttons'],
+            age_type_options: ['Input Date of Birth', 'Yes/No Buttons', 'Yes/Leave Buttons'],
+            redirect_url: obj.redirect_url ? obj.redirect_url : '',
+            is_valid_url: true,
             age_type_option: 'Yes/No Buttons',
+            yes_leave: true,
             age_buttons: true,
             age_yes_button: obj.age_yes_button ? obj.age_yes_button : 'Yes, I am',
             age_no_button: obj.age_no_button ? obj.age_no_button : 'No, I am not',
-            age_description: obj.age_description ? obj.age_description : `You must be atleast {age} years of age to visit this site.\n{form}`,
+            age_description: obj.age_description ? obj.age_description : `To proceed, we need to verify that you're {age} or older.\n<span>Please verify your age.</span>\n{form}`,
             invalid_age_description: obj.invalid_age_description ? obj.invalid_age_description : `We are Sorry. You are not of valid age.`,
-            
+            age_verify_popup: 0,
             cookie_text_size_options: Array.from(obj.cookie_text_size_options),
 			create_popup_clicked: false,
         }
@@ -123,6 +126,7 @@ var gen = new Vue({
             this.age_type_option = this.$refs.hasOwnProperty('age_type_option_mount') ? this.$refs.age_type_option_mount.value : 'Yes/No Buttons';
             this.age_button_content = this.is_age === 'site' ? true : false;
             this.age_buttons = this.age_type_option === 'Yes/No Buttons' ? true : false;
+            this.yes_leave = this.age_type_option === 'Yes/Leave Buttons' ? true : false;
             
             let navLinks = j('.nav-link').map(function () {
                 return this.getAttribute('href');
@@ -299,6 +303,13 @@ var gen = new Vue({
         },
         showButtonOptions() {
             this.age_buttons = this.age_type_option === 'Yes/No Buttons' ? true : false;
+            this.yes_leave = this.age_type_option === 'Yes/Leave Buttons' ? true : false;
+            if(this.age_type_option === 'Input Date of Birth')
+                this.age_verify_popup = 0;
+            else if(this.age_type_option === 'Yes/No Buttons')
+                this.age_verify_popup = 1;
+            else
+                this.age_verify_popup = 2;
         },
         showPopupForm() {
             this.show_popup_form = !this.show_popup_form;
@@ -422,6 +433,8 @@ var gen = new Vue({
             var display_option = this.age_type_option;
             var yes_button_text = this.age_yes_button;
             var no_button_text = this.age_no_button;
+            var redirect_url_text = this.redirect_url;
+            var age_popup_no = this.age_verify_popup;
             j.ajax({
                 type: 'POST',
                 url: obj.ajaxurl,
@@ -434,6 +447,8 @@ var gen = new Vue({
                 'lp-display-option': display_option,
                 'lp-yes-button-text': yes_button_text,
                 'lp-no-button-text': no_button_text,
+                'lp-redirect-url': redirect_url_text,
+                'lp-age-popup-no': age_popup_no, 
                 'lp-verification-description': j('#wplegalpages-lp-age-description-message').text(),
                 'lp-verification-description-invalid': j('#wplegalpages-lp-age-description-invalid-message').text(),
             },
