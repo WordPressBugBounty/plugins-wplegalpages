@@ -2274,3 +2274,8 @@ table tbody tr td .table-link-alert:hover {
 	border: none;
 	margin-top: 0px;
   }
+
+  #all_legal_pages .notice-success.is-dismissible{
+	display: none;
+  }
+ 

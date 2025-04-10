@@ -1476,6 +1476,97 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 							}
 						}
 						break;
+						case 'dmca':
+						if ( empty( $pid ) ) {
+							$pid = $this->get_pid_by_insert_page( $page, 'DMCA' );
+							update_post_meta( $pid, 'is_legal', 'yes' );
+							update_post_meta( $pid, 'legal_page_type', $page );
+							$fields = $this->get_remote_data( 'get_dmca_policy_settings' );
+							update_post_meta( $pid, 'legal_page_dmca_policy_settings', $fields );
+							update_option( 'wplegal_dmca_page', $pid );
+						} else {
+							$dmca_policy_options = get_post_meta( $pid, 'legal_page_dmca_policy_settings', true );
+							if ( ! $dmca_policy_options || empty( $dmca_policy_options ) ) {
+								$fields = $this->get_remote_data( 'get_dmca_policy_settings' );
+								update_post_meta( $pid, 'legal_page_dmca_policy_settings', $fields );
+							} else {
+								$fields = $dmca_policy_options;
+							}
+						}
+						break;
+						case 'cookies_policy':
+							if ( empty( $pid ) ) {
+								$pid = $this->get_pid_by_insert_page( $page, 'Cookies Policy' );
+								update_post_meta( $pid, 'is_legal', 'yes' );
+								update_post_meta( $pid, 'legal_page_type', $page );
+								$fields = $this->get_remote_data( 'get_cookies_policy_settings' );
+								update_post_meta( $pid, 'legal_page_cookies_policy_settings', $fields );
+								update_option( 'wplegal_cookies_policy_page', $pid );
+							} else {
+								$cookies_policy_options = get_post_meta( $pid, 'legal_page_cookies_policy_settings', true );
+								if ( ! $cookies_policy_options || empty( $cookies_policy_options ) ) {
+									$fields = $this->get_remote_data( 'get_cookies_policy_settings' );
+									update_post_meta( $pid, 'legal_page_cookies_policy_settings', $fields );
+								} else {
+									$fields = $cookies_policy_options;
+								}
+							}
+							break;
+						case 'general_disclaimer':
+								if ( empty( $pid ) ) {
+									$pid = $this->get_pid_by_insert_page( $page, 'General Disclaimer' );
+									update_post_meta( $pid, 'is_legal', 'yes' );
+									update_post_meta( $pid, 'legal_page_type', $page );
+									$fields = $this->get_remote_data( 'get_general_disclaimer_settings' );
+									update_post_meta( $pid, 'legal_page_general_disclaimer_settings', $fields );
+									update_option( 'wplegal_general_disclaimer_page', $pid );
+								} else {
+									$general_disclaimer_options = get_post_meta( $pid, 'legal_page_general_disclaimer_settings', true );
+									if ( ! $general_disclaimer_options || empty( $general_disclaimer_options ) ) {
+										$fields = $this->get_remote_data( 'get_general_disclaimer_settings' );
+										update_post_meta( $pid, 'legal_page_general_disclaimer_settings', $fields );
+									} else {
+										$fields = $general_disclaimer_options;
+									}
+								}
+								break;
+						case 'earnings_disclaimer':
+									if ( empty( $pid ) ) {
+										$pid = $this->get_pid_by_insert_page( $page, 'Earnings Disclaimer' );
+										update_post_meta( $pid, 'is_legal', 'yes' );
+										update_post_meta( $pid, 'legal_page_type', $page );
+										$fields = $this->get_remote_data( 'get_earnings_disclaimer_settings' );
+										update_post_meta( $pid, 'legal_page_earnings_disclaimer_settings', $fields );
+										update_option( 'wplegal_earnings_disclaimer_page', $pid );
+									} else {
+										$earnings_disclaimer_options = get_post_meta( $pid, 'legal_page_earnings_disclaimer_settings', true );
+										if ( ! $earnings_disclaimer_options || empty( $earnings_disclaimer_options ) ) {
+											$fields = $this->get_remote_data( 'get_earnings_disclaimer_settings' );
+											update_post_meta( $pid, 'legal_page_earnings_disclaimer_settings', $fields );
+										} else {
+											$fields = $earnings_disclaimer_options;
+										}
+									}
+								break;
+							case 'coppa':
+									if ( empty( $pid ) ) {
+										$pid = $this->get_pid_by_insert_page( $page, 'COPPA - Children’s Online Privacy Policy' );
+										update_post_meta( $pid, 'is_legal', 'yes' );
+										update_post_meta( $pid, 'legal_page_type', $page );
+										$fields = $this->get_remote_data( 'get_coppa_settings' );
+										update_post_meta( $pid, 'legal_page_coppa_settings', $fields );
+										update_option( 'wplegal_coppa_policy_page', $pid );
+									} else {
+										$coppa_options = get_post_meta( $pid, 'legal_page_coppa_settings', true );
+										if ( ! $coppa_options || empty( $coppa_options ) ) {
+											$fields = $this->get_remote_data( 'get_coppa_settings' );
+											update_post_meta( $pid, 'legal_page_coppa_settings', $fields );
+										} else {
+											$fields = $coppa_options;
+										}
+									}
+											
+							break;
 			}
 			return $fields;
 		}
@@ -1739,11 +1830,24 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 						$pid = $this->get_pid_by_insert_page( $page, 'COPPA - Children’s Online Privacy Policy' );
 						update_post_meta( $pid, 'is_legal', 'yes' );
 						update_post_meta( $pid, 'legal_page_type', $page );
+						$clauses       = $this->get_remote_data( 'get_coppa_settings' );
+						$terms_options = array();
+						foreach ( $clauses as $key => $clause ) {
+							if ( empty( $clause->fields ) ) {
+								$clause->fields        = $this->get_remote_data( 'get_coppa_settings?clause=' . $key );
+								$terms_options[ $key ] = $clause;
+							}
+						}
+						update_post_meta( $pid, 'legal_page_coppa_options', $terms_options );
 						update_option( 'wplegal_coppa_policy_page', $pid );
+					} else {
+						$terms_clauses = get_post_meta( $pid, 'legal_page_coppa_options', true );
+						$terms_options = $terms_clauses;
 					}
-					$options      = array();
+					$options      = $terms_options;
 					$preview_text = $this->get_preview_from_remote( $page, $options, $lp_general, $lp_general['language'] );
-					break;
+					
+					 break;
 				case 'terms_forced':
 					if ( empty( $pid ) ) {
 						$pid = $this->get_pid_by_insert_page( $page, 'Terms(forced agreement)' );
@@ -1787,9 +1891,22 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 						$pid = $this->get_pid_by_insert_page( $page, 'Cookies Policy' );
 						update_post_meta( $pid, 'is_legal', 'yes' );
 						update_post_meta( $pid, 'legal_page_type', $page );
+						$clauses       = $this->get_remote_data( 'get_cookies_policy_settings' );
+						$terms_options = array();
+						foreach ( $clauses as $key => $clause ) {
+							if ( empty( $clause->fields ) ) {
+								$clause->fields        = $this->get_remote_data( 'get_cookies_policy_settings?clause=' . $key );
+								$terms_options[ $key ] = $clause;
+							}
+						}
+						update_post_meta( $pid, 'legal_page_cookies_policy_options', $terms_options );
 						update_option( 'wplegal_cookies_policy_page', $pid );
 					}
-					$options      = array();
+					else {
+						$terms_clauses = get_post_meta( $pid, 'legal_page_cookies_policy_options', true );
+						$terms_options = $terms_clauses;
+					}
+					$options      = $terms_options;
 					$preview_text = $this->get_preview_from_remote( $page, $options, $lp_general, $lp_general['language'] );
 					break;
 
@@ -1831,9 +1948,22 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 						$pid = $this->get_pid_by_insert_page( $page, 'DMCA' );
 						update_post_meta( $pid, 'is_legal', 'yes' );
 						update_post_meta( $pid, 'legal_page_type', $page );
+						$clauses       = $this->get_remote_data( 'get_dmca_policy_settings' );
+						$terms_options = array();
+						foreach ( $clauses as $key => $clause ) {
+							if ( empty( $clause->fields ) ) {
+								$clause->fields        = $this->get_remote_data( 'get_dmca_policy_settings?clause=' . $key );
+								$terms_options[ $key ] = $clause;
+							}
+						}
+						update_post_meta( $pid, 'legal_page_dmca_policy_options', $terms_options );
 						update_option( 'wplegal_dmca_page', $pid );
+					
+					} else {
+						$terms_clauses = get_post_meta( $pid, 'legal_page_dmca_policy_options', true );
+						$terms_options = $terms_clauses;
 					}
-					$options      = array();
+					$options      = $terms_options;
 					$preview_text = $this->get_preview_from_remote( $page, $options, $lp_general, $lp_general['language'] );
 
 					break;
@@ -1891,9 +2021,22 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 						$pid = $this->get_pid_by_insert_page( $page, 'General Disclaimer' );
 						update_post_meta( $pid, 'is_legal', 'yes' );
 						update_post_meta( $pid, 'legal_page_type', $page );
+						$clauses       = $this->get_remote_data( 'get_general_disclaimer_settings' );
+						$terms_options = array();
+						foreach ( $clauses as $key => $clause ) {
+							if ( empty( $clause->fields ) ) {
+								$clause->fields        = $this->get_remote_data( 'get_general_disclaimer_settings?clause=' . $key );
+								$terms_options[ $key ] = $clause;
+							}
+						}
+						update_post_meta( $pid, 'legal_page_general_disclaimer_options', $terms_options );
 						update_option( 'wplegal_general_disclaimer_page', $pid );
 					}
-					$options      = array();
+					else {
+						$terms_clauses = get_post_meta( $pid, 'legal_page_general_disclaimer_options', true );
+						$terms_options = $terms_clauses;
+					}
+					$options      = $terms_options;
 					$preview_text = $this->get_preview_from_remote( $page, $options, $lp_general, $lp_general['language'] );
 
 					break;
@@ -1903,9 +2046,23 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 						$pid = $this->get_pid_by_insert_page( $page, 'Earnings Disclaimer' );
 						update_post_meta( $pid, 'is_legal', 'yes' );
 						update_post_meta( $pid, 'legal_page_type', $page );
+						$clauses       = $this->get_remote_data( 'get_earnings_disclaimer_settings' );
+						$terms_options = array();
+						foreach ( $clauses as $key => $clause ) {
+							if ( empty( $clause->fields ) ) {
+								$clause->fields        = $this->get_remote_data( 'get_earnings_disclaimer_settings?clause=' . $key );
+								$terms_options[ $key ] = $clause;
+							}
+						}
+						update_post_meta( $pid, 'legal_page_earnings_disclaimer_options', $terms_options );
+
 						update_option( 'wplegal_earnings_disclaimer_page', $pid );
 					}
-					$options      = array();
+					else {
+						$terms_clauses = get_post_meta( $pid, 'legal_page_earnings_disclaimer_options', true );
+						$terms_options = $terms_clauses;
+					}
+					$options      = $terms_options;
 					$preview_text = $this->get_preview_from_remote( $page, $options, $lp_general, $lp_general['language'] );
 
 					break;
