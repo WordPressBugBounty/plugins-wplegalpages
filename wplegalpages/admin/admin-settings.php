@@ -930,166 +930,39 @@ if ( '1' === $lpterms ) {
 						<input type="hidden" ref="age_verify_for_mount" value="<?php echo esc_html( stripslashes( $age_verify_for_value ) ); ?>">
 						<input type="hidden" ref="age_type_option" v-model="age_type_option" name="lp-age-type-option">
 						<input type="hidden" ref="age_type_option_mount" value="<?php echo esc_html( stripslashes( $age_type_option_value ) ); ?>">
-						<v-modal :append-to="appendField" :based-on="show_age_verification_form" title="Add Age Verification popup" @close="showAgeVerificationForm">
-							<c-card id="wplp-conf-wrapper">
-								<c-card-body>
-									<c-row>
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Enabled', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( "Enable Age Verification. If you enable the age verification setting then it will remove the basic \'Adult Content Site\' popup and will show this customised popup.", 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Enabled', 'wplegalpages' ); ?> <tooltip :bottom="true" text="<?php esc_html_e( "Enabling this setting will remove the basic 'Adult Content Site' popup and will show this customised popup.", 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-											<c-switch ref="switch_age" v-bind="labelIcon" v-model="is_age" id="wplegalpages-show-age-verify" variant="3d"  color="success" :checked="age_button_content" v-on:update:checked="onSwitchAge"></c-switch>
-										</c-col>
-									</c-row>
-									<c-row>
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verify the age of', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'If you select \"Guests only\", then logged in users will not need to verify their age.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verify the age of', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'If you select "Guests only", then logged in users will not need to verify their age.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-											<v-select class="form-group" id="wplegalpages-age-for" :options="age_verify_for_options" v-model="age_verify_for">
-											</v-select>
-										</c-col>
-									</c-row>
-									<c-row>
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Minimum Age', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'Minimum age for user to view this site.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Minimum Age', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'Minimum age for user to view this site.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-											<c-input type="number" name="lp-minimum-age" id="wplegalpages-minimum-age" v-model="minimum_age" value="<?php echo ! empty( $minimum_age ) ? esc_attr( $minimum_age ) : 18; ?>"></c-input>
-										</c-col>
-									</c-row>
-									<c-row>
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verification Display Option', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'If you select Input Date of Birth, then users will need to input their date of birth to verify.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verification Display Option', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'If you select Input Date of Birth, then users will need to input their date of birth to verify.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-											<v-select @input="showButtonOptions" class="form-group" id="wplegalpages-age-option" :options="age_type_options" v-model="age_type_option">
-											</v-select>
-										</c-col>
-									</c-row>
-									<c-row v-show="age_buttons">
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Yes Button text', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'Enter the text you want to display on the Yes button on the popup.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Yes Button text', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'Enter the text you want to display on the Yes button on the popup.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-											<c-input type="text" name="lp-yes-text" id="wplegalpages-yes-text" v-model="age_yes_button" value="<?php echo ! empty( $yes_button_text ) ? esc_attr( $yes_button_text ) : 'Yes, I am'; ?>"></c-input>
-										</c-col>
-									</c-row>
-									<c-row v-show="age_buttons">
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'No Button text', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'Enter the text you want to display on the No button on the popup.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'No Button text', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'Enter the text you want to display on the No button on the popup.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-											<c-input type="text" name="lp-no-text" id="wplegalpages-no-text" v-model="age_no_button" value="<?php echo ! empty( $no_button_text ) ? esc_attr( $no_button_text ) : 'No, I am not'; ?>"></c-input>
-										</c-col>
-									</c-row>
+						<?php
+						$lp_obj = new WP_Legal_Pages();
+						if ( $lp_obj->wplegalpages_is_plan_pro() ) {
+							$markup = $this->wplegalpages_fetch_age_verification_popup_markup();
 
-									<!-- Redirection for Leave Button -->
-									<c-row v-show="yes_leave">
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Redirection URL', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'If visitor clicks on "Leave" button then he/she redirects to this URL.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Redirection URL', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'If visitor clicks on "Leave" button then he/she redirects to this URL.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-											<c-input type="url" name="lp-redirect-url" id="wplegalpages-redirect-url" v-model="redirect_url" value="<?php echo ! empty( $redirect_url_text ) ? esc_attr( $redirect_url_text ) : ''; ?>"></c-input>
-										</c-col>
-									</c-row>
+							if ( ! empty( $markup) ) {
 
-									<c-row>
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verification Pop-up', 'wplegalpages' ); ?><br><?php esc_attr_e( 'Description', 'wplegalpages' ); ?>  <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'Here {age} is used as the minimum age you provide for any user and {form} is used as the display option you have selected.', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Verification Pop-up', 'wplegalpages' ); ?><br><?php esc_attr_e( 'Description', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'Here {age} is used as the minimum age you provide for any user and {form} is used as the display option you have selected.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-										<vue-editor id="wplegalpages-lp-age-description-message" :editor-toolbar="customToolbarForm" v-model="age_description"></vue-editor></c-col>
-									</c-row>
-									<c-row>
-										<?php
-										if ( ! $lp_show_improved_ui ) {
-											?>
-											<c-col class="col-sm-4"><label><?php esc_attr_e( 'Invalid Age Pop-up Content', 'wplegalpages' ); ?> <c-icon name="cib-google-keep" color="primary" v-c-tooltip="'<?php esc_html_e( 'This message will be displayed to the user if the entered age is below the minimum required age..', 'wplegalpages' ); ?>'"></c-icon></label></c-col>
-											<?php
-										} else {
-											?>
-										<c-col class="col-sm-4"><label><?php esc_attr_e( 'Invalid Age Pop-up Content', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'This message will be displayed to the user if the entered age is below the minimum required age.', 'wplegalpages' ); ?>"></tooltip></label></c-col>
-											<?php
-										}
-										?>
-										<c-col class="col-sm-8">
-										<vue-editor id="wplegalpages-lp-age-description-invalid-message" :editor-toolbar="customToolbarForm" v-model="invalid_age_description"></vue-editor></c-col>
-									</c-row>
-									<c-row class="wplegalpages-modal-footer">
-										<c-col class="col-sm-4"><input type="hidden" id="wplegalpages-age-form-nonce" name="lp-age-form-nonce" value="<?php echo esc_attr( wp_create_nonce( 'settings_age_form_nonce' ) ); ?>"/></c-col>
-										<c-col class="col-sm-8 wplegalpages-modal-buttons">
-											<c-button id="wplp-conf-save-btn" class="wplegalpages-modal-button" @click="saveAgeData" color="info"><span>Save</span></c-button>
-											<c-button id="wplp-conf-cancel-btn" class="wplegalpages-modal-button" color="secondary" @click="showAgeVerificationForm"><span>Cancel</span></c-button>
-										</c-col>
-									</c-row>
-								</c-card-body>
-							</c-card>
-						</v-modal>
+								ob_start();
+
+								echo $markup['popup_markup1'];
+
+								$popup_markup1 = ob_get_clean();
+
+								echo $popup_markup1;
+								
+								?>
+
+								<input type="hidden" id="wplegalpages-age-form-nonce" name="lp-age-form-nonce" value="<?php echo esc_attr( wp_create_nonce( 'settings_age_form_nonce' ) ); ?>"/>
+
+								<?php
+								
+								ob_start();
+
+								echo $markup['popup_markup2'];
+
+								$popup_markup2 = ob_get_clean();
+
+								echo $popup_markup2;
+
+							}
+						}
+						?>
+
 						<input type="hidden" class="wplegalpages-popup-switch" name="lp-popup-enable" v-model="is_popup">
 						<v-modal :append-to="appendField" :based-on="show_popup_form" title="Create Popups" @close="showPopupForm">
 							<c-card id="wplp-conf-wrapper">
@@ -1163,27 +1036,44 @@ if ( '1' === $lpterms ) {
 									</c-col>
 								</c-row>
 
-				
+								<?php
+								if ( ! $lp_obj->wplegalpages_is_plan_pro() ) {
+									?>
 								<c-row class="wplegal-support-text-row">
 									<c-col class="col-sm-7 wplegal-compliances-text">
-										<label><?php esc_attr_e( 'Add Age Verification popup', 'wplegalpages' ); ?></label>
+										<label><?php esc_attr_e( 'Add Age Verification popup', 'wplegalpages' ); ?> <span class="badge bg-primary"><?php esc_attr_e( 'Pro', 'wplegalpages' ); ?></span></label>
 										<span class="wplegalpages-help-text">
 											<?php esc_html_e( 'Display an age verification popup on your website to make sure that your users are old enough to browse your website content.', 'wplegalpages' ); ?>
 										</span>
 									</c-col>
 									<c-col class="col-sm-2 wplegal-compliances-switch">
-										<c-switch v-bind="labelIcon" v-model="age_button_content" variant="3d"  color="success" :checked="age_button_content" v-on:update:checked="onClickAge"></c-switch>
-										<input type="hidden" name="lp-age" ref="ageverify" v-model="is_age" >
+										<c-switch v-bind="labelIcon" variant="3d" color="success" class="wplegalpages-not-pro-tooltip" disabled></c-switch>
+										<div class="wplegalpages-not-pro-tooltip-text"><?php echo esc_html_e( 'This feature is only available in the Pro version. Kindly', 'wplegalpages' );?> <a href="<?php echo esc_url( 'https://wplegalpages.com/pricing/?utm_source=wplegalpagesplugin&utm_medium=age-verification-tooltip' ); ?>" target="_blank"><?php echo esc_html_e( 'UPGRADE', 'wplegalpages' ); ?></a> <?php esc_html_e( 'to unlock and use it.', 'wplegalpages' ) ?></div>
 									</c-col>
 									<c-col class="col-sm-3 wplegalpages-configure-section">
-										<c-button class="wplegalpages-configure-button" @click="showAgeVerificationForm">
+										<c-button class="wplegalpages-configure-button wplegalpages-not-pro-tooltip" disabled>
 											<span>
 												<img class="wplegalpages-configure-image" :src="configure_image_url.default">
-												<?php esc_attr_e( 'Configuration' ); ?>
+												<?php esc_attr_e( 'Configuration', 'wplegalpages' ); ?>
 											</span>
 										</c-button>
+										<div class="wplegalpages-not-pro-tooltip-text"><?php echo esc_html_e( 'This feature is only available in the Pro version. Kindly', 'wplegalpages' );?> <a href="<?php echo esc_url( 'https://wplegalpages.com/pricing/?utm_source=wplegalpagesplugin&utm_medium=age-verification-tooltip' ); ?>" target="_blank"><?php echo esc_html_e( 'UPGRADE', 'wplegalpages' ); ?></a> <?php esc_html_e( 'to unlock and use it.', 'wplegalpages' ) ?></div>
 									</c-col>
 								</c-row>
+								<?php } else {
+
+									if ( ! empty( $markup) ) {
+
+										ob_start();
+										
+										echo $markup['setting_markup'];
+										
+										$setting_markup = ob_get_clean();
+
+										echo $setting_markup;
+									}
+
+								} ?>			
 								<c-row class="wplegal-support-text-row">
 									<c-col class="col-sm-7 wplegal-compliances-text">
 										<label><?php esc_attr_e( 'Create Popups', 'wplegalpages' ); ?></label>

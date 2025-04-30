@@ -568,7 +568,7 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 	background-color: white;
 	padding: 16px 0;
 	top: 32px;
-	z-index: 1001;
+	z-index: 97;
 	align-items: unset;
 	padding-left: 20px;
 }
@@ -1256,6 +1256,11 @@ div.ql-toolbar.ql-snow {
 	outline: none;
 }
 
+.wplegalpages-configure-button.disabled {
+	cursor: not-allowed;
+	pointer-events: auto !important;
+}
+
 .wplegalpages-configure-image {
 	height: 32px;
 	width: 32px;
@@ -1395,6 +1400,7 @@ body.toplevel_page_legal-pages #wpcontent {
 .wp-legalpages-admin-logo img {
 	height: 46px;
 	margin-top: 14px;
+	max-width: initial;
 }
 
 .wp-legalpages-admin-promotional-banner img {
@@ -1867,6 +1873,20 @@ table tbody tr td .table-link-alert:hover {
 	left: -20px;
 	width: 102%;
   }
+  #wp-legalpages-main-admin-header .wp-legalpages-subsription-payment-failed-notice {
+	position: relative;
+	left: -20px;
+	width: 102%;
+	padding: 20px;
+	background-color: #ffa319;
+  }
+  #wp-legalpages-main-admin-header .wp-legalpages-subsription-payment-failed-notice p {
+	margin: 0;
+	color: #000;
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+  }
   
   .gdpr-remaining-scans-content .gdpr-remaining-scans-container {
 	margin: auto 0;
@@ -2278,4 +2298,16 @@ table tbody tr td .table-link-alert:hover {
   #all_legal_pages .notice-success.is-dismissible{
 	display: none;
   }
- 
+
+  .wplegalpages-not-pro-tooltip-text {
+	position: absolute;
+    padding: 5px 10px;
+    background: rgb(51, 51, 51);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    pointer-events: auto;
+    z-index: 9;
+    width: 150px;
+    display: none;
+  }
+

@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: CCPA, GDPR, Privacy Policy, Terms and conditions, Cookie Policy
 Requires at least: 5.0
 Requires PHP: 7.0
-Tested up to: 6.7.1
-Stable tag: 3.3.6
+Tested up to: 6.8
+Stable tag: 3.3.7
 
 Easiest way to generate legal pages (Privacy, Terms, Disclaimers & more) on your website. Ideal for blogs, ecommerce and marketing websites.
 
@@ -282,6 +282,9 @@ For free users, support is available through the WordPress.org forums. Pro users
 Yes, WP Legal Pages integrates seamlessly with WPForms, Contact Form 7, Gravity Forms, and more.
 
 == Changelog ==
+= 3.3.7 =
+* Improvement: All newly generated legal policy pages will now be created using the Gutenberg block editor instead of the classic editor. This offers a more modern editing experience, improved customization, and better compatibility with block-based themes.
+
 = 3.3.6 =
 * Update: Updated the Professional Privacy Policy, DMCA, COPPA, General Disclaimer, Earnings Disclaimer, Terms and Conditions Pro, and Cookies Policy templates with new AI-related compliance clauses.
 

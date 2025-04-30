@@ -144,9 +144,112 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				},
 			)
 		);
-		
+
+		$appwplp_namespace  = 'appwplp/v1';
+
+		$appwplp_payment_status_route      = 'wplp_get_payment_status';
+		$appwplp_payment_status_full_route = '/' . trim( $appwplp_namespace, '/' ) . '/' . trim( $appwplp_payment_status_route, '/' );
+
+		$appwplp_subscription_status_pending_cancel_route = 'wplp_subscription_status_pending_cancel';
+		$appwplp_subscription_status_full_route           = '/' . trim( $appwplp_namespace, '/' ) . '/' . trim( $appwplp_subscription_status_pending_cancel_route, '/' );
+
+		$rest_server = rest_get_server();
+		$routes      = $rest_server->get_routes();
+
+		if ( ! array_key_exists( $appwplp_payment_status_full_route, $routes ) ) {
+			register_rest_route(
+				$appwplp_namespace,
+				'/' . $appwplp_payment_status_route,
+				array(
+					'methods'  => 'POST',
+					'callback' => array( $this, 'wplegalpages_get_wplp_payment_status' ),
+					'permission_callback' => function() use ( $is_user_connected ) {
+						// Check if user is connected and the API plan is valid
+						if ( $is_user_connected ) {
+							return true; // Allow access
+						}
+						return new WP_Error( 'rest_forbidden', 'Unauthorized access', array( 'status' => 401 ) );
+					},
+				)
+			);
+		}
+
+		if ( ! array_key_exists( $appwplp_subscription_status_full_route, $routes ) ) {
+			register_rest_route(
+				$appwplp_namespace,
+				'/' . $appwplp_subscription_status_pending_cancel_route,
+				array(
+					'methods'  => 'POST',
+					'callback' => array( $this, 'wplegalpages_set_subscription_payment_pending_cancel' ),
+					'permission_callback' => function() use ( $is_user_connected ) {
+						// Check if user is connected and the API plan is valid
+						if ( $is_user_connected ) {
+							return true; // Allow access
+						}
+						return new WP_Error('rest_forbidden', 'Unauthorized access', array( 'status' => 401 ) );
+					},
+				)
+			);
+		}
 	}
 
+	/**
+	 * REST API callback to update and store the subscription payment status.
+	 *
+	 * This endpoint is hit by the main site to inform the client site about the subscription payment status.
+	 * It either sets or deletes a transient based on whether the payment is 'completed' or not.
+	 *
+	 * @param WP_REST_Request $request The REST request object containing the payment status.
+	 *
+	 * @return WP_REST_Response The response confirming the updated status.
+	 */
+	public function wplegalpages_get_wplp_payment_status( WP_REST_Request $request ) {
+
+		$payment_status = $request->get_param( 'payment_status' );
+
+		if ( 'completed' === $payment_status ) {
+			delete_transient( 'app_wplp_subscription_payment_status_failed' );
+			$message = 'Completed';
+		} else {
+			set_transient( 'app_wplp_subscription_payment_status_failed', true, 7 * DAY_IN_SECONDS );
+			$message = 'Failed';
+		}
+
+		return rest_ensure_response(
+			array(
+				'message' => 'Status Changed to ' . $message,
+			)
+		);
+	}
+
+	/**
+	 * REST API callback to update the local subscription status to either 'active' or 'pending-cancel'.
+	 *
+	 * This endpoint is called by the main site to notify the client site about the subscription status change.
+	 * It updates or deletes an option based on the received status.
+	 *
+	 * @param WP_REST_Request $request The REST request object containing the subscription status.
+	 *
+	 * @return WP_REST_Response The response confirming the updated status.
+	 */
+	public function wplegalpages_set_subscription_payment_pending_cancel( WP_REST_Request $request ) {
+
+		$subscription_status = $request->get_param( 'subscription_status' );
+
+		if ( 'active' === $subscription_status ) {
+			delete_option( 'app_wplp_subscription_status_pending_cancel' );
+			$message = 'Active';
+		} else {
+			update_option( 'app_wplp_subscription_status_pending_cancel', 1 );
+			$message = 'Pending Cancel';
+		}
+
+		return rest_ensure_response(
+			array(
+				'message' => 'Subscription Status Changed to ' . $message,
+			)
+		);
+	}
 
 	/**
 	 * Fucntion to disconnect account when site deleted from saas dashboard
@@ -322,7 +425,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$current_version = $this->version;
 		
 			// Target version to hide the submenu
-			$target_version = '3.3.6';
+			$target_version = '3.3.7';
 		
 			// Check if the current version is below the target version
 			if (version_compare($current_version, $target_version, '<')) {
@@ -361,7 +464,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				'manage_options', // Capability
 				'wp-legal-pages', // Menu slug
 				$callback_function , // Callback function
-				WPL_LITE_PLUGIN_URL . 'admin/images/wp_legalpages_dashicon_1.png', // Icon URL (choose an icon from the WordPress Dashicons library)
+				'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIuODMzMTcgOS4wMjYyOUwwLjM1NzQyMiAwLjM2MTgxNkgyLjM1NTc2TDMuNzg3OTggNi4zODIwOUgzLjg1OThMNS40Mzk4OSAwLjM2MTgxNkg3LjE1MDk1TDguNzI2ODEgNi4zOTQ3OUg4LjgwMjg2TDEwLjIzNTEgMC4zNjE4MTZIMTIuMjMzNEw5Ljc1NzY3IDkuMDI2MjlINy45NzQ3OUw2LjMyNzEgMy4zNjEzOEg2LjI1OTUxTDQuNjE2MDUgOS4wMjYyOUgyLjgzMzE3WiIgZmlsbD0iIzlDQTJBNyIvPgo8cGF0aCBkPSJNMTMuMTE1MiA5LjAwOTY4VjAuMzQ1MjE1SDE2LjUyODlDMTcuMTg1MiAwLjM0NTIxNSAxNy43NDQzIDAuNDcwNzI5IDE4LjIwNjIgMC43MjE3NDNDMTguNjY4MSAwLjk2OTk1MSAxOS4wMjAxIDEuMzE1NDUgMTkuMjYyNCAxLjc1ODI3QzE5LjUwNzQgMi4xOTgyNiAxOS42MyAyLjcwNTk1IDE5LjYzIDMuMjgxMzJDMTkuNjMgMy44NTY2OSAxOS41MDYxIDQuMzY0MzggMTkuMjU4MSA0LjgwNDM3QzE5LjAxMDMgNS4yNDQzNiAxOC42NTEyIDUuNTg3MDUgMTguMTgwOCA1LjgzMjQzQzE3LjcxMzIgNi4wNzc4MSAxNy4xNDcxIDYuMjAwNSAxNi40ODI0IDYuMjAwNUgxNC4zMDY3VjQuNzMyNDVIMTYuMTg2N0MxNi41Mzg3IDQuNzMyNDUgMTYuODI4OSA0LjY3MTggMTcuMDU3IDQuNTUwNTJDMTcuMjg4IDQuNDI2NDMgMTcuNDU5OCA0LjI1NTc5IDE3LjU3MjUgNC4wMzg2MUMxNy42ODggMy44MTg2MiAxNy43NDU2IDMuNTY2MTkgMTcuNzQ1NiAzLjI4MTMyQzE3Ljc0NTYgMi45OTM2MyAxNy42ODggMi43NDI2MSAxNy41NzI1IDIuNTI4MjVDMTcuNDU5OCAyLjMxMTA4IDE3LjI4OCAyLjE0MzI2IDE3LjA1NyAyLjAyNDhDMTYuODI2MSAxLjkwMzUzIDE2LjUzMzIgMS44NDI4OCAxNi4xNzgzIDEuODQyODhIMTQuOTQ0NlY5LjAwOTY4SDEzLjExNTJaIiBmaWxsPSIjOUNBMkE3Ii8+CjxwYXRoIGQ9Ik00LjY4MzQ0IDEzLjk2OTRDNS43NTc3MiAxMy45Njk0IDYuNjI4NiAxMy4wOTg1IDYuNjI4NiAxMi4wMjQzQzYuNjI4NiAxMC45NSA1Ljc1NzcyIDEwLjA3OTEgNC42ODM0NCAxMC4wNzkxQzMuNjA5MTYgMTAuMDc5MSAyLjczODI4IDEwLjk1IDIuNzM4MjggMTIuMDI0M0MyLjczODI4IDEzLjA5ODUgMy42MDkxNiAxMy45Njk0IDQuNjgzNDQgMTMuOTY5NFoiIGZpbGw9IiM5Q0EyQTciLz4KPHBhdGggZD0iTTQuNjgzNDQgMTguOTk5N0M1Ljc1NzcyIDE4Ljk5OTcgNi42Mjg2IDE4LjEyODggNi42Mjg2IDE3LjA1NDVDNi42Mjg2IDE1Ljk4MDMgNS43NTc3MiAxNS4xMDk0IDQuNjgzNDQgMTUuMTA5NEMzLjYwOTE2IDE1LjEwOTQgMi43MzgyOCAxNS45ODAzIDIuNzM4MjggMTcuMDU0NUMyLjczODI4IDE4LjEyODggMy42MDkxNiAxOC45OTk3IDQuNjgzNDQgMTguOTk5N1oiIGZpbGw9IiM5Q0EyQTciLz4KPHBhdGggZD0iTTEzLjEyODkgMTguOTU0VjEwLjI4OTZIMTYuNTQyNkMxNy4xOTg5IDEwLjI4OTYgMTcuNzU4IDEwLjQxNSAxOC4yMTk5IDEwLjY2NkMxOC42ODE4IDEwLjkxNDIgMTkuMDMzOCAxMS4yNTk3IDE5LjI3NiAxMS43MDI1QzE5LjUyMTEgMTIuMTQyNSAxOS42NDM2IDEyLjY1MDIgMTkuNjQzNiAxMy4yMjU2QzE5LjY0MzYgMTMuODAxIDE5LjUxOTcgMTQuMzA4NyAxOS4yNzE5IDE0Ljc0ODdDMTkuMDI0IDE1LjE4ODYgMTguNjY0OSAxNS41MzEzIDE4LjE5NDUgMTUuNzc2N0MxNy43MjcgMTYuMDIyMSAxNy4xNjA5IDE2LjE0NDggMTYuNDk2MSAxNi4xNDQ4SDE0LjMyMDRWMTQuNjc2OEgxNi4yMDA0QzE2LjU1MjUgMTQuNjc2OCAxNi44NDI2IDE0LjYxNjEgMTcuMDcwNyAxNC40OTQ4QzE3LjMwMTcgMTQuMzcwNyAxNy40NzM1IDE0LjIwMDEgMTcuNTg2MSAxMy45ODI5QzE3LjcwMTcgMTMuNzYyOSAxNy43NTkzIDEzLjUxMDUgMTcuNzU5MyAxMy4yMjU2QzE3Ljc1OTMgMTIuOTM4IDE3LjcwMTcgMTIuNjg2OSAxNy41ODYxIDEyLjQ3MjVDMTcuNDczNSAxMi4yNTUzIDE3LjMwMTcgMTIuMDg3NiAxNy4wNzA3IDExLjk2OTFDMTYuODM5OCAxMS44NDc4IDE2LjU0NjggMTEuNzg3MiAxNi4xOTIgMTEuNzg3MkgxNC45NTgzVjE4Ljk1NEgxMy4xMjg5WiIgZmlsbD0iIzlDQTJBNyIvPgo8cGF0aCBkPSJNOC4wMjM1NyAxOC45NTJMOC4wMjM0NCAxMC4wNzkxSDkuODUyOEw5Ljg1MjkyIDE3LjIzNDRIMTIuMjA1NVYxOC45NTJIOC4wMjM1N1oiIGZpbGw9IiM5Q0EyQTciLz4KPC9zdmc+Cg==', // Icon URL (choose an icon from the WordPress Dashicons library)
 				67 // Position
 				);
 			}
@@ -4644,6 +4747,56 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		<?php
 	}
 
+		/**
+		 * Fetches the Age Verification popup markup from the WP Legal Pages API.
+		 *
+		 * Constructs the API request URL by switching to v1 of the endpoint and appending 
+		 * necessary query arguments based on site options such as minimum age, button texts, 
+		 * and redirect URL. Sends a GET request to retrieve the popup markup.
+		 *
+		 * @return array|null The decoded JSON response containing the markup, or null on failure.
+		 */
+		public function wplegalpages_fetch_age_verification_popup_markup() {
+			
+			$api_url = WPLEGAL_API_URL;
+
+			$updated_api_url = str_replace('/v2/', '/v1/', $api_url);
+
+			$url = $updated_api_url . 'get_age_verification_popup_markup';
+
+			$lp_show_improved_ui = true;
+			$lp_pro_installed    = get_option( '_lp_pro_installed' );
+			if ( $lp_pro_installed && get_option( 'wplegalpages_pro_version' ) && version_compare( get_option( 'wplegalpages_pro_version' ), '8.4.0' ) < 0 ) {
+				$lp_show_improved_ui = false;
+			}
+			$minimum_age       = get_option( '_lp_minimum_age' );
+			$yes_button_text   = get_option( 'lp_eu_button_text' );
+			$no_button_text    = get_option( 'lp_eu_button_text_no' );
+			$redirect_url_text = get_option( '_lp_redirect_url' );
+
+			$args = array(
+				'source'              => 'wplegalpages',
+				'lp_show_improved_ui' => $lp_show_improved_ui,
+				'minimum_age'         => $minimum_age,
+				'yes_button_text'     => $yes_button_text,
+				'no_button_text'      => $no_button_text,
+				'redirect_url_text'   => $redirect_url_text,
+			);
+
+			$request_url = add_query_arg( $args, $url );
+
+			$response = wp_remote_get( $request_url, array( 'timeout' => 10 ) );
+
+			$status_code = wp_remote_retrieve_response_code( $response );
+
+			if ( 200 !== (int) $status_code ) {
+				return;
+			}
+
+			$body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+			return $body;
+		}
 	}
 	
 	

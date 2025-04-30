@@ -199,6 +199,9 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 				return;
 			}
 			$lp_obj = new WP_Legal_Pages();
+			if ( ! $lp_obj->wplegalpages_is_plan_pro() ) {
+				return;
+			}
 			wp_enqueue_style( $this->plugin_name );
 			$lp_obj->wplegalpages_pro_enqueue_editor();
 			static $get_desc_called = false;
@@ -447,7 +450,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 		 * @since 7.0
 		 */
 		public function wplegalpages_pro_get_display_option() {
-			if ( ( '0' === get_option( '_lp_age_popup_no', '0' ) ) || ( 0 === get_option( '_lp_age_popup_no', 0 ) ) ) {
+			if ( ( '0' === get_option( '_lp_age_popup_no', '1' ) ) || ( 0 === get_option( '_lp_age_popup_no', 1 ) ) ) {
 				include_once plugin_dir_path( __DIR__ ) . 'public/templates/wplegalpages-age-verify-form.php';
 			} else if( ( '1' === get_option( '_lp_age_popup_no', '1' ) ) || ( 1 === get_option( '_lp_age_popup_no', 1 ) ) ) {
 				include_once plugin_dir_path( __DIR__ ) . 'public/templates/wplegalpages-age-button.php';

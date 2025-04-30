@@ -600,7 +600,26 @@ jQuery(document).ready(function () {
 				},
 			});
 		});
+
+		// Tooltip for Pro in Compliances Section.
+		$('.wplegalpages-not-pro-tooltip').on('mouseenter', function () {
+			$(this).siblings('.wplegalpages-not-pro-tooltip-text').stop(true, true).fadeIn(200);
+		});
 		
+		$('.wplegalpages-not-pro-tooltip, .wplegalpages-not-pro-tooltip-text').on('mouseleave', function () {
+			const $tooltip = $(this).siblings('.wplegalpages-not-pro-tooltip-text').length
+				? $(this).siblings('.wplegalpages-not-pro-tooltip-text')
+				: $(this); // If the mouse leaves the tooltip itself
+		
+			setTimeout(function() {
+				if (
+					!$tooltip.is(':hover') &&
+					!$tooltip.siblings('.wplegalpages-not-pro-tooltip').is(':hover')
+				) {
+					$tooltip.stop(true, true).fadeOut(200);
+				}
+			}, 100);
+		});
 	});
 
 });
