@@ -37,17 +37,17 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 				<div class="wp-legalpages-admin-logo-and-label">
 					<div class="wp-legalpages-admin-logo">
 						<!-- //image  -->
-						<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/WPLPCompliancePlatformWhite.png'; ?>" alt="WP Cookie Consent Logo">
+						<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/WPLPCompliancePlatformWhite.png'; ?>" alt="WP Cookie Consent Logo"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 					</div>
 					
 				</div>
-				<!-- <div id="wplegalpages-save-settings-alert"><img src="<?php echo WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/settings_saved.svg'; ?>" alt="create legal" class="wplegal-save-settings-icon"><?php esc_attr_e( 'Settings saved successfully', 'wplegalpages' ); ?></div> -->
+				<!-- <div id="wplegalpages-save-settings-alert"><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/settings_saved.svg' ); ?>" alt="create legal" class="wplegal-save-settings-icon"><?php esc_attr_e( 'Settings saved successfully', 'wplegalpages' ); ?></div> --> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 				<div class="wp-legalpages-admin-help-and-support">
 				<div class="wp-legalpages-admin-help">
 						<div class="wp-legalpages-admin-help-icon">
 							<!-- //image  -->
 							<a href="https://club.wpeka.com/docs/wp-legal-pages/" target="_blank">
-								<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/wp_cookie_help.png'; ?>" alt="WP Cookie Consent Help">
+								<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/wp_cookie_help.png'; ?>" alt="WP Cookie Consent Help"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 							</a>
 						</div>
 						<div class="wp-legalpages-admin-help-text"><a href="https://club.wpeka.com/docs/wp-legal-pages/" target="_blank">
@@ -59,7 +59,7 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 						<div class="wp-legalpages-admin-support-icon">
 							<!-- //image  -->
 							<a href="https://club.wpeka.com/contact/" target="_blank">
-							<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/wp_cookie_support.png'; ?>" alt="WP Cookie Consent Support">
+							<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/wp_cookie_support.png'; ?>" alt="WP Cookie Consent Support"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 							</a>
 						</div>
 						<div class="wp-legalpages-admin-support-text"><a href="https://club.wpeka.com/contact/" target="_blank">
@@ -82,27 +82,27 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 						</h2>
 						<p><?php echo esc_html( 'Get started with essential tools to manage cookies and legal policies:', 'wplegalpages' ); ?></p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Cookie Insights:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Detailed reports on cookies detected on your site.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Cookie Insights:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Detailed reports on cookies detected on your site.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Cookie Scanner:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Automatically scan your website for cookies.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Cookie Scanner:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Automatically scan your website for cookies.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'A/B Testing:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Compare two cookie banners to find the best performer.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'A/B Testing:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Compare two cookie banners to find the best performer.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Consent Log:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Track and store user consent records.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Consent Log:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Track and store user consent records.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Data Subject Access Request:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Simplify user data requests.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Data Subject Access Request:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Simplify user data requests.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Essential Legal Policies:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Generate key policies like Privacy Policy, Terms of Use, and more.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Essential Legal Policies:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Generate key policies like Privacy Policy, Terms of Use, and more.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 					</div>
 				<div class="gdpr-api-connection-btns">
-					<button class="gdpr-start-auth gdpr-signup"><?php echo esc_html( 'Sign Up for Free', 'gdpr-cookie-consent' ); ?></button>
-					<p><?php echo esc_html( 'Already have an account?', 'gdpr-cookie-consent' ); ?><a class="gdpr-start-auth gdpr-login" href=""><?php esc_html_e( 'Connect your existing account', 'gdpr-cookie-consent' ); ?></a></p>
+					<button class="gdpr-start-auth gdpr-signup"><?php echo esc_html( 'Sign Up for Free', 'wplegalpages' ); ?></button>
+					<p><?php echo esc_html( 'Already have an account?', 'wplegalpages' ); ?><a class="gdpr-start-auth gdpr-login" href=""><?php esc_html_e( 'Connect your existing account', 'wplegalpages' ); ?></a></p>
 				</div>
 			</div>
 
@@ -113,22 +113,22 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 						</h2>
 						<p><?php echo esc_html( 'Take your website compliance to the next level with Pro:', 'gdpr-cookie-consent' ); ?></p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Advanced Dashboard:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Gain detailed insights into cookie consent performance.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Advanced Dashboard:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Gain detailed insights into cookie consent performance.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Geo-targeting:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Show banners tailored to visitor locations.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Geo-targeting:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Show banners tailored to visitor locations.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'IAB TCF 2.2 Support:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Comply with the latest transparency framework.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'IAB TCF 2.2 Support:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Comply with the latest transparency framework.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Google Consent Mode:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Manage Google tags based on user consent.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( 'Google Consent Mode:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Manage Google tags based on user consent.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( '25+ Legal Templates:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Access a library of customizable templates.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( '25+ Legal Templates:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Access a library of customizable templates.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 						<p>
-							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( '20,000 Pages per Scan:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Ensure comprehensive website cookie scanning.', 'wplegalpages' ); ?>
+							<span><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/bullet_point.svg'; ?>" alt="<?php echo esc_attr( 'API Connection Success Mark', 'wplegalpages' ); ?>"></span> <strong><?php echo esc_html( '20,000 Pages per Scan:', 'wplegalpages' ); ?></strong> <?php echo esc_html( 'Ensure comprehensive website cookie scanning.', 'wplegalpages' ); ?> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</p>
 					</div>
 				<div class="gdpr-api-connection-btns">
@@ -141,7 +141,7 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 				<div id="popup-site-excausted" class="popup-overlay">
 					<div class="popup-content">
 						<div class="popup-header">
-							<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/cancel.svg'; ?>" alt="Right Corner Image" class="popup-image">
+							<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/cancel.svg'; ?>" alt="Right Corner Image" class="popup-image"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 						</div>
 						<div class="excausted-popup-body">
 							<h2><?php esc_html('Attention! Usage Limit Reached', 'wplegalpages'); ?></h2>
@@ -173,11 +173,11 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 					?>
 					<div class="gdpr-remaining-scans-content" >
 						<div class="gdpr-current-plan-container">
-							<p><span>Current Plan: </span><?php echo $api_user_plan; ?></p>
+							<p><span>Current Plan: </span><?php echo esc_html( $api_user_plan ); ?></p>
 							<?php
 							if ( $api_user_plan == 'free' ) {
 								?>
-							<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_upgrade_btn.png'; ?>" class="wplegalpages-admin-upgrade-button wplegalpages-connection-popup" alt="<?php echo esc_attr( 'Upgrade Button', 'wplegalpages' ); ?>">
+							<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_upgrade_btn.png'; ?>" class="wplegalpages-admin-upgrade-button wplegalpages-connection-popup" alt="<?php echo esc_attr( 'Upgrade Button', 'wplegalpages' ); ?>"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 								<?php
 							}
 							?>
@@ -208,7 +208,7 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 				?>
 			<!-- Legal pages banner for upgrade to pro -->
 			<a href="https://app.wplegalpages.com/checkout/?add-to-cart=143&utm_source=wplegalpagesplugin&utm_medium=banner" target="_blank">
-				<img class="legal-pages-upgrade-to-pro-banner" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/legal-pages-banner-upgrade-to-pro.png'; ?>" alt="Banner legal pages">
+				<img class="legal-pages-upgrade-to-pro-banner" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/legal-pages-banner-upgrade-to-pro.png'; ?>" alt="Banner legal pages"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 			</a> 
 				<?php
 			}

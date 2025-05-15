@@ -68,7 +68,7 @@ wp_enqueue_script( 'jquery-validation-plugin', WPL_LITE_PLUGIN_URL . 'admin/js/j
 	<div class="wrap">
 		<div class='wplegalpages-addon-promotion'>
 			<a href="https://club.wpeka.com/product/wp-gdpr-cookie-consent/" target="_blank">
-				<img alt="WPLegalPages Cookie Consent Addon" src="<?php echo esc_attr( WPL_LITE_PLUGIN_URL ) . 'admin/images/wplegalpages-addon-promotion.jpg'; ?>">
+				<img alt="WPLegalPages Cookie Consent Addon" src="<?php echo esc_attr( WPL_LITE_PLUGIN_URL ) . 'admin/images/wplegalpages-addon-promotion.jpg'; ?>"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 			</a>
 		</div>
 		<h2 class="title-head">  <?php esc_attr_e( 'Cookie Bar', 'wplegalpages' ); ?> : </h2>

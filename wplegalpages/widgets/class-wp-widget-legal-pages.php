@@ -28,10 +28,10 @@ class WP_Widget_Legal_Pages extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname'                   => 'widget_legal_pages',
-			'description'                 => __( 'A list of your site&#8217;s Legal Pages.' ),
+			'description'                 => __( 'A list of your site&#8217;s Legal Pages.', 'wplegalpages' ),
 			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'legal_pages', __( 'WPLegalPages' ), $widget_ops );
+		parent::__construct( 'legal_pages', __( 'WPLegalPages', 'wplegalpages' ), $widget_ops );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class WP_Widget_Legal_Pages extends WP_Widget {
 	 * @param array $instance Settings for the current WPLegalPages widget instance.
 	 */
 	public function widget( $args, $instance ) {
-		$default_title = __( 'WPLegalPages' );
+		$default_title = __( 'WPLegalPages', 'wplegalpages' );
 		$title         = ! empty( $instance['title'] ) ? $instance['title'] : $default_title;
 
 		/**
@@ -82,9 +82,9 @@ class WP_Widget_Legal_Pages extends WP_Widget {
 					'title_li'    => '',
 					'echo'        => 0,
 					'sort_column' => $sortby,
-					'exclude'     => $exclude,
-					'meta_key'    => 'is_legal', // phpcs:ignore slow query
-					'meta_value'  => 'yes', // phpcs:ignore slow query
+					'exclude'     => $exclude, //phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
+					'meta_key'    => 'is_legal', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+					'meta_value'  => 'yes', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value	
 				),
 				$instance
 			)
@@ -144,7 +144,7 @@ class WP_Widget_Legal_Pages extends WP_Widget {
 			$instance['sortby'] = 'menu_order';
 		}
 
-		$instance['exclude'] = sanitize_text_field( $new_instance['exclude'] );
+		$instance['exclude'] = sanitize_text_field( $new_instance['exclude'] ); //phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 
 		return $instance;
 	}
@@ -163,7 +163,7 @@ class WP_Widget_Legal_Pages extends WP_Widget {
 			array(
 				'sortby'  => 'post_title',
 				'title'   => '',
-				'exclude' => '',
+				'exclude' => '', //phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 			)
 		);
 		?>

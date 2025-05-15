@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 $lp_eu_button_text    = get_option( 'lp_eu_button_text' );
-$lp_eu_button_text_no = get_option( 'lp_eu_button_text_no' );
+$lp_eu_button_text_no = get_option( 'lp_eu_button_text_no' , 'No, I am not');
 $data                 = apply_filters( 'wplegalpages_pro_invalid_description', get_option( '_lp_invalid_description', __( 'We are Sorry.', 'wplegalpages' ) ) );
 ?>
 

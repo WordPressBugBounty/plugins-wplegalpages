@@ -43,7 +43,8 @@ if ( ! class_exists( 'WP_Legal_Pages_Deactivator' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			if ( is_multisite() ) {
 				// Get all blogs in the network and activate plugin on each one.
-				$blog_ids = $wpdb->get_col( 'SELECT blog_id FROM ' . $wpdb->blogs ); // db call ok; no-cache ok.
+				// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$blog_ids = $wpdb->get_col( 'SELECT blog_id FROM ' . $wpdb->blogs ); // db call ok; no-cache ok. 
 				foreach ( $blog_ids as $blog_id ) {
 					switch_to_blog( $blog_id );
 					delete_option( '_lp_db_updated' );
@@ -52,6 +53,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Deactivator' ) ) {
 					delete_option( 'lp_accept_terms' );
 					restore_current_blog();
 				}
+				// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching	
 			} else {
 				delete_option( '_lp_db_updated' );
 				delete_option( '_lp_terms_updated' );

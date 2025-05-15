@@ -420,7 +420,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 						$this->wplegalpages_pro_get_display_option();
 					}
 					for ( $i; $i < $output_length; $i++ ) {
-						echo esc_html( $output_array[ $i ] );
+						echo wp_kses_post( $output_array[ $i ] );
 						if ( $i < $output_length - 1 ) {
 							$this->wplegalpages_pro_get_display_option();
 						}
@@ -945,7 +945,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 
         							document.cookie = cookieName + "=" + encodeURIComponent(cookieValue) + expires + "; path=/";
     								}
-									setCookie("updateAt", <?php echo $updateAt ?> ,<?php echo $bar_num_of_days ?>);
+									setCookie("updateAt", <?php echo esc_html( $updateAt);  ?> ,<?php echo esc_html( $bar_num_of_days ) ?>);
 							}
 							
 						);

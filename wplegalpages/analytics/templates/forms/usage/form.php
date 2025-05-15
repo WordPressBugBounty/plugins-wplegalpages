@@ -33,7 +33,7 @@ wp_localize_script( 'as_ask_for_usage', 'ask_for_usage', $params );
 <div class="notice ask-for-usage-notice is-dismissible">
 	<input type="hidden" name="plugin_slug" value="<?php echo esc_attr( $slug ); ?>">
 	<div class="notice-image">
-		<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $name ); ?>" />
+		<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $name ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>" /> 
 	</div>
 	<div class="notice-content">
 		<div class="notice-heading">

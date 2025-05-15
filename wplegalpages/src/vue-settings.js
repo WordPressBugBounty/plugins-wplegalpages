@@ -42,6 +42,7 @@ var gen = new Vue({
             generate:null,
             search:null,
             affiliate_disclosure:null,
+            enable_block:null,
             is_adult:null,
             privacy:null,
             privacy_page: '',
@@ -100,7 +101,7 @@ var gen = new Vue({
             age_no_button: obj.age_no_button ? obj.age_no_button : 'No, I am not',
             age_description: obj.age_description ? obj.age_description : `To proceed, we need to verify that you're {age} or older.\n<span>Please verify your age.</span>\n{form}`,
             invalid_age_description: obj.invalid_age_description ? obj.invalid_age_description : `We are Sorry. You are not of valid age.`,
-            age_verify_popup: 0,
+            age_verify_popup: 1,
             cookie_text_size_options: Array.from(obj.cookie_text_size_options),
 			create_popup_clicked: false,
         }
@@ -110,6 +111,7 @@ var gen = new Vue({
             this.generate =  this.$refs.hasOwnProperty('generate')? this.$refs.generate.checked : null;
             this.search =  this.$refs.hasOwnProperty('search')? this.$refs.search.checked : null;
             this.affiliate_disclosure =this.$refs.hasOwnProperty('affiliate_disclosure')? this.$refs.affiliate_disclosure.checked:null;
+            this.enable_block =this.$refs.hasOwnProperty('enable_block')? this.$refs.enable_block.checked:null;
             this.is_adult = this.$refs.hasOwnProperty('is_adult')?this.$refs.is_adult.checked:null;
             this.privacy =this.$refs.hasOwnProperty('privacy')? this.$refs.privacy.checked:null;
             this.privacy_page = this.$refs.hasOwnProperty('privacy_page_mount') && this.$refs.privacy_page_mount.value ? this.$refs.privacy_page_mount.value : '';
@@ -159,6 +161,10 @@ var gen = new Vue({
         onChangeAffiliate(){
             this.affiliate_disclosure= !this.affiliate_disclosure;
             this.$refs.affiliate_disclosure.value = this.affiliate_disclosure ? '1' : '0';
+        },
+        onChangeEnableBlock(){
+            this.enable_block= !this.enable_block;
+            this.$refs.enable_block.value = this.enable_block ? '1' : '0';
         },
         onChangeIsAdult(){
             this.is_adult= !this.is_adult;
@@ -479,19 +485,27 @@ var gen = new Vue({
         },
         saveGeneralSettings() {
 			var that = this;
-            jQuery("#wplegalpages-save-settings-alert").fadeIn(400);
-            var dataV = jQuery("#lp-save-settings-form").serialize();
-            jQuery.ajax({
-                type: 'POST',
-                url: obj.ajaxurl,
-                data: dataV + '&action=lp_save_admin_settings',
-            }).done(function (data) {
-                j("#wplegalpages-save-settings-alert").fadeOut(2500);
-				if(that.create_popup_clicked){
-                    that.create_popup_clicked = false;
-                    location.reload();
-                }
-            });
+	        const form = document.querySelector("#lp-save-settings-form");
+                
+	        // Check if form is valid
+	        if (!form.checkValidity()) {
+	        	form.reportValidity(); // Show validation errors in browser
+	        	return;
+	        }
+        
+	        jQuery("#wplegalpages-save-settings-alert").fadeIn(400);
+	        var dataV = jQuery(form).serialize();
+	        jQuery.ajax({
+	        	type: 'POST',
+	        	url: obj.ajaxurl,
+	        	data: dataV + '&action=lp_save_admin_settings',
+	        }).done(function (data) {
+	        	j("#wplegalpages-save-settings-alert").fadeOut(2500);
+	        	if (that.create_popup_clicked) {
+	        		that.create_popup_clicked = false;
+	        		location.reload();
+	        	}
+	        });
         }
     },
     mounted() {

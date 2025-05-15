@@ -614,9 +614,9 @@ class Analytics {
 			wp_die( -1 );
 		}
 		if ( isset( $_POST['slug'] ) ) {
-			$slug = $_POST['slug'] ? sanitize_text_field( $_POST['slug'] ) : '';
+			$slug = sanitize_text_field( wp_unslash( $_POST['slug'] ) );
 			update_option( $slug . '-ask-for-review-dismissed', true );
-		}
+		}		
 		wp_send_json_success();
 	}
 
@@ -629,7 +629,7 @@ class Analytics {
 			wp_die( -1 );
 		}
 		if ( isset( $_POST['slug'] ) ) {
-			$slug = $_POST['slug'] ? sanitize_text_field( $_POST['slug'] ) : '';
+			$slug = sanitize_text_field( wp_unslash( $_POST['slug'] ) );
 			update_option( $slug . '-ask-for-usage-dismissed', true );
 			update_option( $slug . '-ask-for-usage-optin', false );
 		}
@@ -642,7 +642,7 @@ class Analytics {
 			wp_die( -1 );
 		}
 		if ( isset( $_POST['slug'] ) ) {
-			$slug = $_POST['slug'] ? sanitize_text_field( $_POST['slug'] ) : '';
+			$slug = sanitize_text_field( wp_unslash( $_POST['slug'] ) );
 			update_option( $slug . '-ask-for-usage-dismissed', true );
 			update_option( $slug . '-ask-for-usage-optin', true );
 		}
@@ -807,11 +807,20 @@ class Analytics {
 				 * @since 1.0.0
 				 */
 				if ( is_network_admin() ) {
-					preg_match( '#/wp-admin/network/?(.*?)$#i', $_SERVER['PHP_SELF'], $self_matches );
+					if ( isset( $_SERVER['PHP_SELF'] ) ) {
+						$php_self = sanitize_text_field( wp_unslash( $_SERVER['PHP_SELF'] ) );
+						preg_match( '#/wp-admin/network/?(.*?)$#i', $php_self, $self_matches );
+					}
 				} elseif ( is_user_admin() ) {
-					preg_match( '#/wp-admin/user/?(.*?)$#i', $_SERVER['PHP_SELF'], $self_matches );
+					if( isset( $_SERVER['PHP_SELF'] ) ) {
+						$php_self = sanitize_text_field( wp_unslash( $_SERVER['PHP_SELF'] ) );
+						preg_match( '#/wp-admin/user/?(.*?)$#i', $php_self, $self_matches );
+					}
 				} else {
-					preg_match( '#/wp-admin/?(.*?)$#i', $_SERVER['PHP_SELF'], $self_matches );
+					if( isset( $_SERVER['PHP_SELF'] ) ) {
+						$php_self = sanitize_text_field( wp_unslash( $_SERVER['PHP_SELF'] ) );
+						preg_match( '#/wp-admin/?(.*?)$#i', $php_self, $self_matches );
+					}
 				}
 
 				$pagenow = $self_matches[1];

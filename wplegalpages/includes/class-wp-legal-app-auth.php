@@ -158,13 +158,15 @@ class WP_Legal_Pages_App_Auth {
 		$activate_args = $wcam_lib_legalpages->activate( $args, $product_id );
 		$status_args   = $wcam_lib_legalpages->status( $args, $product_id );
 
+		$demo_type = isset( $_POST['demo_type'] ) ? sanitize_text_field( wp_unslash( $_POST['demo_type'] )) : '';
+
 		$response = $this->post(
 			'plugin/importcaps',
 			wp_json_encode(
 				array(
 					'id'                  => $settings->get_user_id(),
 					'platform'            => 'wordpress',
-					'demo_type'           => $_POST['demo_type'],
+					'demo_type'           => $demo_type,
 					'status_args'         => $status_args,
 					'activate_args'       => $activate_args,
 					'wc_am_activated_key' => $wcam_lib_legalpages->data,
@@ -231,13 +233,13 @@ class WP_Legal_Pages_App_Auth {
 		check_ajax_referer( 'wp-legal-pages', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( esc_html__( 'You do not have permission.', 'responsive-addons' ) );
+			wp_send_json_error( esc_html__( 'You do not have permission.', 'wplegalpages' ) );
 		}
 
 		$site_address = rawurlencode( get_site_url() );
 		$rest_url     = rawurlencode( get_rest_url() );
 		// adding the condition for check whether user is connecting from popup.
-		$is_user_from_connection_popup = $_POST['is_user_from_connection_popup'];
+		$is_user_from_connection_popup = isset( $_POST['is_user_from_connection_popup'] ) ? sanitize_text_field( wp_unslash( $_POST['is_user_from_connection_popup'] ) ) : '' ;
 		// Require necessary file and get settings.
 		require_once plugin_dir_path( __DIR__ ) . 'includes/settings/class-wp-legal-pages-settings.php';
 		$settings = new WP_Legal_Pages_Settings();
@@ -325,8 +327,7 @@ class WP_Legal_Pages_App_Auth {
 		}
 
 		// Get data from POST request
-
-		$data   = isset( $_POST['response'] ) ? $_POST['response'] : null;
+		$data   = isset( $_POST['response'] ) ? $_POST['response'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash	
 		$origin = ! empty( $_POST['origin'] ) ? esc_url_raw( wp_unslash( $_POST['origin'] ) ) : false;
 
 		// Verify data and origin
@@ -337,22 +338,22 @@ class WP_Legal_Pages_App_Auth {
 
 		// Update option with auth data
 		update_option( 'wpeka_api_framework_app_settings', $data );
-		$wcam_lib_legalpages->product_id = isset( $_POST['response']['account']['product_id'] ) ? $_POST['response']['account']['product_id'] : '';
+		$wcam_lib_legalpages->product_id = isset( $_POST['response']['account']['product_id'] ) ? sanitize_text_field( wp_unslash( $_POST['response']['account']['product_id'] )) : '';
 
 		require_once plugin_dir_path( __DIR__ ) . 'includes/settings/class-wp-legal-pages-settings.php';
 		$settings = new WP_Legal_Pages_Settings();
 
 		if ( isset( $_POST['update_options'] ) ) {
 			if ( 'success' === $_POST['update_options'] ) {
-				update_option( $wcam_lib_legalpages->wc_am_activated_key, $_POST['activated_key'] );
-				update_option( $wcam_lib_legalpages->wc_am_deactivate_checkbox_key, $_POST['deactivate_checkbox_key'] );
+				update_option( $wcam_lib_legalpages->wc_am_activated_key, sanitize_text_field( wp_unslash( $_POST['activated_key'] ) )); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+				update_option( $wcam_lib_legalpages->wc_am_deactivate_checkbox_key, sanitize_text_field( wp_unslash( $_POST['deactivate_checkbox_key'] ) )); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			} elseif ( 'fail_1' === $_POST['update_options'] ) {
 				if ( isset( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ] ) ) {
-					update_option( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ], $_POST['activated_key'] );
+					update_option( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ], sanitize_text_field( wp_unslash( $_POST['activated_key'] ) )); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 				}
 			} elseif ( 'fail_2' === $_POST['update_options'] ) {
 				if ( isset( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ] ) ) {
-					update_option( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ], $_POST['activated_key'] );
+					update_option( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ], sanitize_text_field( wp_unslash( $_POST['activated_key'] ) )); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 				}
 			}
 		}

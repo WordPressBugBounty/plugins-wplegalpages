@@ -86,9 +86,10 @@ class Analytics_Tracking {
 		}
 		if ( isset( $_POST['data'] ) && ! empty( $_POST['data'] ) ) {
 			if ( isset( $_POST['data']['nonce'] ) && ! empty( $_POST['data']['nonce'] ) ) {
-				$nonce = isset( $_POST['data']['nonce'] ) ? $_POST['data']['nonce'] : '';
+				$nonce = isset( $_POST['data']['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['data']['nonce'] ) ) : '';
+								
 				if ( wp_verify_nonce( $nonce, 'track_analytics' ) ) {
-					$event = isset( $_POST['data']['event'] ) ? sanitize_text_field( $_POST['data']['event'] ) : '';
+					$event = isset( $_POST['data']['event'] ) ? sanitize_text_field( wp_unslash( $_POST['data']['event'] ) ): '';
 					if ( ! empty( $event ) ) {
 						$args     = array(
 							'method' => 'POST',
@@ -175,7 +176,7 @@ class Analytics_Tracking {
 
 	public function analytics_tracking_get_default_data() {
 		$data = array(
-			'timestamp'     => (int) date( 'Uv' ),
+			'timestamp'     => (int) gmdate( 'Uv' ),
 			'wp_version'    => $this->analytics_tracking_get_wordpress_version(),
 			'is_multisite'  => is_multisite(),
 			'site_language' => get_bloginfo( 'language' ),

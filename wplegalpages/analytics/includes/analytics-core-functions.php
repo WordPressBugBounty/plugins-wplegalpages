@@ -110,13 +110,13 @@ if ( ! function_exists( 'as_request_get' ) ) {
 		 */
 		switch ( $type ) {
 			case 'post':
-				$value = isset( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : $def;
+				$value = isset( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : $def; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				break;
 			case 'get':
-				$value = isset( $_GET[ $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : $def;
+				$value = isset( $_GET[ $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : $def; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				break;
 			default:
-				$value = isset( $_REQUEST[ $key ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $key ] ) ) : $def;
+				$value = isset( $_REQUEST[ $key ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $key ] ) ) : $def; // phpcs:ignore WordPress.Security.NonceVerification.Recommended	
 				break;
 		}
 
@@ -176,10 +176,10 @@ if ( ! function_exists( 'as_get_raw_referer' ) ) {
 		if ( function_exists( 'wp_get_raw_referer' ) ) {
 			return wp_get_raw_referer();
 		}
-		if ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
-			return wp_unslash( $_REQUEST['_wp_http_referer'] );
+		if ( ! empty( $_REQUEST['_wp_http_referer'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return esc_url_raw( wp_unslash( $_REQUEST['_wp_http_referer'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		} elseif ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
-			return wp_unslash( $_SERVER['HTTP_REFERER'] );
+			return esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) );
 		}
 
 		return false;
@@ -472,7 +472,7 @@ if ( ! function_exists( 'as_esc_html_echo_inline' ) ) {
  * @param string $slug Module slug for overrides.
  */
 function as_echo_inline( $text, $key = '', $slug = 'analytics' ) {
-	echo _as_text_inline( $text, $key, $slug );
+	echo esc_html( _as_text_inline( $text, $key, $slug ) );
 }
 
 if ( ! function_exists( 'as_apply_filter' ) ) {

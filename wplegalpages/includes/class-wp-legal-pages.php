@@ -124,7 +124,7 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 
 			global $table_prefix;
 			$this->plugin_name = 'wp-legal-pages';
-			$this->version     = '3.3.7';
+			$this->version     = '3.3.8';
 			$this->tablename   = $table_prefix . 'legal_pages';
 			$this->popuptable  = $table_prefix . 'lp_popups';
 			$this->plugin_url  = plugin_dir_path( __DIR__ );
@@ -279,6 +279,7 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 			$this->loader->add_filter( 'wplegalpages_shortcodes_table', $plugin_admin, 'wplegalpages_pro_shortcodes_table', 10, 1 );
 			$this->loader->add_filter( 'wplegalpages_shortcode_content', $plugin_admin, 'wplegalpages_pro_shortcode_content', 10, 1 );
 			$this->loader->add_action( 'init', $plugin_admin, 'wplegalpages_pro_register_block_type' );
+			$this->loader->add_action( 'init', $plugin_admin, 'wplegalpages_register_legal_template_block' );
 
 			//action to add review notice on the admin page
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'wplp_review_already_done', 5 );

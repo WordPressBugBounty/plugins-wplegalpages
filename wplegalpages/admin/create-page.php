@@ -23,7 +23,7 @@ $lp_pro_active = get_option( '_lp_pro_active' );
 	<div style="">
 		<div style="line-height: 2.4em;" class='wplegalpages-pro-promotion'>
 			<a href="https://club.wpeka.com/product/wplegalpages/?utm_source=plugin&utm_medium=wplegalpages&utm_campaign=create-legal-pages&utm_content=upgrade-banner" target="_blank">
-				<img alt="Upgrade to Pro" src="<?php echo esc_attr( WPL_LITE_PLUGIN_URL ) . 'admin/images/wplegalpages-banner.png'; ?>">
+				<img alt="Upgrade to Pro" src="<?php echo esc_attr( WPL_LITE_PLUGIN_URL ) . 'admin/images/wplegalpages-banner.png'; ?>"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 			</a>
 		</div>
 	</div>
