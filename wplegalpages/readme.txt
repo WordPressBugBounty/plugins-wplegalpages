@@ -7,7 +7,7 @@ Tags: CCPA, GDPR, Privacy Policy, Terms and conditions, Cookie Policy
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 6.8
-Stable tag: 3.3.8
+Stable tag: 3.3.9
 
 Easiest way to generate legal pages (Privacy, Terms, Disclaimers & more) on your website. Ideal for blogs, ecommerce and marketing websites.
 
@@ -282,6 +282,9 @@ For free users, support is available through the WordPress.org forums. Pro users
 Yes, WP Legal Pages integrates seamlessly with WPForms, Contact Form 7, Gravity Forms, and more.
 
 == Changelog ==
+= 3.3.9 =
+* Improvement: Minor improvements.
+
 = 3.3.8 =
 * Added Gutenberg Block – You can now easily insert any generated legal policy directly into your WordPress post or page using the new WP Legal Pages block in the block editor.
 * Minor bug fixes and improvements.
