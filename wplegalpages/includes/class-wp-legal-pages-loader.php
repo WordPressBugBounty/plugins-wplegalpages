@@ -136,6 +136,27 @@ if ( ! class_exists( 'WP_Legal_Pages_Loader' ) ) {
 			}
 
 		}
+		/* Add defer attribute to scripts */
+		public function wplp_register_script_with_defer( $handle, $src, $deps = array(), $ver = false, $in_footer = true ) {
+			wp_register_script( $handle, $src, $deps, $ver, $in_footer );
+
+			add_filter( 'script_loader_tag', function ( $tag, $h, $s ) use ( $handle ) {
+				if ( $h === $handle ) {
+					return str_replace( ' src', ' defer src', $tag );
+				}
+				return $tag;
+			}, 10, 3 );
+		}
+		public function wplp_register_style_with_defer( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
+			wp_register_style( $handle, $src, $deps, $ver, $media );
+
+			add_filter( 'style_loader_tag', function ( $tag, $h ) use ( $handle ) {
+				if ( $h === $handle ) {
+					return str_replace( "media='all'", "media='print' onload=\"this.onload=null;this.media='all';\"", $tag );
+				}
+				return $tag;
+			}, 10, 2 );
+		}
 
 	}
 }

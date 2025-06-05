@@ -59,7 +59,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 		 * @param      string $version    The version of this plugin.
 		 */
 		public function __construct( $plugin_name, $version ) {
-
+			$this->loader = new WP_Legal_Pages_Loader();
 			$this->plugin_name = $plugin_name;
 			$this->version     = $version;
 			add_shortcode( 'wplegalpage', array( $this, 'wplegalpages_page_shortcode' ) );
@@ -116,8 +116,8 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
-			wp_register_style( $this->plugin_name . '-public', plugin_dir_url( __FILE__ ) . 'css/wp-legal-pages-public-css' . WPLPP_SUFFIX . '.css', array(), $this->version, 'all' );
-			wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wplegalpages-public' . WPLPP_SUFFIX . '.css', array(), $this->version, 'all' );
+			$this->loader->wplp_register_style_with_defer( $this->plugin_name . '-public', plugin_dir_url( __FILE__ ) . 'css/wp-legal-pages-public-css' . WPLPP_SUFFIX . '.css', array(), $this->version, 'all' );
+			$this->loader->wplp_register_style_with_defer( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wplegalpages-public' . WPLPP_SUFFIX . '.css', array(), $this->version, 'all' );
 		}
 
 		/**
@@ -138,8 +138,8 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
-			wp_register_script( $this->plugin_name . 'adult-content', plugin_dir_url( __FILE__ ) . 'js/wplegalpages-public-adult-content' . WPLPP_SUFFIX . '.js', array( 'jquery' ), $this->version, true );
-			wp_register_script( $this->plugin_name . 'popups', plugin_dir_url( __FILE__ ) . 'js/wplegalpages-public-popups' . WPLPP_SUFFIX . '.js', array( 'jquery' ), $this->version, true );
+			$this->loader->wplp_register_script_with_defer( $this->plugin_name . 'adult-content', plugin_dir_url( __FILE__ ) . 'js/wplegalpages-public-adult-content' . WPLPP_SUFFIX . '.js', array( 'jquery' ), $this->version, true );
+			$this->loader->wplp_register_script_with_defer( $this->plugin_name . 'popups', plugin_dir_url( __FILE__ ) . 'js/wplegalpages-public-popups' . WPLPP_SUFFIX . '.js', array( 'jquery' ), $this->version, true );
 
 		}
 		/**

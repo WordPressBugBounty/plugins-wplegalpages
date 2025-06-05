@@ -7,7 +7,6 @@
 }
 
 #lp_generalid {
-	padding: 5px 20px 20px 20px;
 	width: 73%;
 	float: left;
 }
@@ -1649,7 +1648,7 @@ wp-legalpages-admin-tab-content {
 
 #create_popup {
 	padding: 30px;
-	min-height: 1350px;
+	min-height: 1450px;
 }
 
 #create_popup .wrap .widefat.table-striped a {
@@ -2311,3 +2310,104 @@ table tbody tr td .table-link-alert:hover {
     display: none;
   }
 
+.wplegalpages-popup-section {
+	font-family: "Roboto", sans-serif;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-section-title,
+.wplegalpages-popup-section .wplegalpages-popup-shortcode-section .wplegalpages-popup-shortcode-section-title,
+.wplegalpages-popup-section .wplegalpages-create-popup-section .wplegalpages-create-popup-section-title {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 20px;
+	margin-bottom: 20px;
+	color: #141722;
+}
+
+.wplegalpages-popup-section .wplegalpages-create-popup-section {
+	width:850px;
+	float:left;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	margin-bottom: 20px;
+	--bs-table-striped-bg: #EDEDF5;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table th {
+	padding: 20px;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	color: #141722;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table td {
+	padding: 20px;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	color: #1E1E29 !important;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table .wplegalpages-popup-list-table-actions {
+	display: flex;
+	justify-content: space-around;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table .wplegalpages-popup-list-table-actions .wplegalpages-popup-list-table-action-link {
+	text-decoration: none;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table .wplegalpages-popup-list-table-actions .wplegalpages-popup-list-table-action {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table .wplegalpages-popup-list-table-actions .wplegalpages-popup-list-table-action.wplegalpages-popup-list-table-action-edit {
+	color: #616F86;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table .wplegalpages-popup-list-table-actions .wplegalpages-popup-list-table-action.wplegalpages-popup-list-table-action-delete {
+	color: #C83D3D;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table .wplegalpages-popup-list-table-actions .wplegalpages-popup-list-table-action .dashicons {
+	font-size: 16px;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table .wplegalpages-popup-list-table-actions .wplegalpages-popup-list-table-action .wplegalpages-popup-list-table-action-title {
+	font-size: 12px;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-list-table .wplegalpages-popup-list-table-actions .wplegalpages-popup-list-table-action:hover .wplegalpages-popup-list-table-action-title {
+	text-decoration: underline;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-section-separator {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	background-color: #E4E4E7;
+	opacity: 1;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-shortcode-section {
+	float: left;
+}
+
+.wplegalpages-popup-section .wplegalpages-popup-shortcode-section .wplegalpages-popup-shortcode-section-desc,
+.wplegalpages-popup-section .wplegalpages-create-popup-section .wplegalpages-create-popup-section-desc {
+	margin-top: 24px;
+	margin-bottom: 24px;
+	color: #52525B;
+}
+
+.wplegalpages-popup-section .wplegalpages-create-popup-section .wplegalpages-create-popup-section-title {
+	margin-top: 40px;
+	padding-top: 40px;
+	border-top: 1px solid #E4E4E7;
+}
