@@ -145,13 +145,13 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 						<div class="excausted-popup-body">
 							<h2><?php esc_html('Attention! Usage Limit Reached', 'wplegalpages'); ?></h2>
 							<p><?php esc_html('You\'ve reached your license limit. Please upgrade to continue using the plugin on this site.', 'wplegalpages'); ?></p>
-							<button class="wplegalpages-admin-upgrade-button upgrade-button"><?php esc_html('Upgrade Plan', 'wplegalpages'); ?></button>
+							<button class="wplegalpages-admin-upgrade-button upgrade-button"><?php echo esc_html('Upgrade Plan', 'wplegalpages'); ?></button>
 							<p>
 								<?php 
 								esc_html('Need to activate on a new site? Manage your licenses in ', 'wplegalpages'); 
 								?>
 								<a href="<?php echo esc_url('https://app.wplegalpages.com/signup/api-keys/'); ?>" target="_blank">
-									<?php esc_html('My Account.', 'wplegalpages'); ?>
+									<?php echo esc_html('My Account.', 'wplegalpages'); ?>
 								</a>
 							</p>
 						</div>

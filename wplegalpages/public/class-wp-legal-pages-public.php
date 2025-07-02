@@ -527,7 +527,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 			if ( isset( $res->content ) ) {
 				$terms = do_shortcode( $res->content );
 			}
-			$lp_find    = array( '[Domain]', '[Business Name]', '[Phone]', '[Street]', '[City, State, Zip code]', '[Country]', '[Email]', '[Address]', '[Niche]' );
+			$lp_find    = array( '[Domain]', '[Business Name]', '[Trading Name]', '[Phone]', '[Street]', '[City, State, Zip code]', '[Country]', '[Email]', '[Address]', '[Niche]' );
 			$lp_general = get_option( 'lp_general' );
 			$terms      = str_replace( $lp_find, $lp_general, stripslashes( $terms ) );
 			$terms      = apply_filters( 'wplegalpages_shortcode_content', $terms );
@@ -610,7 +610,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 			if ( isset( $res->post_content ) ) {
 				$content = $res->post_content;
 			}
-			$lp_find    = array( '[Domain]', '[Business Name]', '[Phone]', '[Street]', '[City, State, Zip code]', '[Country]', '[Email]', '[Address]', '[Niche]' );
+			$lp_find    = array( '[Domain]', '[Business Name]', '[Trading Name]', '[Phone]', '[Street]', '[City, State, Zip code]', '[Country]', '[Email]', '[Address]', '[Niche]' );
 			$lp_general = get_option( 'lp_general' );
 			$content    = str_replace( $lp_find, $lp_general, stripslashes( $content ) );
 			$content    = apply_filters( 'wplegalpages_shortcode_content', $content );

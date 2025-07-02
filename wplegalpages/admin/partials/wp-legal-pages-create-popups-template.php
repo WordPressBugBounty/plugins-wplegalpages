@@ -288,6 +288,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 											?>
 										</select>
 									</form>
+									<label for="wplpcode" class="screen-reader-text"><?php esc_attr_e( 'Generated Legal Page Code','wplegalpages'); ?></label>
 									<textarea id="wplpcode" onclick="document.getElementById('wplpcode').focus();document.getElementById('wplpcode').select();" readonly="readonly" style="width:250px;"></textarea>
 									<div style="clear:both;"></div>
 							</div>
@@ -305,6 +306,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<div id="lp_generalid">
 										<form name="popup" method="post" enctype="multipart/form-data">
 											<p>
+												<label for="lp-name" class="screen-reader-text"><?php esc_attr_e( 'Name','wplegalpages'); ?></label>
 												<input type="text" class="form-control myText" name="lp-name" id="lp-name"
 														<?php if ( ! empty( $row ) ) { ?>
 															value="<?php echo esc_attr( $row->popup_name ); ?>"
@@ -325,6 +327,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 															obj.value = content.value;
 														}
 													</script>
+													<label for="lp-content" class="screen-reader-text"><?php esc_attr_e( 'Generated Legal Page Content','wplegalpages'); ?></label>
 													<textarea id="lp-content" name="lp-content" value="5" style="display:none" rows="10"></textarea>
 												</div>
 											</p>

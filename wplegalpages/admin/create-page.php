@@ -114,7 +114,7 @@ if ( $countof_pages[0]->cntPages < $max_limit ) {
 				<div id="<?php echo user_can_richedit() ? 'postdivrich' : 'postdiv'; ?>" >
 				<?php
 				$content    = isset( $row->content ) ? $row->content : $privacy;
-				$lp_find    = array( '[Domain]', '[Business Name]', '[Phone]', '[Street]', '[City, State, Zip code]', '[Country]', '[Email]', '[Address]', '[Niche]' );
+				$lp_find    = array( '[Domain]', '[Business Name]', '[Trading Name]', '[Phone]', '[Street]', '[City, State, Zip code]', '[Country]', '[Email]', '[Address]', '[Niche]' );
 				$lp_general = get_option( 'lp_general' );
 				$content    = str_replace( $lp_find, $lp_general, stripslashes( $content ) );
 

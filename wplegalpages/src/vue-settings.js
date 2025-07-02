@@ -30,81 +30,157 @@ var gen = new Vue({
     el: '#wplegalpages-settings-app',
     data() {
         return {
-            element: "#wplegalpages-settings-app",
-            labelIcon: {
-                labelOn: '\u2713',
-                labelOff: '\u2715'
-            },
-            configure_image_url: require('../admin/images/configure_icon.svg'),
-            appendField: ".wplegalpages-settings-container",
-            customToolbarForm:  [],
-            domain:'',
-            generate:null,
-            search:null,
-            affiliate_disclosure:null,
-            enable_block:null,
-            is_adult:null,
-            privacy:null,
-            privacy_page: '',
-            analytics_on: true === obj.ask_for_usage_optin || '1' === obj.ask_for_usage_optin ? true : false,
-            is_footer: obj.lp_options.hasOwnProperty('is_footer') ? Boolean( parseInt( obj.lp_options.is_footer ) ) : false,
-            is_banner: obj.lp_options.hasOwnProperty('is_banner') ? Boolean( parseInt( obj.lp_options['is_banner'] ) ) : false,
-            is_age: obj.age_verify_enable ? obj.age_verify_enable : 'content',
-            age_button_content: this.is_age === 'site' ? true : false,
-            is_popup: obj.popup_enabled ? Boolean( parseInt( obj.popup_enabled ) ) : false,
-            page_options: obj.page_options,
-            show_footer_form: false,
-            show_banner_form: false,
-            show_age_verification_form: false,
-            show_popup_form: false,
-            footer_pages: [],
-            footer_pages_drag: [],
-            footer_legal_pages: obj.lp_footer_options.hasOwnProperty('footer_legal_pages') ? obj.lp_footer_options['footer_legal_pages'] : [],
-            link_bg_color: obj.lp_footer_options.hasOwnProperty('footer_bg_color') ? obj.lp_footer_options['footer_bg_color']: '#ffffff',
-            footer_font: obj.lp_footer_options.hasOwnProperty('footer_font') ? obj.lp_footer_options['footer_font'] : 'Open Sans',
-            font_size_options: Array.from(obj.font_size_options),
-            footer_font_size: '16',
-            footer_text_color: obj.lp_footer_options.hasOwnProperty('footer_text_color') ? obj.lp_footer_options['footer_text_color']: '#333333',
-            footer_text_align: 'center',
-            footer_align_options: ['center','left','right'],
-            footer_link_color: obj.lp_footer_options.hasOwnProperty('footer_link_color') ? obj.lp_footer_options['footer_link_color']: '#333333',
-            footer_separator: obj.lp_footer_options.hasOwnProperty('footer_separator') ? obj.lp_footer_options['footer_separator'] : '',
-            footer_new_tab: obj.lp_footer_options.hasOwnProperty('footer_new_tab') ? Boolean( parseInt( obj.lp_footer_options['footer_new_tab'] ) ) : false,
-            footer_custom_css: obj.lp_footer_options.hasOwnProperty('footer_custom_css') ? obj.lp_footer_options['footer_custom_css'] : '',
-            font_options: font_options,bar_position_options:['top','bottom'],
-            bar_position:'top',
-            bar_type_options:['fixed','static'],
-            bar_type:'fixed',
-            banner_bg_color: obj.lp_banner_options.hasOwnProperty('banner_bg_color') ? obj.lp_banner_options['banner_bg_color']: '#ffffff',
-            banner_font: obj.lp_banner_options.hasOwnProperty('banner_font') ? obj.lp_banner_options['banner_font'] : 'Open Sans',
-            banner_font_id: obj.lp_banner_options.hasOwnProperty('banner_font_id') ? obj.lp_banner_options['banner_font_id'] : 'Open+Sans',
-            banner_text_color: obj.lp_banner_options.hasOwnProperty('banner_text_color') ? obj.lp_banner_options['banner_text_color']: '#000000',
-            banner_link_color: obj.lp_banner_options.hasOwnProperty('banner_link_color') ? obj.lp_banner_options['banner_link_color']: '#000000',
-            banner_number_of_days: Array.from(obj.number_of_days),
-            bar_num_of_days:'1',
-            banner_custom_css: obj.lp_banner_options.hasOwnProperty('banner_custom_css') ? obj.lp_banner_options['banner_custom_css'] : '',
-            banner_close_message: obj.lp_banner_options.hasOwnProperty('banner_close_message') ? obj.lp_banner_options['banner_close_message']: 'Close',
-            banner_font_size_option: Array.from(obj.font_size_options),
-            banner_font_size:'16',
-            banner_message: obj.lp_banner_options.hasOwnProperty('banner_message') ? obj.lp_banner_options['banner_message'] : 'Our [wplegalpages_page_link] have been updated on [wplegalpages_last_updated].',
-            banner_multiple_message: obj.lp_banner_options.hasOwnProperty('banner_multiple_message') ? obj.lp_banner_options['banner_multiple_message'] : 'Our [wplegalpages_page_link] pages have recently been updated.',
-            age_verify_for: 'Guests only',
-            age_verify_for_options: ['Guests only', 'All visitors'],
-            minimum_age: obj.minimum_age ? obj.minimum_age : 18,
-            age_type_options: ['Input Date of Birth', 'Yes/No Buttons', 'Yes/Leave Buttons'],
-            redirect_url: obj.redirect_url ? obj.redirect_url : '',
-            is_valid_url: true,
-            age_type_option: 'Yes/No Buttons',
-            yes_leave: true,
-            age_buttons: true,
-            age_yes_button: obj.age_yes_button ? obj.age_yes_button : 'Yes, I am',
-            age_no_button: obj.age_no_button ? obj.age_no_button : 'No, I am not',
-            age_description: obj.age_description ? obj.age_description : `To proceed, we need to verify that you're {age} or older.\n<span>Please verify your age.</span>\n{form}`,
-            invalid_age_description: obj.invalid_age_description ? obj.invalid_age_description : `We are Sorry. You are not of valid age.`,
-            age_verify_popup: 1,
-            cookie_text_size_options: Array.from(obj.cookie_text_size_options),
-			create_popup_clicked: false,
-        }
+          element: "#wplegalpages-settings-app",
+          labelIcon: {
+            labelOn: "\u2713",
+            labelOff: "\u2715",
+          },
+          searchLabel: "Show Legal Pages in Search",
+          configure_image_url: require("../admin/images/configure_icon.svg"),
+          configure_alt_text: "WP LegalPages configure icon",
+          appendField: ".wplegalpages-settings-container",
+          customToolbarForm: [],
+          domain: "",
+          generate: null,
+          search: null,
+          affiliate_disclosure: null,
+          enable_block: null,
+          is_adult: null,
+          privacy: null,
+          privacy_page: "",
+          analytics_on:
+            true === obj.ask_for_usage_optin || "1" === obj.ask_for_usage_optin
+              ? true
+              : false,
+          is_footer: obj.lp_options.hasOwnProperty("is_footer")
+            ? Boolean(parseInt(obj.lp_options.is_footer))
+            : false,
+          is_banner: obj.lp_options.hasOwnProperty("is_banner")
+            ? Boolean(parseInt(obj.lp_options["is_banner"]))
+            : false,
+          is_age: obj.age_verify_enable ? obj.age_verify_enable : "content",
+          age_button_content: this.is_age === "site" ? true : false,
+          is_popup: obj.popup_enabled
+            ? Boolean(parseInt(obj.popup_enabled))
+            : false,
+          page_options: obj.page_options,
+          show_footer_form: false,
+          show_banner_form: false,
+          show_age_verification_form: false,
+          show_popup_form: false,
+          footer_pages: [],
+          footer_pages_drag: [],
+          footer_legal_pages: obj.lp_footer_options.hasOwnProperty(
+            "footer_legal_pages"
+          )
+            ? obj.lp_footer_options["footer_legal_pages"]
+            : [],
+          link_bg_color: obj.lp_footer_options.hasOwnProperty("footer_bg_color")
+            ? obj.lp_footer_options["footer_bg_color"]
+            : "#ffffff",
+          footer_font: obj.lp_footer_options.hasOwnProperty("footer_font")
+            ? obj.lp_footer_options["footer_font"]
+            : "Open Sans",
+          font_size_options: Array.from(obj.font_size_options),
+          footer_font_size: "16",
+          footer_text_color: obj.lp_footer_options.hasOwnProperty(
+            "footer_text_color"
+          )
+            ? obj.lp_footer_options["footer_text_color"]
+            : "#333333",
+          footer_text_align: "center",
+          footer_align_options: ["center", "left", "right"],
+          footer_link_color: obj.lp_footer_options.hasOwnProperty(
+            "footer_link_color"
+          )
+            ? obj.lp_footer_options["footer_link_color"]
+            : "#333333",
+          footer_separator: obj.lp_footer_options.hasOwnProperty(
+            "footer_separator"
+          )
+            ? obj.lp_footer_options["footer_separator"]
+            : "",
+          footer_new_tab: obj.lp_footer_options.hasOwnProperty("footer_new_tab")
+            ? Boolean(parseInt(obj.lp_footer_options["footer_new_tab"]))
+            : false,
+          footer_custom_css: obj.lp_footer_options.hasOwnProperty(
+            "footer_custom_css"
+          )
+            ? obj.lp_footer_options["footer_custom_css"]
+            : "",
+          font_options: font_options,
+          bar_position_options: ["top", "bottom"],
+          bar_position: "top",
+          bar_type_options: ["fixed", "static"],
+          bar_type: "fixed",
+          banner_bg_color: obj.lp_banner_options.hasOwnProperty(
+            "banner_bg_color"
+          )
+            ? obj.lp_banner_options["banner_bg_color"]
+            : "#ffffff",
+          banner_font: obj.lp_banner_options.hasOwnProperty("banner_font")
+            ? obj.lp_banner_options["banner_font"]
+            : "Open Sans",
+          banner_font_id: obj.lp_banner_options.hasOwnProperty("banner_font_id")
+            ? obj.lp_banner_options["banner_font_id"]
+            : "Open+Sans",
+          banner_text_color: obj.lp_banner_options.hasOwnProperty(
+            "banner_text_color"
+          )
+            ? obj.lp_banner_options["banner_text_color"]
+            : "#000000",
+          banner_link_color: obj.lp_banner_options.hasOwnProperty(
+            "banner_link_color"
+          )
+            ? obj.lp_banner_options["banner_link_color"]
+            : "#000000",
+          banner_number_of_days: Array.from(obj.number_of_days),
+          bar_num_of_days: "1",
+          banner_custom_css: obj.lp_banner_options.hasOwnProperty(
+            "banner_custom_css"
+          )
+            ? obj.lp_banner_options["banner_custom_css"]
+            : "",
+          banner_close_message: obj.lp_banner_options.hasOwnProperty(
+            "banner_close_message"
+          )
+            ? obj.lp_banner_options["banner_close_message"]
+            : "Close",
+          banner_font_size_option: Array.from(obj.font_size_options),
+          banner_font_size: "16",
+          banner_message: obj.lp_banner_options.hasOwnProperty("banner_message")
+            ? obj.lp_banner_options["banner_message"]
+            : "Our [wplegalpages_page_link] have been updated on [wplegalpages_last_updated].",
+          banner_multiple_message: obj.lp_banner_options.hasOwnProperty(
+            "banner_multiple_message"
+          )
+            ? obj.lp_banner_options["banner_multiple_message"]
+            : "Our [wplegalpages_page_link] pages have recently been updated.",
+          age_verify_for: "Guests only",
+          age_verify_for_options: ["Guests only", "All visitors"],
+          minimum_age: obj.minimum_age ? obj.minimum_age : 18,
+          age_type_options: [
+            "Input Date of Birth",
+            "Yes/No Buttons",
+            "Yes/Leave Buttons",
+          ],
+          redirect_url: obj.redirect_url ? obj.redirect_url : "",
+          is_valid_url: true,
+          age_type_option: "Yes/No Buttons",
+          yes_leave: true,
+          age_buttons: true,
+          age_yes_button: obj.age_yes_button ? obj.age_yes_button : "Yes, I am",
+          age_no_button: obj.age_no_button ? obj.age_no_button : "No, I am not",
+          age_description: obj.age_description
+            ? obj.age_description
+            : `To proceed, we need to verify that you're {age} or older.\n<span>Please verify your age.</span>\n{form}`,
+          invalid_age_description: obj.invalid_age_description
+            ? obj.invalid_age_description
+            : `We are Sorry. You are not of valid age.`,
+          age_verify_popup: 1,
+          cookie_text_size_options: Array.from(obj.cookie_text_size_options),
+          create_popup_clicked: false,
+        };
     },
     methods: {
         setValues: function () {

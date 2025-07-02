@@ -21,6 +21,7 @@ Vue.component("WelcomeSection", {
             createElement("img", {
               domProps: {
                 src: obj.image_url + "WPLPCompliancePlatform.png",
+                alt: "WP LegalPages compliance dashboard",
               },
             }),
             createElement("p", {
@@ -107,6 +108,7 @@ Vue.component("install-gdpr", {
                 createElement("img", {
                   attrs: {
                     src: obj.image_url + "cookie-img.svg",
+                    alt: "Cookie Consent Icon",
                   },
                 }),
                 createElement(
@@ -154,6 +156,7 @@ Vue.component("install-gdpr", {
                     createElement("img", {
                       attrs: {
                         src: obj.image_url + "down-arrow.png",
+                        alt: "Download Arrow Icon",
                       },
                     }),
                   ]
@@ -189,6 +192,7 @@ Vue.component("create-gdpr", {
                 createElement("img", {
                   attrs: {
                     src: obj.image_url + "cookie-img.svg",
+                    alt: "Cookie Consent Icon",
                   },
                 }),
                 createElement(
@@ -236,6 +240,7 @@ Vue.component("create-gdpr", {
                     createElement("img", {
                       attrs: {
                         src: obj.image_url + "configure-btn.png",
+                        alt: "Configure Button Icon",
                       },
                     }),
                   ]
@@ -272,6 +277,7 @@ Vue.component("CreateLegal", {
                 createElement("img", {
                   attrs: {
                     src: obj.image_url + "wplp-icon.png",
+                    alt: "WP Legal Pages Icon",
                   },
                 }),
                 createElement(
@@ -319,6 +325,7 @@ Vue.component("CreateLegal", {
                     createElement("img", {
                       attrs: {
                         src: obj.image_url + "right_arrow.svg",
+                        alt: "Right Arrow Icon",
                       },
                     }),
                   ]
@@ -354,6 +361,7 @@ Vue.component("QuickLinks", {
                     staticClass: "wplegal-quick-link-icon",
                     attrs: {
                       src: value.image_src,
+                      alt: value.alt_text,
                     },
                   }),
                   createElement(
@@ -401,6 +409,7 @@ Vue.component("QuickLinks", {
                           createElement("img", {
                             attrs: {
                               src: obj.image_url + "blue_right_arrow.svg",
+                              alt: "Blue Right Arrow Icon",
                             },
                           }),
                         ]
@@ -465,6 +474,7 @@ Vue.component("Feature", {
                     staticClass: "wplegal-feature-card-icon",
                     attrs: {
                       src: value.image_src,
+                      alt: value.alt_text,
                     },
                   }),
                   createElement(
@@ -504,55 +514,59 @@ Vue.component("Feature", {
       {
         staticClass: "wplegal-feature-section",
       },
-      [ !(is_user_connected && plan_name !== "free") &&
-        createElement(
-          "div",
-          {
-            staticClass: "wplegal-feature-section-header",
-          },
-          [
-            createElement("img", {
-              staticClass: "wplegal-feature-img-icon",
-              domProps: {
-                src: obj.image_url + "pro_icon.svg",
-              },
-            }),
-            createElement("p", {
-              staticClass: "wplegal-feature-heading",
-              domProps: {
-                textContent: obj.feature_heading,
-              },
-            }),
-            createElement("p", {
-              staticClass: "wplegal-feature-subheading",
-              domProps: {
-                textContent: obj.feature_description,
-              },
-            }),
-            createElement(
-              "a",
-              {
-                staticClass: "wplegal-feature-header-link-button",
-                attrs: {
-                  href: "https://wplegalpages.com/pricing/?utm_source=wplegalpagesplugin&utm_medium=upgrade&utm_campaign=button",
-                  target: "_blank",
+      [
+        !(is_user_connected && plan_name !== "free") &&
+          createElement(
+            "div",
+            {
+              staticClass: "wplegal-feature-section-header",
+            },
+            [
+              createElement("img", {
+                staticClass: "wplegal-feature-img-icon",
+                domProps: {
+                  src: obj.image_url + "pro_icon.svg",
+                  alt: "WPLegalPages featured Image Icon"
                 },
-              },
-              [
-                createElement("span", {
-                  domProps: {
-                    textContent: obj.feature_button,
-                  },
-                }),
-                createElement("img", {
+              }),
+              createElement("p", {
+                staticClass: "wplegal-feature-heading",
+                domProps: {
+                  textContent: obj.feature_heading,
+                },
+              }),
+              createElement("p", {
+                staticClass: "wplegal-feature-subheading",
+                domProps: {
+                  textContent: obj.feature_description,
+                },
+              }),
+              createElement(
+                "a",
+                {
+                  staticClass: "wplegal-feature-header-link-button",
                   attrs: {
-                    src: obj.image_url + "blue_right_arrow.svg",
+                    href:
+                      "https://wplegalpages.com/pricing/?utm_source=wplegalpagesplugin&utm_medium=upgrade&utm_campaign=button",
+                    target: "_blank",
                   },
-                }),
-              ]
-            ),
-          ]
-        ),
+                },
+                [
+                  createElement("span", {
+                    domProps: {
+                      textContent: obj.feature_button,
+                    },
+                  }),
+                  createElement("img", {
+                    attrs: {
+                      src: obj.image_url + "blue_right_arrow.svg",
+                      alt: "Blue Right Arrow Icon",
+                    },
+                  }),
+                ]
+              ),
+            ]
+          ),
         createElement(
           "div",
           {

@@ -110,6 +110,7 @@ if ( '1' === $lpterms ) {
 			'address'   => isset( $_POST['lp-address'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-address'] ) ) : '',
 			'niche'     => isset( $_POST['lp-niche'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-niche'] ) ) : '',
 			'generate'  => isset( $_POST['lp-generate'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-generate'] ) ) : '',
+			'trading'   => isset( $_POST['lp-trading-name'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-trading-name'] ) ) : '',
 		);
 		$lp_general = apply_filters( 'wplegalpages_save_settings', $lp_general, $_POST );
 		update_option( 'lp_general', $lp_general );
@@ -152,6 +153,9 @@ if ( '1' === $lpterms ) {
 			</tr>
 			<tr>
 				<td><b><?php esc_attr_e( 'Business Name:', 'wplegalpages' ); ?></b></td><td><input type="text" name="lp-business-name" value="<?php echo ! empty( $lp_general['business'] ) ? esc_attr( $lp_general['business'] ) : ''; ?>" /></td><td>[Business Name]</td>
+			</tr>
+			<tr>
+				<td><b><?php esc_attr_e( 'DBA/Trading Name:', 'wplegalpages' ); ?></b></td><td><input type="text" name="lp-trading-name" value="<?php echo ! empty( $lp_general['trading'] ) ? esc_attr( $lp_general['trading'] ) : ''; ?>" /></td><td>[Trading Name]</td>
 			</tr>
 			<tr>
 				<td><b><?php esc_attr_e( 'Phone:', 'wplegalpages' ); ?></b></td><td><input type="text" size="30" name="lp-phone" value="<?php echo ! empty( $lp_general['phone'] ) ? esc_attr( $lp_general['phone'] ) : ''; ?>" /></td><td>[Phone]</td>

@@ -125,16 +125,16 @@ a:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #A1A1AA;
+	color: #3F3F46;
 }
 .wplegal-wizard-step.wplegal-wizard-step-active,
 .wplegal-wizard-step.wplegal-wizard-step-completed {
-	background-color: #22C55E;
-	border-color: #16C6122E;
+	background-color: #14873E;
+	border-color: #22C55E33;
 	position: relative;
 	color: #fff;
 	font-weight: 700;
-	box-shadow: 0 0 2px 7px #16C6122E; 
+	box-shadow: 0 0 2px 7px #22C55E33; 
 }
 .wplegal-wizard-step.wplegal-wizard-step-completed:after {
 	color: #fff;
