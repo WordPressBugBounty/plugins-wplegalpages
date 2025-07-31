@@ -124,7 +124,7 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 
 			global $table_prefix;
 			$this->plugin_name = 'wp-legal-pages';
-			$this->version     = '3.4.1';
+			$this->version     = '3.4.2';
 			$this->tablename   = $table_prefix . 'legal_pages';
 			$this->popuptable  = $table_prefix . 'lp_popups';
 			$this->plugin_url  = plugin_dir_path( __DIR__ );
@@ -288,6 +288,9 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 			$this->loader->add_action( 'admin_notices', $plugin_admin,'wplp_admin_new_clause_addition_notice',1);
 
 			$this->loader->add_action( 'wp_ajax_wplp_collect_data', $plugin_admin, 'wplegalpages_upgrade_to_pro_popup_clicked' );
+
+			//Added to prevent unstyled content flash on plugin activation
+			$this->loader->add_action( 'admin_head', $plugin_admin, 'wplegalpages_inline_onload_admin_styles' );
 
 		}
 

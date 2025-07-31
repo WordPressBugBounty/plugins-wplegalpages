@@ -586,7 +586,6 @@ var gen = new Vue({
     },
     mounted() {
         this.setValues();
-        j('#testing').css('display','none');
         j('.wplegalpages-settings-nav .nav .nav-item .nav-link').on('click', function() {
             let adminbar_height = j('#wpadminbar').height();
             let nav_bar_distance =  j('.wplegalpages-settings-nav').offset().top;

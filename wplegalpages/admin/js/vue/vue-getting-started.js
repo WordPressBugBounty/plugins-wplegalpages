@@ -645,7 +645,7 @@ Vue.component("TermsSection", {
         });
     },
   },
-  mounted: function () {
+  mounted: function () {  
     jQuery
       .get(obj.ajax_url, { action: "get_accept_terms", nonce: obj.ajax_nonce })
       .then((response) => {
@@ -785,6 +785,13 @@ var app = new Vue({
     gdpr_installed: obj.gdpr_installed,
     is_gdpr_active: obj.is_gdpr_active,
   },
+  mounted() {
+    // Hide loader
+    const loader = document.getElementById("wplegal-loader");
+    if (loader) {
+      loader.style.display = "none";
+    }
+  },
   render(createElement) {
     return createElement(
       "div",
@@ -800,7 +807,9 @@ var app = new Vue({
           },
           [
             createElement("welcome-section"),
-            (this.gdpr_installed  == 1 && this.is_gdpr_active != '' ) ? createElement("create-gdpr") : createElement("install-gdpr"),
+            this.gdpr_installed == 1 && this.is_gdpr_active != ""
+              ? createElement("create-gdpr")
+              : createElement("install-gdpr"),
             createElement("create-legal"),
             createElement("quick-links"),
             createElement("feature"),

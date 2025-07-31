@@ -445,7 +445,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$current_version = $this->version;
 		
 			// Target version to hide the submenu
-			$target_version = '3.4.1';
+			$target_version = '3.4.2';
 		
 			// Check if the current version is below the target version
 			if (version_compare($current_version, $target_version, '<')) {
@@ -1346,7 +1346,9 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			);
 
 			?>
-			<div id="gettingstartedapp"></div>
+			<div id="wplegal-loader"></div>
+
+			<div id="gettingstartedapp" v-cloak></div>
 			<div id="wplegal-mascot-app"></div>
 			<?php
 			$this->wplegalpages_mascot_enqueue();
@@ -3900,9 +3902,9 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						'name'     => $key,
 						'label'    => $setting['title'],
 						'value'    => $setting['value'],
-						'type'     => $setting['type'] ? $setting['type'] : 'text',
-						'pattern'  => $setting['pattern'],
-						'error_msg' => $setting['error_msg'],
+						'type'      => $setting['type'] ?? 'text',
+						'pattern'   => $setting['pattern'] ?? '.*', // Accepts any input
+						'error_msg' => $setting['error_msg'] ?? 'Invalid input',
 						'required' => $setting['required'],
 					);
 					$data[] = $field;
@@ -5093,6 +5095,33 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				return true;
 			}
 			return false;
+		}
+
+		public function wplegalpages_inline_onload_admin_styles(){
+		?>
+			<style>
+				
+				[v-cloak] {
+					display: none !important;
+				}
+
+				#wplegal-loader {
+					background: #7f7f7f;
+					position: fixed;
+					z-index: 99999;
+					width: 100%;
+					height: 100%;
+					top: 4%;
+					left: 10%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 16px;
+					color: #444;
+				}
+			
+			</style>
+	<?php
 		}
 	}
 	

@@ -26,47 +26,53 @@ if ( ! defined( 'ABSPATH' ) ) {
             
             <div class="">
                <div class="tab-content">
-                  <div data-v-0f37f1a8="" class="tab-pane active" id="wplegalpages-help-general">
-						<h4><?php echo esc_html('Support','wplegalpages'); ?></h4>
-						<p><?php echo esc_html('Got a question or need help with our plugins? We are here to help and guide you.','wplegalpages'); ?></p>
-                     <div class="card">
-                        <div class="card-body">
-                           <!-- <div class="row wplegalpages-label-row">
-                              <div class="col-sm-6 col"><label><?php echo esc_html('Name','wplegalpages'); ?></label></div>
-                              <div class="col-sm-6 col"><label><?php echo esc_html('Email','wplegalpages'); ?></label></div>
-                           </div> -->
-                           <div class="row">
-                              <div class="col-sm-6 col">
-                                 <div role="group" class="form-group">
-                                    <label for="sup-name" class="screen-reader-text"><?php esc_attr_e( 'Support Form Name','wplegalpages'); ?></label>
-                                    <input id="sup-name" type="text" name="sup-name" placeholder="Name" class="form-control">
-                                 </div>
-                              </div>
-                              <div class="col-sm-6 col">
-                                 <div role="group" class="form-group">
-                                    <label for="sup-email" class="screen-reader-text"><?php esc_attr_e( 'Support Form email','wplegalpages'); ?></label>
-                                  	<input id="sup-email" type="text" name="sup-email" placeholder="Email" class="form-control">
-                                    <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div>
-                                 </div>
-                              </div>
-							   <div class="col-sm-12 col">
-                                 <div role="group" class="form-group">
-                                    <label for="sup-message" class="screen-reader-text"><?php esc_attr_e( 'Support Form email','wplegalpages'); ?></label>
-                                  	<textarea id="sup-message" rows="10" cols="128" name="sup-message" placeholder="Message" class="form-textarea" ></textarea>
-                                    <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div>
-                                 </div>
-                              </div>
-                           </div>
-                          
-                          
+                  <main class="wplegalpages-help-container">
+                    <section class="wplegalpages-help-header">
+                      <h1><?php esc_html_e( 'Help & Resources', 'wplegalpages' ); ?></h1>
+                      <p><?php esc_html_e( 'Need help or want to explore more? Find everything you need to get the most out of WPLP Compliance Platform.', 'wplegalpages' ); ?></p>
+                    </section>
+
+                    <section class="wplegalpages-help-cards">
+                      <div class="wplegalpages-help-card">
+                        <div class="wplegalpages-help-icon">
+                          <span>
+                            <img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/images/File_dock_fill.png' ); ?>" alt="<?php esc_attr_e( 'Help Documentation', 'wplegalpages' ); ?>">
+                          </span>
                         </div>
-                     </div>
-                     <div class="wplegalpages-settings-bottom">
-                        <div class="wplegalpages-save-button"><input type="submit" name="sup-submit" class="btn btn-info" value="Submit"></input></div>
-                     </div>
-                  </div>
-                  
-                  
+                        <h3><?php esc_html_e( 'Documentation', 'wplegalpages' ); ?></h3>
+                        <p><?php esc_html_e( 'Browse our step-by-step guides and articles to help you get started and troubleshoot with ease.', 'wplegalpages' ); ?></p>
+                        <a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wp-cookie-consent/', 'wplegalpages' ); ?>" target="_blank"><?php esc_html_e( "Read Documentation." ); ?><img class="gdpr-other-plugin-arrow" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/blue_right_arrow.svg' ); ?>"></a>
+                      </div>
+
+                      <div class="wplegalpages-help-card">
+                        <div class="wplegalpages-help-icon">
+                          <span>
+                            <img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/images/Video_file_fill.png' ); ?>" alt="<?php esc_attr_e( 'Help Video Tutorials', 'wplegalpages' ); ?>">
+                          </span>
+                        </div>
+                        <h3><?php esc_html_e( 'Video Tutorials', 'wplegalpages' ); ?></h3>
+                        <p><?php esc_html_e( 'Prefer learning by watching? Explore our tutorials to see the plugin in action and learn how to use it effectively.', 'wplegalpages' ); ?></p>
+                        <a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wp-cookie-consent/video-guides/video-resources/','wplegalpages' ); ?>" target="_blank"><?php esc_html_e( "Watch Now." ); ?><img class="gdpr-other-plugin-arrow" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/blue_right_arrow.svg' ); ?>"></a>
+                      </div>
+
+                      <div class="wplegalpages-help-card">
+                        <div class="wplegalpages-help-icon">
+                          <span>
+                            <img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/images/Subttasks_fill.png' ); ?>" alt="<?php esc_attr_e( 'Help Request Feature', 'wplegalpages' ); ?>">
+                          </span>
+                        </div>
+                        <h3><?php esc_html_e( 'Request a Feature', 'wplegalpages' ); ?></h3>
+                        <p><?php esc_html_e( 'Got an idea that could make the plugin better? We’d love to hear from you.', 'wplegalpages' ); ?></p>
+                        <a href="<?php echo esc_url( 'https://wplegalpages.com/contact-us/', 'wplegalpages' ); ?>" target="_blank"><?php esc_html_e( "Request Now." ); ?><img class="gdpr-other-plugin-arrow" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/blue_right_arrow.svg' ); ?>"></a>
+                      </div>
+                    </section>
+                    
+                    <section class="wplegalpages-help-footer">
+                      <h2><?php esc_html_e( 'Need Further Help?', 'wplegalpages' ); ?></h2>
+                      <p><?php esc_html_e( 'Can’t find what you’re looking for? Escalate your issue to our support team and we’ll get back to you shortly.', 'wplegalpages' ); ?></p>
+                      <p><?php echo wp_kses_post( __( 'Email us at <a href="mailto:support@wplegalpages.com">support@wplegalpages.com</a>', 'wplegalpages' ) ); ?></p>
+                    </section>
+                  </main>                  
                </div>
             </div>
          </div>
