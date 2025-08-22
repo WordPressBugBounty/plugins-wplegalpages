@@ -16,6 +16,10 @@ body {
 	padding-left: 260px;
 }
 
+.wplp_dashboard_tab .wplegal-container {
+	padding-left: 20px;
+}
+
 .wplegal-welcome-section{
 	display: flex;
     justify-content: space-between;
@@ -880,4 +884,3 @@ c-container.wplegalpages-settings-container{
 		min-height: 90px;
 	}
 }
-

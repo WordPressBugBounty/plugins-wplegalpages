@@ -177,7 +177,7 @@ jQuery(document).ready(function () {
 	jQuery('.api-connect-to-account-btn').on('click', startAuth );
 	jQuery('.wplegal-api-connect-existing').on('click', startAuth );
 	jQuery(".gdpr-cookie-consent-admin-upgrade-button").on("click", paidAuth);
-
+	jQuery(".legal-pages-upgrade-to-pro-banner").on("click", paidAuth);
 	/**
 	 * Function to Start the Authentication Process.
 	 *

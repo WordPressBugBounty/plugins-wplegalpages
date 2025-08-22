@@ -445,7 +445,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$current_version = $this->version;
 		
 			// Target version to hide the submenu
-			$target_version = '3.4.2';
+			$target_version = '3.4.3';
 		
 			// Check if the current version is below the target version
 			if (version_compare($current_version, $target_version, '<')) {
@@ -2463,6 +2463,9 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$plan_name         = $this->settings->get_plan();
 			$installed_plugins = get_plugins();
 			$pro_installed     = isset( $installed_plugins['wplegalpages-pro/wplegalpages-pro.php'] ) ? "Activated" : "Not Activated";
+
+			$privacy_templates = file_get_contents( plugin_dir_path( __DIR__ ) . 'includes/privacy_templates.json' );
+
 			wp_localize_script(
 				$this->plugin_name . '-vue-script',
 				'wizard_obj',
@@ -2511,6 +2514,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						'title'    => __( 'Policy Template Preview', 'wplegalpages' ),
 						'subtitle' => __( 'Review your policy template and publish', 'wplegalpages' ),
 					),
+					'templates' => json_decode( $privacy_templates, true ),
 				)
 			);
 			wp_print_styles( $this->plugin_name . '-select2' );
@@ -3924,7 +3928,6 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			require_once plugin_dir_path( __DIR__ ) . 'admin/wizard/class-wp-legal-pages-wizard-page.php';
 			$lp          = new WP_Legal_Pages_Wizard_Page();
 			$lp_sections = (array) $lp->get_section_fields_by_page( $page );
-
 			if ( 'privacy_policy' === $page ) {
 				$lp_sections = self::wplegalpages_add_gdpr_options_to_remote_data( $lp_sections );
 			}
@@ -4293,11 +4296,11 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		 */
 		public static function wplegalpages_add_gdpr_options_to_remote_data( $lp_sections ) {
 
-			if ( ! file_exists( WP_PLUGIN_DIR . '/wpl-cookie-consent' ) ) {
+			if ( ! file_exists( WP_PLUGIN_DIR . '/gdpr-cookie-consent' ) ) {
 
 				$gdpr_services = array(
 					'id'          => 'gdpr_third_party_services',
-					'title'       => '<strong>To scan website for third-party services, install and activate plugin <a href="https://club.wpeka.com/product/wp-gdpr-cookie-consent/" target="_blank">GDPR Cookie Consent Pro</a>.</strong>',
+					'title'       => '<strong>To scan website for third-party services, install and activate plugin <a href="https://wordpress.org/plugins/gdpr-cookie-consent/" target="_blank">GDPR Cookie Consent</a>.</strong>',
 					'description' => '',
 					'type'        => 'section',
 					'position'    => 1,
@@ -4312,11 +4315,11 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 
 			}
 
-			if ( ! is_plugin_active( 'wpl-cookie-consent/wpl-cookie-consent.php' ) ) {
+			if ( ! is_plugin_active( 'gdpr-cookie-consent/gdpr-cookie-consent.php' ) ) {
 
 				$gdpr_services = array(
 					'id'          => 'gdpr_third_party_services',
-					'title'       => '<strong><a href="' . admin_url() . 'plugins.php" target="_blank">Activate</a> plugin GDPR Cookie Consent Pro, to scan for third-party services on your website.</strong>',
+					'title'       => '<strong><a href="' . admin_url() . 'plugins.php" target="_blank">Activate</a> plugin GDPR Cookie Consent, to scan for third-party services on your website.</strong>',
 					'description' => '',
 					'type'        => 'section',
 					'position'    => 1,

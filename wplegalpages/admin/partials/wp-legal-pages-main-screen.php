@@ -207,9 +207,9 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 			if ( $is_user_connected == true && $api_user_plan == 'free' ) {
 				?>
 			<!-- Legal pages banner for upgrade to pro -->
-			<a href="https://app.wplegalpages.com/checkout/?add-to-cart=143&utm_source=wplegalpagesplugin&utm_medium=banner" target="_blank">
+			<div>
 				<img class="legal-pages-upgrade-to-pro-banner" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/legal-pages-banner-upgrade-to-pro.png'; ?>" alt="Banner legal pages"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
-			</a> 
+			</div> 
 				<?php
 			}
 		}
