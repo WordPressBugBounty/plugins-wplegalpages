@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 		
 		<div style="clear:both;"></div>
-		<div class="wrap wplegalpages-popup-section">
+		<div class="wplp-wrap wplegalpages-popup-section">
 			<?php
 			if ( isset( $_REQUEST['mode'] ) && 'delete' === $_REQUEST['mode'] && current_user_can( 'manage_options' ) ) {
 				if ( isset( $_REQUEST['nonce'] ) ) {

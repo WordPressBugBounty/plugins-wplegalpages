@@ -124,7 +124,7 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 
 			global $table_prefix;
 			$this->plugin_name = 'wp-legal-pages';
-			$this->version     = '3.4.3';
+			$this->version     = '3.4.4';
 			$this->tablename   = $table_prefix . 'legal_pages';
 			$this->popuptable  = $table_prefix . 'lp_popups';
 			$this->plugin_url  = plugin_dir_path( __DIR__ );
@@ -226,7 +226,7 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 		private function set_locale() {
 
 			$plugin_i18n = new WP_Legal_Pages_I18n();
-			$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+			$this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
 		}
 
 		/**

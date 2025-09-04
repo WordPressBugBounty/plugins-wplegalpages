@@ -40,6 +40,8 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 		 * @var      string    $plugin_name    The ID of this plugin.
 		 */
 
+		protected $loader;
+
 		private $plugin_name;
 
 		/**

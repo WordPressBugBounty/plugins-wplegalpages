@@ -445,7 +445,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$current_version = $this->version;
 		
 			// Target version to hide the submenu
-			$target_version = '3.4.3';
+			$target_version = '3.4.4';
 		
 			// Check if the current version is below the target version
 			if (version_compare($current_version, $target_version, '<')) {
@@ -4791,6 +4791,12 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		
 		// GDPR Plugin Installation code
 		public function wplp_gdpr_install_plugin_ajax_handler() {
+
+			if ( ! current_user_can( 'install_plugins' ) ) {
+    		    wp_send_json_error( array( 'message' => __( 'Unauthorized request.', 'wp-legal-pages' ) ) );
+    		    wp_die();
+    		}
+
 			// Check nonce for security
 			check_ajax_referer( 'wp-legal-pages', '_ajax_nonce' );
 		
