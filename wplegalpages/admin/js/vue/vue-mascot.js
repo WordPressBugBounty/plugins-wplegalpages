@@ -63,12 +63,7 @@ var vm = new Vue({
                             class: this.linkClass(value.key),
                             }, [createElement('span', {
                                 class: 'dashicons '+ value.icon
-                            }), createElement('span', {
-                            staticClass: 'wplegal-mascot-quick-link-title',
-                            domProps: {
-                                innerHTML: value.tooltip
-                            }
-                        })]));
+                            })]));
                     } else {
                         html.push(createElement('a', {
                                 key: value.key,
@@ -80,12 +75,7 @@ var vm = new Vue({
                                 }
                             }, [createElement('span', {
                                 class: 'dashicons '+ value.icon
-                            }), createElement('span', {
-                                staticClass: 'wplegal-mascot-quick-link-title',
-                                domProps: {
-                                    innerHTML: value.tooltip
-                                }
-                        })]));
+                            })]));
                     }
                 })
             }
@@ -120,10 +110,7 @@ var vm = new Vue({
             },[
                 createElement('span', {
                     class:'wplegal-mascot-bg-img wplegal-mascot-quick-links-mascot',
-                }),
-                createElement('span',{
-                    class: 'wplegal-mascot-quick-link-title'
-                }, data.quick_links_text)
+                })
             ]),
             createElement('transition-group', {
                 staticClass: 'wplegal-mascot-quick-links-menu',

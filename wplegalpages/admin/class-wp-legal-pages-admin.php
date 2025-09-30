@@ -445,7 +445,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$current_version = $this->version;
 		
 			// Target version to hide the submenu
-			$target_version = '3.4.4';
+			$target_version = '3.5.0';
 		
 			// Check if the current version is below the target version
 			if (version_compare($current_version, $target_version, '<')) {
@@ -2471,7 +2471,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				'wizard_obj',
 				array(
 					'return_button_text' => __( 'Exit Wizard', 'wplegalpages' ),
-					'return_url'         => admin_url( 'admin.php?page=legal-pages' ),
+					'return_url'         => admin_url( 'admin.php?page=wplp-dashboard' ),
 					'image_url'          => WPL_LITE_PLUGIN_URL . 'admin/js/vue/wizard_images/',
 					'ajax_url'           => admin_url( 'admin-ajax.php' ),
 					'ajax_nonce'         => wp_create_nonce( 'admin-ajax-nonce' ),

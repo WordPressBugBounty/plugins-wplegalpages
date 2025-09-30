@@ -12,12 +12,7 @@ body {
 	width: 100%;
 	margin: 50px auto;
 	margin-top: 0px;
-	padding: 20px;
-	padding-left: 260px;
-}
-
-.wplp_dashboard_tab .wplegal-container {
-	padding-left: 20px;
+	background-color: #fff;
 }
 
 .wplegal-welcome-section{
@@ -270,7 +265,6 @@ body {
 	padding: 20px;
 	padding-top: 0px;
 	border: 1px solid #E4E4E7;
-	height: 115px;
 }
 .wplegal-create-legal-all-pages{
 	display: flex;
@@ -291,8 +285,6 @@ body {
 	padding-bottom: 20px;
 	border-bottom: 1px solid #E4E4E7;
 	margin-right: 25px;
-	position: sticky;
-    top: 83px;
     z-index: 98;
     background: white;
 }
@@ -576,10 +568,11 @@ c-container.wplegalpages-settings-container{
 }
 .wplegal-container .wplegal-container-main .wplegal-terms-section-content{
 	position: absolute;
-    top: 8%;
-    left: 50%;
+    top: 3%;
+    left: 40%;
     transform: translate(-50%, -50%);
     padding: 20px;
+	z-index: 101;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	padding: 40px;
@@ -636,10 +629,11 @@ c-container.wplegalpages-settings-container{
 }
 .wplegal-terms-card-overlay{
 	position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -20%;
+    left: -50%;
+    width: 160%;
+    height: 130%;
+	z-index: 100;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -883,4 +877,8 @@ c-container.wplegalpages-settings-container{
 	.wplegal-feature-content .wplegal-feature-subheading{
 		min-height: 90px;
 	}
+}
+
+.wplegal-create-legal-link {
+  text-wrap: nowrap;
 }
