@@ -72,15 +72,6 @@ if ( ! class_exists( 'WP_Legal_Pages_Delete' ) ) {
 			delete_option( 'lp_excludePage' );
 			delete_option( 'lp_general' );
 			delete_option( 'lp_accept_terms' );
-			delete_option( 'lp_eu_cookie_title' );
-			delete_option( 'lp_eu_cookie_message' );
-			delete_option( 'lp_eu_cookie_enable' );
-			delete_option( 'lp_eu_box_color' );
-			delete_option( 'lp_eu_button_color' );
-			delete_option( 'lp_eu_button_text_color' );
-			delete_option( 'lp_eu_text_color' );
-			delete_option( 'lp_eu_text_size' );
-			delete_option( 'lp_eu_link_color' );
 			delete_option( '_lp_templates_updated' );
 		}
 

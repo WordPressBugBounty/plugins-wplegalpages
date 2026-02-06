@@ -91,7 +91,7 @@ if ( false === $lp_banner_options || empty( $lp_banner_options ) ) {
 		'banner_custom_css'       => '',
 		'banner_close_message'    => 'Close',
 		'banner_message'          => 'Our [wplegalpages_page_link] have been updated on [wplegalpages_last_updated].',
-		'banner_multiple_message' => 'Our [wplegalpages_page_link] pages have recently have recently been updated.',
+		'banner_multiple_message' => 'Our [wplegalpages_page_link] pages have recently been updated.',
 	);
 	update_option( 'lp_banner_options', $lp_banner_options );
 }
@@ -363,9 +363,12 @@ if ( '1' === $lpterms ) {
 								</c-row>
 								<c-row class="wplegal-support-text-row">
 									<c-col class="col-sm-10">
-										<label><?php esc_attr_e( 'Affiliate Disclosure', 'wplegalpages' ); ?></label>
+										<label><?php esc_attr_e( 'Affiliate Disclosure', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'Enable this option to display an Affiliate Disclosure below each blog post, ensuring compliance with FTC guidelines.', 'wplegalpages' ); ?>"></tooltip></label>
 										<span class="wplegalpages-help-text">
-											<?php esc_html_e( 'If you have an affiliate site, having an affiliate disclosure is must', 'wplegalpages' ); ?>
+											<?php esc_html_e( 'If you have an affiliate site, having an affiliate disclosure is must.', 'wplegalpages' ); ?>
+											<a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wp-legal-pages/configurations/configuring-the-settings/' ); ?>" target="_blank" rel="noopener noreferrer">
+											    <?php esc_html_e( 'Learn here how to add an affiliate disclosure', 'wplegalpages' ); ?>
+											</a>
 										</span>
 									</c-col>
 									<c-col class="col-sm-2">
@@ -1176,6 +1179,9 @@ if ( '1' === $lpterms ) {
 										<label><?php esc_attr_e( 'Create Popups', 'wplegalpages' ); ?></label>
 										<span class="wplegalpages-help-text">
 											<?php esc_html_e( 'Enabling this setting will activate the Create Popup option in the WPLegalPages plugin menu.', 'wplegalpages' ); ?>
+											<a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wp-legal-pages/configurations/configuring-the-settings/' ); ?>" target="_blank" rel="noopener noreferrer">
+											    <?php esc_html_e( 'Learn how you can add popups using WPLP Compliance Platform.', 'wplegalpages' ); ?>
+											</a>
 										</span>
 									</c-col>
 									<c-col class="col-sm-2 wplegal-compliances-switch">
@@ -1183,12 +1189,7 @@ if ( '1' === $lpterms ) {
 										<input type="hidden" name="lp-popup" ref="popup" v-model="is_popup">
 									</c-col>
 									<c-col class="col-sm-3 wplegalpages-configure-section">
-										<c-button class="wplegalpages-configure-button" @click="showPopupForm">
-											<span>
-												<img class="wplegalpages-configure-image" :src="configure_image_url.default" :alt="configure_alt_text"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?> 
-												<span class="wplegalpages-configure-text"><?php esc_attr_e( 'Configuration', 'wplegalpages' ); ?></span>
-											</span>
-										</c-button>
+										
 									</c-col>
 								</c-row>
 							</c-card-body>

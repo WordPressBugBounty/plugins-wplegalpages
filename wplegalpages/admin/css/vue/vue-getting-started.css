@@ -248,6 +248,7 @@ body {
 .wplegal-container .wplegal-container-main .wplegal-create-legal,
 .wplegal-container .wplegal-container-main .wplegal-create-gdpr{
 	padding: 14px;
+	min-height: 100px;
 	background-color: #FFFFFF;
 	border-radius: 6px;
 	box-shadow: 0px 0px 56px 0px rgb(10 62 118 / 9%);
@@ -506,6 +507,7 @@ c-container.wplegalpages-settings-container{
 	padding: 44px 24px 44px 24px;
 	background: #F4F8FF;
 	border-radius: 6px;
+	height: 100%;
 }
 
 .wplegal-feature-card-icon{
@@ -568,7 +570,7 @@ c-container.wplegalpages-settings-container{
 }
 .wplegal-container .wplegal-container-main .wplegal-terms-section-content{
 	position: absolute;
-    top: 3%;
+    top: 10%;
     left: 40%;
     transform: translate(-50%, -50%);
     padding: 20px;

@@ -118,21 +118,6 @@ if ( ! class_exists( 'WP_Legal_Pages_Activator' ) ) {
 			add_option( 'lp_excludePage', 'true' );
 			add_option( 'lp_general', '' );
 			add_option( 'lp_accept_terms', '0' );
-			add_option( 'lp_eu_cookie_title', 'A note to our visitors' );
-			$message_body = 'This website has updated its privacy policy in compliance with changes to European Union data protection law, for all members globally. We’ve also updated our Privacy Policy to give you more information about your rights and responsibilities with respect to your privacy and personal information. Please read this to review the updates about which cookies we use and what information we collect on our site. By continuing to use this site, you are agreeing to our updated privacy policy.';
-			add_option( 'lp_eu_cookie_message', htmlentities( $message_body ) );
-			add_option( 'lp_eu_cookie_enable', 'OFF' );
-			add_option( 'lp_eu_box_color', '#000000' );
-			add_option( 'lp_eu_button_text', 'I agree' );
-			add_option( 'lp_eu_theme_css', '1' );
-			add_option( 'lp_eu_cookie_message', htmlentities( $message_body ) );
-			add_option( 'lp_eu_cookie_enable', 'OFF' );
-			add_option( 'lp_eu_box_color', '#000000' );
-			add_option( 'lp_eu_button_color', '#e3e3e3' );
-			add_option( 'lp_eu_button_text_color', '#333333' );
-			add_option( 'lp_eu_text_color', '#FFFFFF' );
-			add_option( 'lp_eu_link_color', '#8f0410' );
-			add_option( 'lp_eu_text_size', '12' );
 
 		}
 	}

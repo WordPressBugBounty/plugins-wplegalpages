@@ -51,7 +51,7 @@ ul.legalfooter li{
 	top: 280px;
 	left: 0;
 	height: auto;
-	width: 40%;
+	width: 43%;
 	background: white;
 	z-index: 10001;
 	color: #1F2937;
@@ -175,20 +175,20 @@ form#lp_age_verify_form table.form-table label span.description
 	#lp-overlay {
 		position: relative;
 		left: auto;
-		width: 35%;
+		/* width: 35%; */
 		height: auto;
 		margin: 100px auto 0 auto;
 	}
 
 }
-@media screen and (max-width: 768px) {
-
+@media (max-width: 768px) {
 	#lp-overlay {
 		position: relative;
 		left: auto;
-		width: 90%;
+		width: 85%;
 		height: auto;
 		margin: 100px auto 0 auto;
+		padding: 20px 10px;
 	}
 }
 
@@ -244,4 +244,21 @@ div.wplegalpages-addon-promotion > a {
     justify-content: flex-start;
     gap: 16px;
     margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+	.buttons-set input#lp_verify_yes, .buttons-set input#lp_verify_no,  .buttons-set input#lp_verify_leave{
+		font-size: 16px;
+		height: 42px;
+		width: auto;
+		white-space: normal;
+		word-wrap: break-word;
+		border: 1px solid;
+		border-radius: 8px;
+		padding: 2px 32px 2px 32px;
+		font-size: 14px;
+		line-height: 20px;
+		cursor: pointer;
+		font-weight: 500;
+	}
 }

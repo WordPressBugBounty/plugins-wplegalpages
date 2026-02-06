@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                         <h3><?php esc_html_e( 'Documentation', 'wplegalpages' ); ?></h3>
                         <p><?php esc_html_e( 'Browse our step-by-step guides and articles to help you get started and troubleshoot with ease.', 'wplegalpages' ); ?></p>
-                        <a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wp-cookie-consent/', 'wplegalpages' ); ?>" target="_blank"><?php esc_html_e( "Read Documentation." ); ?><img class="gdpr-other-plugin-arrow" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/blue_right_arrow.svg' ); ?>"></a>
+                        <a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wplp-docs/', 'wplegalpages' ); ?>" target="_blank"><?php esc_html_e( "Read Documentation." ); ?><img class="gdpr-other-plugin-arrow" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/blue_right_arrow.svg' ); ?>"></a>
                       </div>
 
                       <div class="wplegalpages-help-card">

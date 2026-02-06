@@ -19,7 +19,7 @@ class WP_Legal_Pages_Api extends WP_REST_Controller {
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'gdpr/v1';
+	protected $namespace = 'lp/v1';
 
 	/**
 	 * Route base.
@@ -62,12 +62,24 @@ class WP_Legal_Pages_Api extends WP_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
+        $token = $request->get_param( 'token' );
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/class-wp-legal-pages-settings.php';
-		$object = new WP_Legal_Pages_Settings();
-		$data   = $object->get();
+		$settings = new WP_Legal_Pages_Settings();
+		$stored_token = $settings->get_token();
+		
+		// Double-check token validation in callback
+		if ( empty( $stored_token ) || ! hash_equals( $stored_token, $token ) ) {
+			return new WP_Error(
+				'rest_forbidden',
+				esc_html__( 'Invalid Authorization.', 'wplegalpages' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
+		}
+		
+		$data = $settings->get();
 		return rest_ensure_response( $data );
-	}
+    }
 
 	/**
 	 * Check if a given request has access to read items.
@@ -75,19 +87,51 @@ class WP_Legal_Pages_Api extends WP_REST_Controller {
 	 * @param  WP_REST_Request $request Full details about the request.
 	 * @return WP_Error|boolean
 	 */
-	public function create_items_permissions_check( $request ) {
-
-		$permission_check = false;
+  public function create_items_permissions_check( $request ) {
 		$token            = $request->get_param( 'token' );
 		$request_platform = $request->get_param( 'platform' );
 
-		if ( isset( $token ) && 'wordpress' === $request_platform ) {
-			return true;
-		} else {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'Invalid Authorization.', 'wplegalpages' ), array( 'status' => rest_authorization_required_code() ) );
+		// Validate platform
+		if ( 'wordpress' !== $request_platform ) {
+			return new WP_Error(
+				'rest_forbidden',
+				esc_html__( 'Invalid platform.', 'wplegalpages' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
 		}
 
-		return $permission_check;
-	}
+		// Token must be provided
+		if ( empty( $token ) ) {
 
+			return new WP_Error(
+				'rest_forbidden',
+				esc_html__( 'Token missing.', 'wplegalpages' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
+		}
+
+		// Get stored token
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/class-wp-legal-pages-settings.php';
+		$settings = new WP_Legal_Pages_Settings();
+		$stored_token = $settings->get_token();
+
+		// If no token stored → deny
+		if ( empty( $stored_token ) ) {
+			return new WP_Error(
+				'rest_forbidden',
+				esc_html__( 'No token configured.', 'wplegalpages' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
+		}
+
+		// Constant-time secure comparison
+		if ( ! hash_equals( $stored_token, $token ) ) {
+			return new WP_Error(
+				'rest_forbidden',
+				esc_html__( 'Invalid authorization token.', 'wplegalpages' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
+		}
+		return true;
+    }
 }

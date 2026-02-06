@@ -353,5 +353,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 									</div>
 									<div class="clear"></div>
 						</div>
-
+					<script>
+						jQuery(document).ready(function($) {
+							setTimeout(function() {
+								$(".myAlert").fadeTo(500,0);
+							}, 1000);
+						});
+					</script>
 						<?php 

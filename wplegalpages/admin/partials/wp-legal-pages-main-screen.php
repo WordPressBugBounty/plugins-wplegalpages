@@ -44,6 +44,7 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 					</div>
 					<!-- <div id="wplegalpages-save-settings-alert"><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/settings_saved.svg' ); ?>" alt="create legal" class="wplegal-save-settings-icon"><?php esc_attr_e( 'Settings saved successfully', 'wplegalpages' ); ?></div> --> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 					<div class="wp-legalpages-admin-help-and-support">
+						<div class="wp-legalpages-new-dashboard-btn"><a href="<?php echo esc_url( 'https://app.wplegalpages.com/app/' ); ?>"><?php esc_html_e( 'Try New Dashboard', 'wplegalpages' ); ?></a></div>
 						<div class="wp-legalpages-admin-help">
 							<div class="wp-legalpages-admin-help-icon">
 								<!-- //image  -->
@@ -255,10 +256,10 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 											<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_pro_account.svg'; ?>" alt="Pro Account">
 										<?php } ?>
 										<span><?php echo esc_html( $api_user_plan ); ?></span></p>
-										<?php if( $api_user_plan !== '10sites' ) { ?>
-											<a class="wplp--scan-header-upgrade-plan" href="<?php echo esc_url( 'https://wplegalpages.com/pricing/' ); ?>" target="_blank"><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_header_upgrade_icon.svg'; ?>" alt=""><?php echo esc_html('Upgrade', 'wplegalpages'); ?></a>
+										<?php if( $api_user_plan === 'free' || $api_user_plan === 'Free' ) { ?>
+											<a class="wplp--scan-header-upgrade-plan gdpr-cookie-consent-admin-upgrade-button"><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_header_upgrade_icon.svg'; ?>" alt=""><?php echo esc_html('Upgrade', 'wplegalpages'); ?></a>
 										<?php } else { ?>
-											<a class="wplp-scan-header-add-sites" href="<?php echo esc_url( 'https://wplegalpages.com/pricing/' ); ?>" target="_blank"><?php echo esc_html('Add More Sites', 'wplegalpages'); ?><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_add_site.svg'; ?>" alt=""></a>
+											<a class="wplp-scan-header-add-sites gdpr-cookie-consent-admin-upgrade-button"><?php echo esc_html('Add More Sites', 'wplegalpages'); ?><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_add_site.svg'; ?>" alt=""></a>
 										<?php } ?>
 									</div>
 								</div>
@@ -348,7 +349,9 @@ $is_legalpages_active = is_plugin_active( $plugin_name_lp );
 									    const overlay = document.querySelector(".wplegal-api-overlay");
 									    const closeButton = document.querySelector(".wplegal-api-close-icon");
 									    const restrictedContent = document.querySelector(".postbox"); 
-										restrictedContent.style.cursor = 'not-allowed';
+										if(restrictedContent){
+											restrictedContent.style.cursor = 'not-allowed';
+										}
 									
 									    function showPopup() {
 									        popup.style.display = "block";

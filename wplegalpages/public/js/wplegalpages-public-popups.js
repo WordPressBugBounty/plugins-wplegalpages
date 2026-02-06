@@ -45,9 +45,34 @@
 				full_url = full_url.substring(0, full_url.indexOf('?'));
 			}
 			var full_url_last_char = full_url.substring( full_url.length - 1, full_url.length - 4 );
+			var count = 0;
+			function showLegalPopup() {
+				if($.cookie('lp_eu_terms_condition__popup_' + full_url_last_char) == null) {
+
+					// Check if age verification is ENABLED and present on this page
+					var isAgeVerificationActive = ($('#lp_verify_yes').length > 0 || 
+												$('#lp_verify_no').length > 0 ||
+												$('#lp_verify_leave').length > 0 ||
+												$('#lp_verify_form').length > 0);
+					// If age verification is active AND user hasn't verified, wait
+					if(isAgeVerificationActive && $.cookie("wplegalpages") != 1) {
+						count++;
+						if(count>=10){
+							return;
+						}
+						setTimeout(showLegalPopup, 1000); //change to 10sec
+						return;
+					}
+					
+					// Show legal popup if age verification is either:
+					// 1. Not active on this page, OR
+					// 2. User has already verified age
+					tb_show( "", "#TB_inline?width=600&height=550&inlineId=thick-box&modal=true", false );
+				}
+			}
 
 			if ($.cookie( 'lp_eu_terms_condition__popup_' + full_url_last_char ) == null) {
-				window.onload = function(){tb_show( "", "#TB_inline?width=600&height=550&inlineId=thick-box&modal=true", false );}
+				setTimeout(showLegalPopup, 100);
 			}
 
 			$( "#lp_submit" ).click(
@@ -61,17 +86,16 @@
 			$( window ).load(
 				function() {
 					if ($.cookie( 'lp_eu_terms_condition__popup_' + full_url_last_char ) == null) {
-						$.cookie( 'lp_eu_terms_condition__popup_' + full_url_last_char, 'NO', { expires: 7, path: '/' } );
 						if ( jQuery( window ).width() == 640 ) {
 							var window_width = 629;
 						} else {
 							window_width = jQuery( window ).width();
 						}
-						if ( TB_WIDTH > window_width ) {
+						if (typeof TB_WIDTH !== 'undefined' && TB_WIDTH > window_width) {
 							$( "#TB_window" ).css( {marginTop: 0, marginLeft: 0, width: '90%', left: '5%',  top:'10%', height:'auto'} );
 							$( "#TB_ajaxContent, #TB_iframeContent" ).css( {width: 'auto', height:'auto'} );
 							$( "#TB_closeWindowButton" ).css( {fontSize: '1.2em', marginRight: '5px'} );
-						} else {
+						} else if (typeof TB_WIDTH !== 'undefined') {
 							$( "#TB_window" ).css( {marginLeft: '-' + parseInt( (TB_WIDTH / 2),10 ) + 'px', width: 'auto'} );
 						}
 					}

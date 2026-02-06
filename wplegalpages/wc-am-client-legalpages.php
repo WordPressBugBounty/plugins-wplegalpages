@@ -117,17 +117,7 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 				$this->wc_am_api_key_key  = $this->data_key . '_api_key';
 				$this->wc_am_instance_key = $this->data_key . '_instance';
 
-				/**
-				 * Set all admin menu data
-				 */
-
-				$this->wc_am_deactivate_checkbox_key     = $this->data_key . '_deactivate_checkbox';
-				$this->wc_am_activation_tab_key          = $this->data_key . '_dashboard';
-				$this->wc_am_deactivation_tab_key        = $this->data_key . '_deactivation';
-				$this->wc_am_settings_menu_title         = $this->software_title . esc_html__( ' Activation', 'wplegalpages' );
-				$this->wc_am_settings_title              = $this->software_title . esc_html__( ' API Key Activation', 'wplegalpages' );
-				$this->wc_am_menu_tab_activation_title   = esc_html__( 'API Key Activation', 'wplegalpages' );
-				$this->wc_am_menu_tab_deactivation_title = esc_html__( 'API Key Deactivation', 'wplegalpages' );
+				add_action( 'admin_init', array($this, 'setup_admin_menu_titles') );
 				
 				/**
 				 * Set all software update data here
@@ -173,7 +163,19 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 				add_action( 'switch_theme', array( $this, 'uninstall' ) );
 			}
 		}
-
+		
+		/**
+			 * Set all admin menu data
+		*/
+		public function setup_admin_menu_titles() {
+			$this->wc_am_deactivate_checkbox_key     = $this->data_key . '_deactivate_checkbox';
+			$this->wc_am_activation_tab_key          = $this->data_key . '_dashboard';
+			$this->wc_am_deactivation_tab_key        = $this->data_key . '_deactivation';
+			$this->wc_am_settings_menu_title         = $this->software_title . esc_html__( ' Activation', 'wplegalpages' );
+			$this->wc_am_settings_title              = $this->software_title . esc_html__( ' API Key Activation', 'wplegalpages' );
+			$this->wc_am_menu_tab_activation_title   = esc_html__( 'API Key Activation', 'wplegalpages' );
+			$this->wc_am_menu_tab_deactivation_title = esc_html__( 'API Key Deactivation', 'wplegalpages' );
+		}
 
 		/**
 		 * Generate the default data.

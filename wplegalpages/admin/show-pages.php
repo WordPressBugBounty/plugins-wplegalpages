@@ -86,31 +86,33 @@ $current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_
 		$postmeta_tbl = $wpdb->prefix . 'postmeta';
 		$pagesresult  = $wpdb->get_results( $wpdb->prepare( 'SELECT ptbl.* FROM ' . $post_tbl . ' as ptbl , ' . $postmeta_tbl . ' as pmtbl WHERE ptbl.ID = pmtbl.post_id and ptbl.post_status = %s AND pmtbl.meta_key = %s', array( 'publish', 'is_legal' ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
-	if ( $pagesresult ) {
-		$nonce    = wp_create_nonce( 'my-nonce' );
-		$count    = 1;
-		$user_tbl = $wpdb->prefix . 'users';
-		foreach ( $pagesresult as $res ) {
-				$url     = get_permalink( $res->ID );
-				$author  = $wpdb->get_results( $wpdb->prepare( 'SELECT utbl.user_login FROM ' . $post_tbl . ' as ptbl, ' . $user_tbl . ' as utbl WHERE ptbl.post_author = utbl.ID and ptbl.ID = %d', array( $res->ID ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-				$delurl  = isset( $_SERVER['PHP_SELF'] ) ? esc_url_raw( wp_unslash( $_SERVER['PHP_SELF'] ) ) : '';
-				$delurl .= "?pid=$res->ID&page=$current_page&mode=delete&_wpnonce=$nonce";
+		$policy_preview = array();
+
+		if ( $pagesresult ) {
+			$nonce    = wp_create_nonce( 'my-nonce' );
+			$count    = 1;
+			$user_tbl = $wpdb->prefix . 'users';
+			foreach ( $pagesresult as $res ) {
+					$url     = get_permalink( $res->ID );
+					$author  = $wpdb->get_results( $wpdb->prepare( 'SELECT utbl.user_login FROM ' . $post_tbl . ' as ptbl, ' . $user_tbl . ' as utbl WHERE ptbl.post_author = utbl.ID and ptbl.ID = %d', array( $res->ID ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+					$delurl  = isset( $_SERVER['PHP_SELF'] ) ? esc_url_raw( wp_unslash( $_SERVER['PHP_SELF'] ) ) : '';
+					$delurl .= "?pid=$res->ID&page=$current_page&mode=delete&_wpnonce=$nonce";
+				?>
+				<tr>
+					<td><?php echo esc_attr( $count ); ?></td>
+					<td><?php echo esc_attr( $res->post_title ); ?></td>
+					<td><?php echo esc_attr( $res->ID ); ?></td>
+					<td><?php echo '[wplegalpage pid=' . esc_attr( $res->ID ) . ']'; ?></td>
+					<td><?php echo esc_attr( ucfirst( $author[0]->user_login ) ); ?></td>
+					<td><?php echo esc_attr( gmdate( 'Y/m/d', strtotime( $res->post_date ) ) ); ?></td>
+					<td class="wplegal-table-link">
+						<a href="<?php echo esc_attr( get_admin_url() ); ?>/post.php?post=<?php echo esc_attr( $res->ID ); ?>&action=edit" class="table-link"><?php esc_attr_e( 'Edit ', 'wplegalpages' ); ?></a> | <a href="<?php echo esc_url_raw( $url ); ?>" class="table-link"><?php esc_attr_e( ' View ', 'wplegalpages' ); ?></a>| <a href="<?php echo esc_url_raw( $delurl ); ?>" class="table-link table-link-alert"><?php esc_attr_e( ' Trash', 'wplegalpages' ); ?></a>
+					</td>
+				</tr>
+					<?php
+					$count++;
+			}
 			?>
-			<tr>
-				<td><?php echo esc_attr( $count ); ?></td>
-				<td><?php echo esc_attr( $res->post_title ); ?></td>
-				<td><?php echo esc_attr( $res->ID ); ?></td>
-				<td><?php echo '[wplegalpage pid=' . esc_attr( $res->ID ) . ']'; ?></td>
-				<td><?php echo esc_attr( ucfirst( $author[0]->user_login ) ); ?></td>
-				<td><?php echo esc_attr( gmdate( 'Y/m/d', strtotime( $res->post_date ) ) ); ?></td>
-				<td class="wplegal-table-link">
-					<a href="<?php echo esc_attr( get_admin_url() ); ?>/post.php?post=<?php echo esc_attr( $res->ID ); ?>&action=edit" class="table-link"><?php esc_attr_e( 'Edit ', 'wplegalpages' ); ?></a> | <a href="<?php echo esc_url_raw( $url ); ?>" class="table-link"><?php esc_attr_e( ' View ', 'wplegalpages' ); ?></a>| <a href="<?php echo esc_url_raw( $delurl ); ?>" class="table-link table-link-alert"><?php esc_attr_e( ' Trash', 'wplegalpages' ); ?></a>
-				</td>
-			</tr>
-				<?php
-				$count++;
-		}
-		?>
 
 		<?php } else { ?>
 		<tr>
