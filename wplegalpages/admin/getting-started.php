@@ -35,7 +35,7 @@ $lp_accept_terms  = get_option( 'lp_accept_terms' );
 						echo 'checked ';
 endif;
 					?>
-					type="checkbox" name="lp_accept_terms" value="1" onclick="jQuery('#lp_accept_submit').toggle();"/> <?php esc_attr_e( 'By using WPLegalPages', 'wplegalpages' ); ?>
+					type="checkbox" name="lp_accept_terms" value="1" onclick="jQuery('#lp_accept_submit').toggle();"/> <?php esc_attr_e( 'By using WPLP Legal Pages', 'wplegalpages' ); ?>
 	<?php
 	if ( '1' === $lp_pro_installed ) :
 		echo esc_attr__( ' Pro, ', 'wplegalpages' );
@@ -57,7 +57,7 @@ endif;
 		>
 			<h4 class="myLabel-head"><?php esc_attr_e( '2. Setup your website details', 'wplegalpages' ); ?></h4>
 			<div>
-				<p><?php esc_attr_e( 'WPLegalPages generates personalized legal pages for your website. To do this it needs to know a few details about your website. Please take a couple of minutes to set up your business details before you can generate a policy page for this website.', 'wplegalpages' ); ?></p>
+				<p><?php esc_attr_e( 'WPLP Legal Pages generates personalized legal pages for your website. To do this it needs to know a few details about your website. Please take a couple of minutes to set up your business details before you can generate a policy page for this website.', 'wplegalpages' ); ?></p>
 				<a href="<?php menu_page_url( 'legal-pages', true ); ?>" target="_blank"><?php esc_attr_e( 'Configure details &raquo;', 'wplegalpages' ); ?></a>
 			</div>
 			<h4 class="myLabel-head"><?php esc_attr_e( '3. Create a legal page', 'wplegalpages' ); ?></h4>
@@ -65,13 +65,13 @@ endif;
 				<p><?php esc_attr_e( 'Generate a personalized legal policy page for this website.', 'wplegalpages' ); ?></p>
 				<a href="<?php menu_page_url( 'lp-create-page', true ); ?>" target="_blank"><?php esc_attr_e( 'Create Policy Page &raquo;', 'wplegalpages' ); ?></a>
 			</div>
-			<h4 class="myLabel-head"><?php esc_attr_e( 'About WPLegalPages', 'wplegalpages' ); ?></h4>
+			<h4 class="myLabel-head"><?php esc_attr_e( 'About WPLP Legal Pages', 'wplegalpages' ); ?></h4>
 			<div>
 				<p>
 					<?php
 					echo sprintf(
 						/* translators: %s: Product feature link */
-						esc_html__( 'WPLegalPages is a privacy policy and terms & conditions generator for WordPress. With just a few clicks you can generate %s for your WordPress website. These policy pages are vetted by experts and are constantly updated to keep up with the latest regulations such as GDPR, CCPA, CalOPPA and many others.', 'wplegalpages' ),
+						esc_html__( 'WPLP Legal Pages is a privacy policy and terms & conditions generator for WordPress. With just a few clicks you can generate %s for your WordPress website. These policy pages are vetted by experts and are constantly updated to keep up with the latest regulations such as GDPR, CCPA, CalOPPA and many others.', 'wplegalpages' ),
 						sprintf(
 							/* translators: %s: Product feature link */
 							'<a href="%s" target="_blank">25+ policy pages</a>',
@@ -90,7 +90,7 @@ endif;
 						<li><a href="https://club.wpeka.com/my-account/orders/?utm_source=plugin&utm_medium=wplegalpages&utm_campaign=getting-started&utm_content=support" target="_blank"><?php esc_attr_e( 'Support &raquo;', 'wplegalpages' ); ?></a></li>
 					<?php else : ?>
 						<li><a href="https://wordpress.org/support/plugin/wplegalpages/?utm_source=plugin&utm_medium=wplegalpages&utm_campaign=getting-started&utm_content=forums" target="_blank"><?php esc_attr_e( 'Forums &raquo;', 'wplegalpages' ); ?></a></li>
-						<li><a href="https://club.wpeka.com/product/wplegalpages/?utm_source=plugin&utm_medium=wplegalpages&utm_campaign=getting-started&utm_content=upgrade-now-button" target="_blank"><?php esc_attr_e( 'Upgrade to WPLegalPages Pro &raquo;', 'wplegalpages' ); ?></a></li>
+						<li><a href="https://club.wpeka.com/product/wplegalpages/?utm_source=plugin&utm_medium=wplegalpages&utm_campaign=getting-started&utm_content=upgrade-now-button" target="_blank"><?php esc_attr_e( 'Upgrade to WPLP Legal Pages Pro &raquo;', 'wplegalpages' ); ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</div>

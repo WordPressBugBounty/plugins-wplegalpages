@@ -336,7 +336,7 @@ if ( $countof_pages[0]->cntPages < $max_limit ) {
 		</div>
 
 		<div id="lp_generalid_right" class="postbox ">
-			<h3 class="hndle"  style="padding:0px 10px 12px 10px; font-size:20px;"> <?php esc_attr_e( 'WPLegalPages Pro Templates', 'wplegalpages' ); ?> </h3><br/>
+			<h3 class="hndle"  style="padding:0px 10px 12px 10px; font-size:20px;"> <?php esc_attr_e( 'WPLP Legal Pages Pro Templates', 'wplegalpages' ); ?> </h3><br/>
 			<ul class="wplegal-templates">
 				<li>Terms of use <strong>(forced agreement - don't allow your users to proceed without agreeing to your terms)</strong></li>
 				<li>Linking policy template</li>

@@ -37,7 +37,7 @@ var gen = new Vue({
           },
           searchLabel: "Show Legal Pages in Search",
           configure_image_url: require("../admin/images/configure_icon.svg"),
-          configure_alt_text: "WP LegalPages configure icon",
+          configure_alt_text: "WPLP Legal Pages configure icon", //check this
           appendField: ".wplegalpages-settings-container",
           customToolbarForm: [],
           domain: "",

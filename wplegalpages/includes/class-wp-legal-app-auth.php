@@ -212,6 +212,7 @@ class WP_Legal_Pages_App_Auth {
 			wp_send_json_success(
 				array(
 					'connection_status' => $response_body->current_instance,
+					'plan'              => $response_body->plan,
 					'error'             => false,
 				),
 			);
@@ -543,7 +544,6 @@ class WP_Legal_Pages_App_Auth {
 		$this->make_auth_request();
 
 		$args = array(
-			'headers' => $this->headers,
 			'method'  => strtoupper( $method ),
 			'timeout' => $this->timeout,
 			'body'    => $data,

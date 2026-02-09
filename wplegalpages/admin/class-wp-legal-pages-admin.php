@@ -610,7 +610,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 
 						<form method="post" action="%2$s" id="review_form">
 							<div class="wplp-review-notice-text-container">
-								<p><span>%3$s<strong>WP Legal Pages?</strong>%4$s</span></p>
+								<p><span>%3$s<strong>WPLP Legal Pages?</strong>%4$s</span></p>
 								<button class="wplp-review-dismiss-btn" style="border: none;padding:0;background: none;color: #2271b1;"href="%2$s"><i class="dashicons dashicons-dismiss"></i>%5$s</button>
 							</div>
 							<div class="wplp-review-btns-container">
@@ -624,7 +624,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						esc_url( 'https://wordpress.org/support/plugin/wplegalpages/reviews/' ),
 						esc_url( get_admin_url() . '?already_done=1' ),
 						esc_html__( 'Love ', 'wplegalpages' ),
-						esc_html__( ' Share your experience! Leave a review on WordPress.org and let others know how WP Legal Pages helps you in generating legal pages like privacy policy and other 25+ legal policies.', 'wplegalpages' ),
+						esc_html__( ' Share your experience! Leave a review on WordPress.org and let others know how WPLP Legal Pages helps you in generating legal pages like privacy policy and other 25+ legal policies.', 'wplegalpages' ),
 						esc_html__( 'Dismiss', 'wplegalpages' ),
 						esc_html__( 'Rate Us', 'wplegalpages' ),
 						esc_html__( 'I already did', 'wplegalpages' )
@@ -720,8 +720,8 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$callback_function = $is_gdpr_active  ? array( $this, 'gdpr_cookie_consent_new_admin_screen' ) : array( $this, 'gdpr_cookie_consent_install_activate_screen' );
 			if (empty($GLOBALS['admin_page_hooks']['wp-legal-pages'])) {
 				add_menu_page(
-				__( 'WP Legal Pages', 'wplegalpages' ), // Page title
-				__( 'WP Legal Pages', 'wplegalpages' ), // Menu title
+				__( 'WPLP Legal Pages', 'wplegalpages' ), // Page title
+				__( 'WPLP Legal Pages', 'wplegalpages' ), // Menu title
 				'manage_options', // Capability
 				'wp-legal-pages', // Menu slug
 				$callback_function , // Callback function
@@ -755,7 +755,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			// Add the "WPLegalPages" sub-menu under "WP Legal Pages"
 			add_submenu_page(
 				'wp-legal-pages', // Parent slug (same as main menu slug)
-				__( 'WPLegalPages', 'wplegalpages' ), // Page title
+				__( 'WPLP Legal Pages', 'wplegalpages' ), // Page title
 				__( 'Legal Pages', 'wplegalpages' ), // Menu title
 				'manage_options', // Capability
 				'legal-pages', // Menu slug
@@ -765,7 +765,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			if($is_legalpages_active && $is_gdpr_active){
 				add_submenu_page(
 					'wp-legal-pages', // Parent slug
-					__('WP Cookie Consent', 'wplegalpages'),  // Page title
+					__('WPLP Cookie Consent', 'wplegalpages'),  // Page title
 					__('Cookie Consent', 'wplegalpages'),    // Menu title
 					'manage_options',   // Capability
 					'gdpr-cookie-consent', // Menu slug
@@ -779,7 +779,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			if(!$gdpr_installed || ($gdpr_installed && !$is_gdpr_active)){
 				add_submenu_page(
 					'wp-legal-pages', // Parent slug (same as main menu slug)
-					__( 'WP Cookie Consent', 'wplegalpages' ),  // Page title
+					__( 'WPLP Cookie Consent', 'wplegalpages' ),  // Page title
 					__( 'Cookie Consent', 'wplegalpages' ),     // Menu title
 					'manage_options',   // Capability
 					'gdpr-cookie-consent', // Menu slug
@@ -1158,10 +1158,10 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		$is_gdpr_installed     = isset( $installed_plugins['gdpr-cookie-consent/gdpr-cookie-consent.php'] ) ? true : false;
 		?>
 		<div class="gdpr-install-activate-screen">
-			<img id="gdpr-install-activate-img"src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/cookie-consent-install-banner.jpg'; ?>" alt="WP Cookie Consent Logo"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
+			<img id="gdpr-install-activate-img"src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/cookie-consent-install-banner.jpg'; ?>" alt="WPLP Cookie Consent Logo"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 			<div class="lp-popup-container">
 
-				<p class="lp-plugin-install-activation-text"><?php esc_html_e( 'WP Cookie Consent is currently inactive. Please install and activate the plugin to display the cookie banner and collect user consent.', 'wplegalpages' ); ?></p>
+				<p class="lp-plugin-install-activation-text"><?php esc_html_e( 'WPLP Cookie Consent is currently inactive. Please install and activate the plugin to display the cookie banner and collect user consent.', 'wplegalpages' ); ?></p>
 				<?php 
 				if(!$is_gdpr_installed) { ?>
 				<a style="width:27%;" href="<?php echo esc_url($gdpr_install_url); ?>">
@@ -1448,11 +1448,11 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 					'image_url'            => WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/',
 					'welcome_text'         => __( 'Welcome to WPLP Compliance Platform!', 'wplegalpages' ),
 					'welcome_subtext'      => __( 'Privacy Policy Generator For WordPress', 'wplegalpages' ),
-					'welcome_description'  => __( 'Thank you for choosing WP Legal Pages plugin - A robust plugin for hassle-free legal compliance. ', 'wplegalpages' ),
+					'welcome_description'  => __( 'Thank you for choosing WPLP Legal Pages plugin - A robust plugin for hassle-free legal compliance. ', 'wplegalpages' ),
 					'legal_pages_installed' => $legal_pages_installed,
 					'gdpr_installed'		=> $gdpr_installed,
 					'is_gdpr_active'		=> $is_gdpr_active,
-					'install_gdpr_text'		   => __('Install WP Cookie Consent!', 'wplegalpages'),
+					'install_gdpr_text'		   => __('Install WPLP Cookie Consent!', 'wplegalpages'),
 					'install_gdpr_subtext' => __('Seamlessly add a cookie consent banner to your WordPress website.', 'wplegalpages'),
 					'install_gdpr_btn'	   => __('Install Now', 'wplegalpages'),
 					'create_gdpr'         => __( 'Your Site\'s Cookie Banner', 'wplegalpages' ),
@@ -1464,14 +1464,14 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 					'gdpr_link_title' 	   => __( 'Configure Banner', 'wplegalpages'),
 					'create_legal_url'     => admin_url( 'index.php?page=wplegal-wizard#/' ),
 					'create_gdpr_url' 	   => admin_url('admin.php?page=gdpr-cookie-consent#cookie_settings'),
-					'feature_heading'      => __( 'WP Legal Pages Features', 'wplegalpages' ),
-					'feature_description'  => __( 'Choose WP Legal Pages for seamless legal compliance.', 'wplegalpages' ),
+					'feature_heading'      => __( 'WPLP Legal Pages Features', 'wplegalpages' ),
+					'feature_description'  => __( 'Choose WPLP Legal Pages for seamless legal compliance.', 'wplegalpages' ),
 					'feature_button'       => __( 'Upgrade Now', 'wplegalpages' ),
 					'overlay'              => __( 'true', 'wplegalpages' ),
 					'terms'                => array(
 						'text'        => sprintf(
 							/* translators: %s: Terms of use link */
-							esc_html__( 'WPLegalPages is a privacy policy and terms & conditions generator for WordPress. With just a few clicks you can generate %s for your WordPress website.', 'wplegalpages' ),
+							esc_html__( 'WPLP Legal Pages is a privacy policy and terms & conditions generator for WordPress. With just a few clicks you can generate %s for your WordPress website.', 'wplegalpages' ),
 							sprintf(
 								/* translators: %s: Terms of use link, %s Text */
 								'<a href="%s" target="_blank" style="color:#0A6CD0;">%s</a>',
@@ -1485,7 +1485,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						'button_text' => __( 'Accept', 'wplegalpages' ),
 						'input_text'  => sprintf(
 							/* translators: %s: Terms of use link, %s Text */
-							esc_html__( 'By using WPLegalPages, you accept the %s.', 'wplegalpages' ),
+							esc_html__( 'By using WPLP Legal Pages, you accept the %s.', 'wplegalpages' ),
 							sprintf(
 								/* translators: %s: Terms of use link */
 								'<a href="%s" target="_blank" style="color:#0A6CD0;">%s</a>',
@@ -1533,13 +1533,13 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						),
 						'easy_install'         => array(
 							'title'       => __( 'Easy to install', 'wplegalpages' ),
-							'description' => __( 'WP Legal Pages is super-easy to install. Download & install takes less than 2 minutes.', 'wplegalpages' ),
+							'description' => __( 'WPLP Legal Pages is super-easy to install. Download & install takes less than 2 minutes.', 'wplegalpages' ),
 							'image_src'   => WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/easy_to_install.svg',
 							'alt_text'	  => 'Easy to install icon',
 						),
 						'helpful_docs'         => array(
 							'title'       => __( 'Helpful docs & guides', 'wplegalpages' ),
-							'description' => __( 'Even if you get stuck using WP Legal Pages, you can use our easy to follow docs & guides.', 'wplegalpages' ),
+							'description' => __( 'Even if you get stuck using WPLP Legal Pages, you can use our easy to follow docs & guides.', 'wplegalpages' ),
 							'image_src'   => WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/helpful_docs.svg',
 							'alt_text'	  => 'Helpful docs & guides icon',
 						),
@@ -1562,7 +1562,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						),
 						'video_guides' => array(
 							'title'       => __( 'Video Guides', 'wplegalpages' ),
-							'description' => __( 'Explore video tutorials for insights on WP Legal Pages functionality.', 'wplegalpages' ),
+							'description' => __( 'Explore video tutorials for insights on WPLP Legal Pages functionality.', 'wplegalpages' ),
 							'link'        => 'https://wplegalpages.com/docs/non-knowledgebase/video-guides/video-resources/',
 							'link_name'   => __( 'Watch Now', 'wplegalpages' ),
 							'image_src'   => WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/video_guides.svg',
@@ -1710,7 +1710,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		 * @return mixed
 		 */
 		public function wplegalpages_add_menu_meta_box( $object ) {
-			add_meta_box( 'wplegalpages-menu-metabox', __( 'WPLegalPages', 'wplegalpages' ), array( $this, 'wplegalpages_menu_meta_box' ), 'nav-menus', 'side', 'low' );
+			add_meta_box( 'wplegalpages-menu-metabox', __( 'WPLP Legal Pages', 'wplegalpages' ), array( $this, 'wplegalpages_menu_meta_box' ), 'nav-menus', 'side', 'low' );
 			return $object;
 		}
 
@@ -2707,6 +2707,10 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$pro_installed     = isset( $installed_plugins['wplegalpages-pro/wplegalpages-pro.php'] ) ? "Activated" : "Not Activated";
 
 			$privacy_templates = file_get_contents( plugin_dir_path( __DIR__ ) . 'includes/privacy_templates.json' );
+			$last_selected_page = get_option( 'wplegal_last_selected_page' );
+			if ( empty( $last_selected_page ) ) {
+				$last_selected_page = 'privacy_policy';
+			}
 
 			wp_localize_script(
 				$this->plugin_name . '-vue-script',
@@ -2734,7 +2738,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						'edit'       => __( 'Edit', 'wplegalpages' ),
 						'next'       => __( 'Next', 'wplegalpages' ),
 						'prev'       => __( 'Go Back', 'wplegalpages' ),
-						'title'      => __( 'Welcome to WPLegalPages Wizard!', 'wplegalpages' ),
+						'title'      => __( 'Welcome to WPLP Legal Pages Wizard!', 'wplegalpages' ),
 						'subtitle'   => __( 'Follow the guided wizard to get started', 'wplegalpages' ),
 						'inputtitle' => __( 'Select the policy template to get started.', 'wplegalpages' ),
 					),
@@ -2742,7 +2746,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						'next'     => __( 'Next', 'wplegalpages' ),
 						'prev'     => __( 'Go Back', 'wplegalpages' ),
 						'title'    => __( 'Recommended Settings', 'wplegalpages' ),
-						'subtitle' => __( 'WPLegalPages recommends the following settings based on your policy template', 'wplegalpages' ),
+						'subtitle' => __( 'WPLP Legal Pages recommends the following settings based on your policy template', 'wplegalpages' ),
 					),
 					'sections'           => array(
 						'next'     => __( 'Next', 'wplegalpages' ),
@@ -2757,6 +2761,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						'subtitle' => __( 'Review your policy template and publish', 'wplegalpages' ),
 					),
 					'templates' => json_decode( $privacy_templates, true ),
+					'last_selected_page' => $last_selected_page,
 				)
 			);
 			wp_print_styles( $this->plugin_name . '-select2' );
@@ -2772,7 +2777,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		<head>
 			<meta name="viewport" content="width=device-width"/>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-			<title><?php esc_html_e( 'WPLegalPages &rsaquo; Wizard', 'wplegalpages' ); ?></title>
+			<title><?php esc_html_e( 'WPLP Legal Pages &rsaquo; Wizard', 'wplegalpages' ); ?></title>
 			<?php do_action( 'admin_print_styles' ); ?>
 			<?php do_action( 'admin_print_scripts' ); ?>
 			<?php do_action( 'admin_head' ); ?>
@@ -3891,7 +3896,12 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			);
 			if ( isset( $_GET['action'] ) ) {
 				$step  = isset( $_GET['step'] ) ? sanitize_text_field( wp_unslash( $_GET['step'] ) ) : '';
-				$page  = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : 'privacy_policy';
+				if ( isset( $_GET['page'] ) ) {
+					$page = sanitize_text_field( wp_unslash( $_GET['page'] ) );
+					update_option( 'wplegal_last_selected_page', $page );
+				} else {
+					$page = get_option( 'wplegal_last_selected_page', 'privacy_policy' );
+				}
 				$nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['nonce'] ) ) : '';
 				if ( wp_verify_nonce( $nonce, 'admin-ajax-nonce' ) ) {
 					$data = array();
@@ -5134,7 +5144,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			<div style="display: flex; justify-content: space-between; align-items: center;padding: 5px;">
 			<div style="max-width: 80%;">
 				<p style="margin: 0;">
-					<strong><?php esc_html_e('WP Legal Pages: ','wplegalpages'); ?></strong>
+					<strong><?php esc_html_e('WPLP Legal Pages: ','wplegalpages'); ?></strong>
 					<?php esc_html_e('We\'ve recently updated our DMCA, Professional Privacy Policy, COPPA, General Disclaimer, Earnings Disclaimer, Terms and Conditions Pro, and Cookies Policy templates. These updates include additional clauses related to AI-generated media usage to help you stay compliant with evolving standards. Kindly update your policies to stay compliant.', 'wplegalpages'); ?>
 				</p>
 			</div>

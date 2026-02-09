@@ -31,7 +31,7 @@ class WP_Widget_Legal_Pages extends WP_Widget {
 			'description'                 => __( 'A list of your site&#8217;s Legal Pages.', 'wplegalpages' ),
 			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'legal_pages', __( 'WPLegalPages', 'wplegalpages' ), $widget_ops );
+		parent::__construct( 'legal_pages', __( 'WPLPLegalPages', 'wplegalpages' ), $widget_ops );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class WP_Widget_Legal_Pages extends WP_Widget {
 	 * @param array $instance Settings for the current WPLegalPages widget instance.
 	 */
 	public function widget( $args, $instance ) {
-		$default_title = __( 'WPLegalPages', 'wplegalpages' );
+		$default_title = __( 'WPLPLegalPages', 'wplegalpages' );
 		$title         = ! empty( $instance['title'] ) ? $instance['title'] : $default_title;
 
 		/**
