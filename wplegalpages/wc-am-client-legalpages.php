@@ -99,7 +99,6 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 			 */
 			$this->data_key            = 'wc_am_client_' . strtolower( str_ireplace( array( ' ', '_', '&', '?', '-' ), '_', $product_id ) );
 			$this->wc_am_activated_key = $this->data_key . '_activated';
-
 			if ( is_admin() ) {
 				if ( ! empty( $this->plugin_or_theme ) && $this->plugin_or_theme == 'theme' ) {
 					add_action( 'admin_init', array( $this, 'activation' ) );
@@ -114,23 +113,14 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 				/**
 				 * Set all data defaults here
 				 */
-				$this->wc_am_api_key_key  = $this->data_key . '_api_key';
-				$this->wc_am_instance_key = $this->data_key . '_instance';
+				
 
 				add_action( 'admin_init', array($this, 'setup_admin_menu_titles') );
 				
 				/**
 				 * Set all software update data here
 				 */
-				$this->data              = get_option( $this->data_key );
-				$this->wc_am_plugin_name = $this->plugin_or_theme == 'plugin' ? untrailingslashit( plugin_basename( $this->file ) ) : get_stylesheet(); // same as plugin slug. if a theme use a theme name like 'twentyeleven'
-				$this->wc_am_instance_id = get_option( $this->wc_am_instance_key ); // Instance ID (unique to each blog activation)
-
-				$instance_option = get_option( 'wc_am_client_gdpr_cookie_consent_instance' );
-
-				if ( ! empty( $instance_option ) ) {
-					$this->wc_am_instance_id = $instance_option;
-				}
+				
 
 				/**
 				 * Some web hosts have security policies that block the : (colon) and // (slashes) in http://,
@@ -143,13 +133,25 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 				 *
 				 * $this->wc_am_domain = str_ireplace( array( 'http://', 'https://' ), '', home_url() ); // blog domain name
 				 */
-				$this->wc_am_domain           = str_ireplace( array( 'http://', 'https://' ), '', home_url() ); // blog domain name
-				$this->wc_am_software_version = $this->software_version; // The software version
+				
 
 				/**
 				 * Check for software updates
 				 */
 				$this->check_for_update();
+			}
+
+			$this->wc_am_api_key_key  = $this->data_key . '_api_key';
+			$this->wc_am_instance_key = $this->data_key . '_instance';
+			$this->data              = get_option( $this->data_key );
+			$this->wc_am_plugin_name = $this->plugin_or_theme == 'plugin' ? untrailingslashit( plugin_basename( $this->file ) ) : get_stylesheet(); // same as plugin slug. if a theme use a theme name like 'twentyeleven'
+			$this->wc_am_instance_id = get_option( $this->wc_am_instance_key ); // Instance ID (unique to each blog activation)
+			$this->wc_am_domain           = str_ireplace( array( 'http://', 'https://' ), '', home_url() ); // blog domain name				$this->wc_am_software_version = $this->software_version; // The software version
+
+			$instance_option = get_option( 'wc_am_client_gdpr_cookie_consent_instance' );
+
+			if ( ! empty( $instance_option ) ) {
+				$this->wc_am_instance_id = $instance_option;
 			}
 
 			/**

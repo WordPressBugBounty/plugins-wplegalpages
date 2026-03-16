@@ -1564,14 +1564,12 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 						update_post_meta( $pid, 'is_legal', 'yes' );
 						update_post_meta( $pid, 'legal_page_type', $page );
 						$fields = (array) $this->get_remote_data( 'get_privacy_settings' );
-
 						$fields = WP_Legal_Pages_Admin::wplegalpages_add_gdpr_options_to_remote_data( $fields );
 
 						update_post_meta( $pid, 'legal_page_privacy_settings', $fields );
 						update_option( 'wplegal_privacy_policy_page', $pid );
 					} else {
 						$privacy_options = get_post_meta( $pid, 'legal_page_privacy_settings', true );
-
 						if ( ! $privacy_options || empty( $privacy_options ) ) {
 							$fields = $this->get_remote_data( 'get_privacy_settings' );
 							$fields = WP_Legal_Pages_Admin::wplegalpages_add_gdpr_options_to_remote_data( $fields );
@@ -2686,6 +2684,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Wizard_Page' ) ) {
 					),
 				)
 			);
+
 
 			if ( is_wp_error( $response ) ) {
 				$text = '';
