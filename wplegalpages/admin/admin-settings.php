@@ -1013,7 +1013,16 @@ if ( '1' === $lpterms ) {
 						$redirect_url_text     = get_option( '_lp_redirect_url' );
 						$no_button_text        = get_option( 'lp_eu_button_text_no' );
 						$age_verify_for_value  = $age_verify_for ? 'all' === $age_verify_for ? 'All visitors' : 'Guests only' : 'Guests only';
-						$age_type_option_value = $age_type_option ? 'date' === $age_type_option ? 'Input Date of Birth' : 'Yes/No Buttons' : 'Yes/No Buttons';
+
+						$age_popup_no = get_option('_lp_age_popup_no');
+
+						if ($age_type_option === 'date') {
+						    $age_type_option_value = 'Input Date of Birth';
+						} elseif ($age_popup_no == 2) {
+						    $age_type_option_value = 'Yes/Leave Buttons';
+						} else {
+						    $age_type_option_value = 'Yes/No Buttons';
+						}
 						?>
 						<input type="hidden" name="lp-age-verify" v-model="is_age">
 						<input type="hidden" ref="age_verify_for" v-model="age_verify_for" name="lp-age-verify-for">
@@ -1173,25 +1182,7 @@ if ( '1' === $lpterms ) {
 										echo $setting_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 									}
 
-								} ?>			
-								<c-row class="wplegal-support-text-row">
-									<c-col class="col-sm-7 wplegal-compliances-text">
-										<label><?php esc_attr_e( 'Create Popups', 'wplegalpages' ); ?></label>
-										<span class="wplegalpages-help-text">
-											<?php esc_html_e( 'Enabling this setting will activate the Create Popup option in the WPLP Legal Pages plugin menu.', 'wplegalpages' ); ?>
-											<a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wp-legal-pages/configurations/configuring-the-settings/' ); ?>" target="_blank" rel="noopener noreferrer">
-											    <?php esc_html_e( 'Learn how you can add popups using WPLP Compliance Platform.', 'wplegalpages' ); ?>
-											</a>
-										</span>
-									</c-col>
-									<c-col class="col-sm-2 wplegal-compliances-switch">
-										<c-switch v-bind="labelIcon" v-model="is_popup" variant="3d"  color="success" :checked="is_popup" v-on:update:checked="onClickPopup"></c-switch>
-										<input type="hidden" name="lp-popup" ref="popup" v-model="is_popup">
-									</c-col>
-									<c-col class="col-sm-3 wplegalpages-configure-section">
-										
-									</c-col>
-								</c-row>
+								} ?>
 							</c-card-body>
 						</div>
 						<div class="wplegalpages-settings-bottom">

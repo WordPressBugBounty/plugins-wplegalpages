@@ -98,6 +98,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Activator' ) ) {
 							' (
                               `id` int(11) NOT NULL AUTO_INCREMENT,
                               `popup_name` text NOT NULL,
+							  `popup_template` varchar(191) NOT NULL DEFAULT "",
                               `content` longtext NOT NULL,
                               PRIMARY KEY (`id`)
                             );';

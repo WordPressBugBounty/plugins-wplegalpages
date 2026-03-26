@@ -29,6 +29,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	wp_enqueue_style( 'style' );
 	$lp_obj->wplegalpages_pro_enqueue_editor();
 	$baseurl = esc_url( get_bloginfo( 'wpurl' ) );
+
+	function wplp_derive_template_slug( $option_key ) {
+		$slug = preg_replace( '/^wplegal_/', '', $option_key );   // strip prefix
+		$slug = preg_replace( '/_page$/', '', $slug );             // strip suffix
+		return $slug;
+	}
 	?>
 		
 		<div style="clear:both;"></div>
@@ -43,12 +49,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 			if ( ! empty( $_POST ) && isset( $_POST['lp-submit'] ) ) :
 				check_admin_referer( 'lp-submit-create-popups' );
-				$lpid         = isset( $_REQUEST['lpid'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['lpid'] ) ) : '';
-				$lp_name      = isset( $_POST['lp-name'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-name'] ) ) : '';
-				$lp_title     = isset( $_POST['lp-title'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-title'] ) ) : '';
-				$content      = isset( $_POST['lp-content'] ) ? wp_kses_post( wp_unslash( $_POST['lp-content'] ) ) : '';
-				$update_id = is_object( $unserialized_object ) && isset( $unserialized_object->id ) ? $unserialized_object->id : 0;
+				$lpid         		= isset( $_REQUEST['lpid'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['lpid'] ) ) : '';
+				$lp_name      		= isset( $_POST['lp-name'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-name'] ) ) : '';
+				$lp_title     		= isset( $_POST['lp-title'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-title'] ) ) : '';
+				$content      		= isset( $_POST['lp-content'] ) ? wp_kses_post( wp_unslash( $_POST['lp-content'] ) ) : '';
+				$popup_template 	= isset( $_POST['lp-popup-template'] ) ? sanitize_text_field( wp_unslash( $_POST['lp-popup-template'] ) ) : '';
 
+				$update_id = is_object( $unserialized_object ) && isset( $unserialized_object->id ) ? $unserialized_object->id : 0;
 				$content      = stripslashes_deep( $content );
 
 				if ( get_option('wplegalpalges_flag_key') ) {
@@ -57,9 +64,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 						array(
 							'popup_name' => $lp_name,
 							'content'    => $content,
+							'popup_template'  => $popup_template,
 						),
 						array( 'id' => $update_id ),
-						array( '%s', '%s' )
+						array( '%s', '%s', '%s' )
 					);
 					// set the flag key to false once popup is updated
 					$option_key = 'wplegalpalges_flag_key';
@@ -83,8 +91,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 						array(
 							'popup_name' => $lp_name,
 							'content'    => $content,
+							'popup_template'  => $popup_template,
 						),
-						array( '%s', '%s' )
+						array( '%s', '%s', '%s' )
 					);
 					if ( $wpdb->insert_id ) {
 						?>
@@ -254,11 +263,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 													'wplegal_custom_legal_page'];
 
 								$post_id_arr = [];
+								$post_id_to_option_key = array();
 								
 								foreach ($all_page_options as $page_option) {
 									$page_id = get_option( $page_option );
 									if ( $page_id ) {
 										$post_id_arr[] = $page_id;
+										$post_id_to_option_key[ $page_id ] = $page_option;
 									}
 								}
 
@@ -267,21 +278,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 								    $res = $wpdb->get_results(
 								        $wpdb->prepare(
-								            "SELECT ID, post_title, post_content FROM {$wpdb->posts} WHERE ID IN ($id_list) AND post_type = %s AND post_status != %s",
+								            "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID IN ($id_list) AND post_type = %s AND post_status = %s",
 								            'page',
-								            'trash'
+								            'publish'
 								        )
 								    );
 								} else {
 								    $res = []; // no pages to fetch
 								}
+								error_log("DODODO in create popups template: " . print_r($res, true) );
 
 								?>
 									<script type="text/javascript">
 										function wplpfunc(selectObj) {
 											var idx = selectObj.value;
 											var which = selectObj.value;
+											var optionKey = selectObj.options[ selectObj.selectedIndex ].getAttribute( 'data-option-key' ) || '';
+
 											document.getElementById('wplpcode').innerHTML = "[wp-legalpage tid=" + which + "]";
+											var slug = optionKey.replace( /^wplegal_/, '' ).replace( /_page$/, '' );
+
+											var hiddenField = document.getElementById( 'lp-popup-template' );
+											if ( hiddenField ) {
+												hiddenField.value = slug;
+											}
 										}
 									</script>
 									<form name="me" id="wplp-shortcode-select">
@@ -290,9 +310,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 											<?php
 
 											foreach ( $res as $ras ) {
+												// Attach the raw option key as data-option-key so JS can derive the slug.
+												$opt_key = isset( $post_id_to_option_key[ $ras->ID ] ) ? $post_id_to_option_key[ $ras->ID ] : '';
 												?>
-												<option value="<?php echo esc_attr( $ras->ID ); ?>">
-													<?php echo esc_attr( $ras->post_title ); ?>
+												<option value="<?php echo esc_attr( $ras->ID ); ?>"
+												        data-option-key="<?php echo esc_attr( $opt_key ); ?>">
+													<?php echo esc_html( $ras->post_title ); ?>
 												</option>
 												<?php
 											}
@@ -305,11 +328,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</div>
 						</div>
 						<div class="wplegalpages-create-popup-section create-popup">
-							<?php $row = ''; ?>
+							<?php 
+								$row = ''; 
+								$edit_popup_template = '';
+							?>
 								<?php
 								if ( get_option( 'wplegalpalges_flag_key' ) ) {
 									$lpid = isset( $_REQUEST['lpid'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['lpid'] ) ) : 0;
 									$row  = $unserialized_object; // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+									$edit_popup_template = is_object( $row ) && isset( $row->popup_template ) ? $row->popup_template : '';
 								}
 								?>
 									<h3 class="wplegalpages-create-popup-section-title"><?php esc_attr_e( 'Create Popups', 'wplegalpages' ); ?></h3>
@@ -325,6 +352,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 															value=""
 														<?php } ?>
 														/> </p>
+
+												<input type="hidden"
+			       									name="lp-popup-template"
+			       									id="lp-popup-template"
+			       									value="<?php echo esc_attr( $edit_popup_template ); ?>" />
 											<p>
 												<div id="poststuff">
 													<div id="<?php echo user_can_richedit() ? 'postdivrich' : 'postdiv'; ?>">
@@ -336,6 +368,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 															var content = document.getElementById('content');
 															tinyMCE.triggerSave(0, 1);
 															obj.value = content.value;
+
+															var hiddenField = document.getElementById( 'lp-popup-template' );
+															var labelEl     = document.getElementById( 'current-popup-template-label' );
+															if ( labelEl && hiddenField && hiddenField.value ) {
+																labelEl.textContent = hiddenField.value;
+															}
 														}
 													</script>
 													<label for="lp-content" class="screen-reader-text"><?php esc_attr_e( 'Generated Legal Page Content','wplegalpages'); ?></label>
@@ -359,5 +397,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 								$(".myAlert").fadeTo(500,0);
 							}, 1000);
 						});
+
+						jQuery( document ).ready( function ( $ ) {
+							// Fade out success/error alerts after 1 second.
+							setTimeout( function () {
+								$( '.myAlert' ).fadeTo( 500, 0 );
+							}, 1000 );
+						
+							<?php if ( ! empty( $edit_popup_template ) ) : ?>
+							/**
+							 * Edit mode: match the saved popup_template slug back to a dropdown option
+							 * and set it as selected so the user sees which template is currently linked.
+							 */
+							var savedSlug = '<?php echo esc_js( $edit_popup_template ); ?>';
+							
+							$( '#wplp option' ).each( function () {
+								var optKey = $( this ).data( 'option-key' ) || '';
+								// Apply the same derivation used in wplpfunc.
+								var slug   = optKey.replace( /^wplegal_/, '' ).replace( /_page$/, '' );
+							
+								if ( slug === savedSlug ) {
+									$( this ).prop( 'selected', true );
+								
+									// Keep the shortcode preview in sync too.
+									var pageId = $( this ).val();
+									if ( pageId ) {
+										$( '#wplpcode' ).val( '[wp-legalpage tid=' + pageId + ']' );
+									}
+									return false; // break out of .each()
+								}
+							} );
+							<?php endif; ?>
+						
+						} );
 					</script>
 						<?php 
