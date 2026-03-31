@@ -155,11 +155,42 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 	 * Fucntion to allow cors for react app
 	 */
 	public function allow_cors_for_react_app(){
-		remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
+    	add_filter('rest_pre_serve_request', function ($value, $result, $request, $server) {
 
-		// Add our own permissive CORS headers
-		add_filter( 'rest_pre_serve_request', function( $value ) {
-			header( 'Access-Control-Allow-Origin: ' . WPLEGAL_APP_URL );
+			$origin      = isset( $_SERVER['HTTP_ORIGIN'] ) ? $_SERVER['HTTP_ORIGIN'] : '';
+			$site_origin = site_url();
+
+			$app_origin = rtrim(WPLEGAL_APP_URL, '/');
+			$allowed_origins = [
+				$app_origin,
+				$site_origin,
+			];
+
+			$route = $request->get_route();
+
+			if (
+				strpos($route, '/wplp-react-gdpr/') !== 0 &&
+				strpos($route, '/wplp-react/') !== 0
+			) {
+				return $value;
+			}
+
+			if (empty($origin)) {
+				return $value;
+			}
+
+			// Block if not in allowed list
+			if (!in_array($origin, $allowed_origins)) {
+				status_header(403);
+				echo json_encode([
+					'error' => 'CORS blocked',
+					'origin' => $origin
+				]);
+				exit;
+			}
+			remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+
+			header( 'Access-Control-Allow-Origin: ' . esc_url_raw($origin));
 			header( 'Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS' );
 			header( 'Access-Control-Allow-Credentials: true' );
 			header( 'Access-Control-Allow-Headers: Authorization, Content-Type, X-WP-Nonce, Origin, X-Requested-With, Accept' );
@@ -171,10 +202,9 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			}
 
 			return $value;
-		});
+
+		}, 10, 4);
 	}
-
-
 		/**
 		 * Register REST Route to send data to saas server
 		 *

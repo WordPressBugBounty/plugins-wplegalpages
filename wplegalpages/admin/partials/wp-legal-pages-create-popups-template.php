@@ -286,7 +286,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 								} else {
 								    $res = []; // no pages to fetch
 								}
-								error_log("DODODO in create popups template: " . print_r($res, true) );
 
 								?>
 									<script type="text/javascript">

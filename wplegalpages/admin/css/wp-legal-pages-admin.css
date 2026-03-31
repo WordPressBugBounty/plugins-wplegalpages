@@ -3010,3 +3010,71 @@ table tbody tr td .table-link-alert:hover {
   border-left-color: #5988C5;
   color: #5988C5;
 }
+
+.gdpr-progress-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.gdpr-progress-wrapper
+  .gdpr-progress-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gdpr-progress-wrapper
+  .gdpr-progress-content h3,
+.gdpr-progress-wrapper
+  .gdpr-progress-content p {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #3A3A41;
+}
+
+.gdpr-progress-wrapper
+  .gdpr-progress-content p {
+  font-weight: 400;
+  color: #52525B;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.gdpr-progress-wrapper
+  .gdpr-progress-content p span img {
+    vertical-align: baseline;
+}
+
+.gdpr-monthly-scans-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+
+.gdpr-monthly-scans-progress span,
+.gdpr-remaining-scans-progress span,
+.gdpr-pageviews-progress span {
+  font-weight: 700;;
+  font-size: 14px;
+  line-height: 100%;
+  text-align: center;
+}
+.gdpr-remaining-scans-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
