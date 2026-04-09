@@ -3070,11 +3070,35 @@ table tbody tr td .table-link-alert:hover {
   line-height: 100%;
   text-align: center;
 }
-.gdpr-remaining-scans-progress {
+.gdpr-remaining-scans-progress,
+.gdpr-pageviews-progress {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 60px;
   height: 60px;
   border-radius: 50%;
+}
+
+#wplegal-loader .wplegal-loader-wrapper {
+	text-align: center;
+}
+
+#wplegal-loader .wplegal-loader-content {
+	width:40px;
+    height:40px;
+    border:4px solid #e5e5e5;
+    border-top:4px solid #2271b1;
+    border-radius:50%;
+    animation: wpl-spin 0.8s linear infinite;
+}
+
+#wplegal-loader .wplegal-loader-text {
+	margin-top: 10px;
+	font-size: 13px;
+	color: #50575e;
+}
+
+@keyframes wpl-spin { 
+	to { transform: rotate(360deg); } 
 }

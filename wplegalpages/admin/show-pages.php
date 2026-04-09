@@ -103,7 +103,19 @@ $current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_
 					<td><?php echo esc_attr( $res->post_title ); ?></td>
 					<td><?php echo esc_attr( $res->ID ); ?></td>
 					<td><?php echo '[wplegalpage pid=' . esc_attr( $res->ID ) . ']'; ?></td>
-					<td><?php echo esc_attr( ucfirst( $author[0]->user_login ) ); ?></td>
+					<td>
+						<?php 
+						$username = '';
+
+						if (!empty($author) && isset($author[0]) && isset($author[0]->user_login)) {
+						    $username = ucfirst($author[0]->user_login);
+						} else {
+							$username = esc_attr__( '--', 'wplegalpages' );
+						}
+
+						echo esc_attr($username);
+						?>
+					</td>
 					<td><?php echo esc_attr( gmdate( 'Y/m/d', strtotime( $res->post_date ) ) ); ?></td>
 					<td class="wplegal-table-link">
 						<a href="<?php echo esc_attr( get_admin_url() ); ?>/post.php?post=<?php echo esc_attr( $res->ID ); ?>&action=edit" class="table-link"><?php esc_attr_e( 'Edit ', 'wplegalpages' ); ?></a> | <a href="<?php echo esc_url_raw( $url ); ?>" class="table-link"><?php esc_attr_e( ' View ', 'wplegalpages' ); ?></a>| <a href="<?php echo esc_url_raw( $delurl ); ?>" class="table-link table-link-alert"><?php esc_attr_e( ' Trash', 'wplegalpages' ); ?></a>
