@@ -337,6 +337,12 @@ class WP_Legal_Pages_App_Auth {
 		$data   = isset( $_POST['response'] ) ? $_POST['response'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash	
 		$origin = ! empty( $_POST['origin'] ) ? esc_url_raw( wp_unslash( $_POST['origin'] ) ) : false;
 
+		if ( get_option('app_wplp_subscription_status_pending_cancel') === 1 || get_option('app_wplp_subscription_status_pending_cancel') === '1' || get_option('app_wplp_subscription_status_pending_cancel') === true ) {
+			if (!empty($data['account']['plan']) && strtolower($data['account']['plan']) !== 'free' ) {
+				delete_option('app_wplp_subscription_status_pending_cancel');
+			}
+		}
+		
 		// Verify data and origin
 		if ( empty( $data ) || WPLEGAL_APP_URL !== $origin ) {
 			ob_end_clean();
@@ -395,6 +401,47 @@ class WP_Legal_Pages_App_Auth {
 			wp_send_json_error( esc_html__( 'You do not have permissions to disconnect  to App Wpeka Responsive Domain.', 'wplegalpages' ) );
 		}
 
+		$result = $this->perform_disconnect();
+
+		if ( true === $result['success'] && true === $result['deactivated'] ) {
+			if ( ! empty( $wcam_lib_legalpages->wc_am_activated_key ) ) {
+					update_option( $wcam_lib_legalpages->wc_am_activated_key, 'Deactivated' );
+			}
+
+				wp_send_json_success(
+					array(
+						'deactivate_results' => $result,
+						'error'              => false,
+						'message'            => $result['activations_remaining'],
+					)
+				);
+		}
+
+		if ( isset( $result['data']['error_code'] ) && ! empty( $wcam_lib_legalpages->data ) && ! empty( $wcam_lib_legalpages->wc_am_activated_key ) ) {
+			if ( isset( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ] ) ) {
+					update_option( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ], 'Deactivated' );
+			}
+				wp_send_json_error(
+					array(
+						'deactivate_results' => $result,
+						'error'              => true,
+						'message'            => $result['data']['error'],
+					)
+				);
+		}
+			wp_send_json_error(
+				array(
+					'deactivate_results' => false,
+					'error'              => true,
+					'message'            => 'Connection Already Deactivated',
+				)
+			);
+	}
+
+	/**
+	 * Disconnection Logic
+	 */
+	public function perform_disconnect() {
 		require_once plugin_dir_path( __DIR__ ) . 'includes/settings/class-wp-legal-pages-settings.php';
 		$settings   = new WP_Legal_Pages_Settings();
 		$options    = $settings->get_defaults();
@@ -412,41 +459,9 @@ class WP_Legal_Pages_App_Auth {
 			update_option( 'gdpr_api_framework_app_settings', $options );
 		}
 
-			$deactivate_results = json_decode( $wcam_lib_legalpages->deactivate( $args, $product_id ), true );
+		$deactivate_results = json_decode( $wcam_lib_legalpages->deactivate( $args, $product_id ), true );
 
-		if ( true === $deactivate_results['success'] && true === $deactivate_results['deactivated'] ) {
-			if ( ! empty( $wcam_lib_legalpages->wc_am_activated_key ) ) {
-					update_option( $wcam_lib_legalpages->wc_am_activated_key, 'Deactivated' );
-			}
-
-				wp_send_json_success(
-					array(
-						'deactivate_results' => $deactivate_results,
-						'error'              => false,
-						'message'            => $deactivate_results['activations_remaining'],
-					)
-				);
-		}
-
-		if ( isset( $deactivate_results['data']['error_code'] ) && ! empty( $wcam_lib_legalpages->data ) && ! empty( $wcam_lib_legalpages->wc_am_activated_key ) ) {
-			if ( isset( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ] ) ) {
-					update_option( $wcam_lib_legalpages->data[ $wcam_lib_legalpages->wc_am_activated_key ], 'Deactivated' );
-			}
-				wp_send_json_error(
-					array(
-						'deactivate_results' => $deactivate_results,
-						'error'              => true,
-						'message'            => $deactivate_results['data']['error'],
-					)
-				);
-		}
-			wp_send_json_error(
-				array(
-					'deactivate_results' => false,
-					'error'              => true,
-					'message'            => 'Connection Already Deactivated',
-				)
-			);
+		return $deactivate_results;
 	}
 
 

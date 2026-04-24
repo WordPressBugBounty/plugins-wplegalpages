@@ -492,6 +492,11 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$message = 'Active';
 		} else {
 			update_option( 'app_wplp_subscription_status_pending_cancel', 1 );
+
+			require_once plugin_dir_path( __DIR__ ) . 'includes/class-wp-legal-app-auth.php';
+			$auth = new WP_Legal_Pages_App_Auth();
+			$auth->perform_disconnect();
+
 			$message = 'Pending Cancel';
 		}
 
