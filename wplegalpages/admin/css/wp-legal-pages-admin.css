@@ -709,9 +709,13 @@ body.toplevel_page_wplegalpages-settings-page #wpbody-content {
 .wplegalpages-save-button button:hover,
 .wplegalpages-save-button button:focus,
 .wplegalpages-save-button input[type="submit"]:hover,
-.wplegalpages-save-button input[type="submit"]:focus {
-	background-color: #0059b3;
-	color: #ffffff;
+.wplegalpages-save-button input[type="submit"]:focus,
+.wplegalpages-save-button button:active,
+.wplegalpages-save-button input[type="submit"]:active {
+  background-color: #0059b3;
+  color: #ffffff;
+  outline: none;
+  box-shadow: none;
 }
 
 /* form elements css */

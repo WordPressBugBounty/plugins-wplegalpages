@@ -1392,6 +1392,10 @@ button[data-v-09b2f69e] {
 .wplegal-wizard-content .wplegal-form-row.wplegal-section > span.dashicons {
 	position: absolute;
 	right: 10px;
+	cursor: not-allowed !important;
+}
+.wplegal-wizard-content .wplegal-form-row.wplegal-clause.wplegal-row-checked > span.dashicons {
+  cursor: pointer !important;
 }
 .wplegal-wizard-content .wplegal-form-row.wplegal-section > span.dashicons {
 	top:10px;
