@@ -180,7 +180,7 @@ if ( '1' === $lpterms ) {
 			</tr>
 			<?php do_action( 'wplegalpages_admin_settings', $lp_general ); ?>
 			<tr>
-				<td><b><?php esc_attr_e( 'Give Credit:', 'wplegalpages' ); ?></b></td>
+				<td><b><?php esc_attr_e( 'Hide Credit:', 'wplegalpages' ); ?></b></td>
 				<td><label class="switch"><input type="checkbox" <?php echo ( isset( $lp_general['generate'] ) && '1' === $lp_general['generate'] ) ? 'checked="checked"' : ''; ?> name="lp-generate" value="1" >
 						<div class="slider round"></div>
 					</label>

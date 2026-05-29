@@ -1062,6 +1062,37 @@ div.ql-toolbar.ql-snow {
 	margin-left: 1px;
 }
 
+.probadge {
+	background-color: #0d6efd;
+	display: inline-block;
+    padding: .35em .65em;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+
+#wplegalpages-settings-app .wplegalpages-settings-container .row .col>label:hover p.wplp-hide-credit-message {
+	display: block;
+}
+
+#wplegalpages-settings-app .wplegalpages-settings-container .row .col>label p.wplp-hide-credit-message {
+	display: none;
+	position: absolute;
+    text-wrap: nowrap;
+    width: fit-content;
+    background: black;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    z-index: 99;
+	right: 2%;
+}
+
 .wplegal-tooltip-image {
 	width: 0.8rem;
 	height: 0.8rem;
