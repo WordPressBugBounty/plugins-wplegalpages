@@ -30,7 +30,7 @@ $redirect_url = get_option('_lp_redirect_url');
     <script>
 					jQuery(document).ready(function($) {
 							$('#lp_verify_yes').click(function(){
-								$.cookie("wplegalpages", 1, { expires : 1 });
+								$.cookie("wplegalpages", 1, { expires : 1, path: '/' });
 							location.reload();
 							});
 

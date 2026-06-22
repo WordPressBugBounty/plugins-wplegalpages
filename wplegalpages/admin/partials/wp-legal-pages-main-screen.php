@@ -66,6 +66,15 @@ $gdpr_plan_warning = false;
 if( $gdpr_monthly_page_views_percent === 100 || $remaining_percentage_scan_limit === 100 || $gdpr_monthly_scan_percent === 100 ) {
 	$gdpr_plan_warning = true;
 }
+
+$free_trial_data = get_option( 'wplp_free_trial_data', [] );
+
+$local_expiry = (int) ( $free_trial_data['localExpiry'] ?? 0 );
+
+$is_free_trial_active = ! empty( $free_trial_data['isTrialActive'] ) && time() < $local_expiry;
+$trialEndsIn          = $is_free_trial_active ? ceil( ( $local_expiry - time() ) / DAY_IN_SECONDS ) : 0;
+$trialStartDate       = $free_trial_data['trialStartDate'] ?? '';
+$trialEndDate         = $free_trial_data['trialEndDate'] ?? '';
 ?>
 
 <div id="wp-legalpages-main-admin-structure" class="wp-legalpages-main-admin-structure">
@@ -276,6 +285,32 @@ if( $gdpr_monthly_page_views_percent === 100 || $remaining_percentage_scan_limit
 							<?php } ?>
 						<?php } ?>
 					</div>
+
+					<?php if($is_user_connected == true && $is_free_trial_active == true) { ?>
+						<div class="wplp-trial-widget <?php echo ($trialEndsIn > 0) ? 'wplp-trial-widget-active' : 'wplp-trial-widget-ended'; ?>">
+							<div class="wplp-trial-widget-header">
+								<h5 class="wplp-trial-widget-title <?php echo ($trialEndsIn > 0) ? 'wplp-trial-widget-title-active' : 'wplp-trial-widget-title-ended'; ?>">Free Trial</h5>
+								<span class="wplp-trial-widget-badge <?php echo ($trialEndsIn > 0) ? 'wplp-trial-widget-badge-active' : 'wplp-trial-widget-badge-ended'; ?>">
+									<?php echo ($trialEndsIn > 0) ? 'Active' : 'Ended'; ?>
+								</span>
+							</div>
+
+							<div class="wplp-trial-widget-body">
+								<div class="wplp-trial-widget-status">
+									<h6 class="wplp-trial-widget-remaining <?php echo ($trialEndsIn > 0) ? 'wplp-trial-widget-remaining-active' : 'wplp-trial-widget-remaining-ended'; ?>">
+										<?php echo ($trialEndsIn > 0) ? esc_html($trialEndsIn) . ' days remaining' : 'Trial period ended'; ?>
+									</h6>
+									<p class="wplp-trial-widget-dates <?php echo ($trialEndsIn > 0) ? 'wplp-trial-widget-dates-active' : 'wplp-trial-widget-dates-ended'; ?>">
+										<?php echo esc_html($trialStartDate); ?> - <?php echo esc_html($trialEndDate); ?>
+									</p>
+								</div>
+
+								<div class="wplp-trial-widget-progress-track">
+									<div class="wplp-trial-widget-progress-fill" style="width: <?php echo esc_attr(((7 - $trialEndsIn) / 7) * 100); ?>%;"></div>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
 				</div>
 
 				<div class="wplp-compliance-content-wrapper legalpages-main">

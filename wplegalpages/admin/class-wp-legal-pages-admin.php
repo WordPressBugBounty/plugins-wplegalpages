@@ -84,6 +84,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			add_action( 'rest_api_init', array($this, 'allow_cors_for_react_app'));
 			add_action('rest_api_init', array($this, 'register_wpl_dashboard_route'));
 			add_action('rest_api_init', array($this, 'wplp_generate_api_secret'));
+			add_action('admin_init', array($this, 'handle_compliance_wizard_for_old_users'));
 		}
 
 		/**
@@ -205,6 +206,46 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 
 		}, 10, 4);
 	}
+
+	/**
+	 * Handle Compliance wizard for existing users
+	 */
+	public function handle_compliance_wizard_for_old_users() {
+
+		$installed_version = get_option( 'wplp_legal_pages_version', '0.0.0' );
+
+		if ( version_compare( $installed_version, '3.6.8', '<' ) ) {
+
+			global $wpdb;
+			$post_tbl     = $wpdb->prefix . 'posts';
+			$postmeta_tbl = $wpdb->prefix . 'postmeta';
+			$post_tbl     = esc_sql( $post_tbl );
+			$postmeta_tbl = esc_sql( $postmeta_tbl );
+			
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching	
+			$count = $wpdb->get_var(
+				$wpdb->prepare(
+					"
+					SELECT COUNT(*) 
+					FROM {$post_tbl} AS ptbl, {$postmeta_tbl} AS pmtbl 
+					WHERE ptbl.ID = pmtbl.post_id 
+					AND ptbl.post_status = %s 
+					AND pmtbl.meta_key = %s
+					",
+					'publish',
+					'is_legal'
+				)
+			);
+
+			if ($count > 0 ) {
+				update_option( 'wplp_compliance_wizard_completed', true );
+			}
+
+			$plugin_version = defined( 'GDPR_COOKIE_CONSENT_VERSION' ) ? GDPR_COOKIE_CONSENT_VERSION : '';
+			update_option( 'wplp_legal_pages_version', $plugin_version );
+		}
+	}
+
 		/**
 		 * Register REST Route to send data to saas server
 		 *
@@ -318,6 +359,16 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				'permission_callback' => array($this, 'permission_callback_for_react_app'),
 			)
 		);
+
+		register_rest_route(
+            'wplp-react/v1',
+            'save_compliance_wizard',
+            array(
+                'methods' => 'POST',
+                'callback' => array($this, 'wplp_save_business_settings_for_compliance_wizard'),
+                'permission_callback' => array($this, 'permission_callback_for_react_app'),
+            )
+        );
 
 		register_rest_route(
 			'wpl/v2', // Namespace
@@ -746,6 +797,33 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		$api_user_plan = $this->settings->get_plan();
 		$product_id = $this->settings->get( 'account', 'product_id' );
 
+		$api_key    = $this->settings->get( 'api', 'token' );
+		$id = $this->settings->get_user_id();
+
+		$args = array(
+			'api_key' => $api_key,
+		);
+
+		global $wcam_lib_legalpages;
+
+		update_option( $wcam_lib_legalpages->wc_am_product_id, $product_id );
+		update_option(
+			$wcam_lib_legalpages->data_key,
+			array(
+				$wcam_lib_legalpages->data_key . '_api_key' => $api_key,
+			),
+		);
+
+		$activate_args = $wcam_lib_legalpages->activate( $args, $product_id );
+		$status_args   = $wcam_lib_legalpages->status( $args, $product_id );
+
+		$user_info[] = array(
+			'id'			=> $id,
+			'status_args'	=> $status_args,
+			'activate_args'	=> $activate_args,
+			'wc_am_activated_key' => $wcam_lib_legalpages->data
+		);
+
 		global $wpdb;
 		$post_tbl     = $wpdb->prefix . 'posts';
 		$postmeta_tbl = $wpdb->prefix . 'postmeta';
@@ -777,6 +855,8 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				'product_id' 					   => $product_id,
 				'legal_pages_published'			   => $count,
 				'policy_preview'				   => $policy_preview,
+				'userInfo'						   => $user_info ?? [],
+				'complianceWizardCompleted'	 	   => get_option('wplp_compliance_wizard_completed') ?? false,
 			)
 		);
 	}
@@ -1017,6 +1097,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				'templateOptions'				   			=> $template_options ?? [],
 				'userInfo'						   			=> $user_info ?? [],
 				'pro_privacy_policy_third_party_services' 	=> $this->wplegalpages_get_gdpr_sections(),
+				'recommendedPolicyMap'						=> get_option( 'wplp_ai_recommended_policy_map' ) ?? [],
 			)
 		);
 	}
@@ -1811,6 +1892,76 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
     	    );
     	}
 	}
+
+	public function wplp_save_business_settings_for_compliance_wizard( WP_REST_Request $request ){
+        
+        $business_info = $request->get_param( 'business' );
+		$recommendedPolicyMap = $request->get_param( 'recommendedPolicyMap' );
+        $lp_general                 = get_option( 'lp_general' );
+
+        if ( ! is_array( $lp_general ) ) {
+			$lp_general = array();
+		}
+
+		if ( ! is_array( $business_info ) ) {
+			$business_info = array();
+		}
+        
+        $lp_general['domain']       = $business_info['domain'] ?? '';
+        $lp_general['business']     = $business_info['business'] ?? '';
+        $lp_general['trading']      = $business_info['trading'] ?? '';
+        $lp_general['phone']        = $business_info['phone'] ?? '';
+        $lp_general['street']       = $business_info['street'] ?? '';
+        $lp_general['cityState']    = $business_info['cityState'] ?? '';
+        $lp_general['country']      = $business_info['country'] ?? '';
+        $lp_general['email']        = $business_info['email'] ?? '';
+        $lp_general['address']      = $business_info['address'] ?? '';
+        $lp_general['facebook-url'] = $business_info['facebookUrl'] ?? '';
+        $lp_general['google-url']   = $business_info['googleUrl'] ?? '';
+        $lp_general['twitter-url']  = $business_info['twitterUrl'] ?? '';
+        $lp_general['linkedin-url'] = $business_info['linkedinUrl'] ?? '';
+        $lp_general['date']         = $business_info['date'] ?? '';
+        $lp_general['days']         = $business_info['days'] ?? '';
+        $lp_general['duration']     = $business_info['duration'] ?? '';
+        $lp_general['disclosing-party'] = $business_info['disclosingParty'] ?? '';
+        $lp_general['recipient-party']  = $business_info['recipientParty'] ?? '';
+
+        update_option( 'lp_general', $lp_general );
+
+		if ( ! empty( $recommendedPolicyMap ) && is_array( $recommendedPolicyMap ) ) {
+			$sanitized_map = array();
+			foreach ( $recommendedPolicyMap as $icon_key => $entry ) {
+				if ( ! is_array( $entry ) ) {
+					continue;
+				}
+				$sanitized_icon_key = sanitize_key( $icon_key );
+				$confidence = sanitize_text_field( $entry['confidence'] ?? '' );
+				if ( ! in_array( $confidence, array( 'high', 'medium', 'low' ), true ) ) {
+					$confidence = '';
+				}
+				$sanitized_map[ $sanitized_icon_key ] = array(
+					'confidence' => $confidence,
+					'reason'     => sanitize_text_field( $entry['reason'] ?? '' ),
+				);
+			}
+			update_option( 'wplp_ai_recommended_policy_map', $sanitized_map );
+		}
+
+		$compliance_wizard_completed = $request->get_param( 'complianceWizardCompleted' );
+
+		if ( null !== $compliance_wizard_completed ) {
+			update_option(
+				'wplp_compliance_wizard_completed',
+				$compliance_wizard_completed
+			);
+		}
+
+		return [
+			'success' => true,
+			'accessed' => true
+		];
+    }
+
 	public function wplp_connect_plugin_to_wplp_compliance( WP_REST_Request $request ) {
 		
 		global $wcam_lib_gdpr;
@@ -6881,12 +7032,19 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		public function app_wplp_track_lp_downloaded( $event, $args = array() ) {
 
 			$url = WPLEGAL_APP_URL . '/wp-json/api/v1/plugin/app_wplp_track_lp_downloaded';
+			// Get connected account email
+			$settings    = get_option( 'wpeka_api_framework_app_settings' );
+			$connected_email = isset( $settings['account']['email'] )
+								? sanitize_email( $settings['account']['email'] )
+								: '';
 			$user_id    = get_current_user_id();
 			$user_email = '';
 
-			if ( ! empty( $args['user_email'] ) ) {
+			if ( ! empty( $args['user_email'] ) ) {  //from saas
 				$user_email = sanitize_email( $args['user_email'] );
-			} else {
+			} elseif ( ! empty( $connected_email ) ) {
+        		$user_email = $connected_email; // from connected account in plugin
+    	    } else {
 				if ( $user_id ) { 
 					$user       = get_userdata( $user_id );
 					$user_email = $user ? $user->user_email : null;

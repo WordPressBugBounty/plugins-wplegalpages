@@ -3219,3 +3219,245 @@ table tbody tr td .table-link-alert:hover {
     scale: 1.02;
     transition: all 0.2s ease;
 }
+
+/* Free Trial Banner */
+
+.wplp-trial-banner {
+    position: relative;
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+    border: 1px solid;
+    box-sizing: border-box;
+}
+
+.wplp-trial-banner::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff24;
+    border-radius: 0.5rem;
+    z-index: -1;
+}
+
+.wplp-trial-banner.wplp-trial-active {
+    border-color: #074EA8;
+}
+
+.wplp-trial-banner.wplp-trial-expired {
+    background-color: #fef2f2 !important;
+    border-color: #f87171;
+}
+
+.wplp-trial-banner-left {
+    display: flex;
+    gap: 10px;
+}
+
+.wplp-trial-emoji {
+    font-size: 30px;
+    line-height: 1;
+}
+
+.wplp-trial-banner-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.wplp-trial-banner-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.wplp-trial-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.wplp-trial-banner .wplp-trial-title.wplp-trial-title-active {
+    color: #074EA8;
+}
+
+.wplp-trial-banner .wplp-trial-title.wplp-trial-title-expired {
+    color: #3A3A41;
+}
+
+.wplp-trial-desc {
+    font-size: 14px;
+    color: #737373;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.wplp-trial-days-remaining {
+    font-weight: 700;
+}
+
+.wplp-trial-close-btn {
+    background: none;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+    padding: 0;
+    color: #737373;
+    transition: color 0.2s ease;
+}
+
+.wplp-trial-close-btn:hover {
+    color: #074EA8;
+}
+
+.primary-button {
+    display: flex;
+    padding: 0.75rem 3rem;
+    height: fit-content;
+    min-width: 10rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    border: none;
+    cursor: pointer;
+    background-color: #074EA8;
+    transition: all 0.3s ease-in-out;
+}
+
+.primary-button:hover {
+    background-color: #053777;
+    box-shadow: 0 4px 14px rgba(7, 78, 168, 0.3);
+    transform: scale(1.02);
+}
+
+/* Free Trial Floating Widget */
+
+.wplp-trial-widget {
+    position: fixed;
+    bottom: 25px;
+    transition: all 0.3s ease-in-out;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 17rem;
+    overflow: hidden;
+    z-index: 10;
+    border-radius: 0.5rem;
+    border: 1px solid;
+    box-sizing: border-box;
+}
+
+.wplp-trial-widget-active {
+    background-color: #eff6ff;
+    border-color: #074EA8;
+}
+
+.wplp-trial-widget-ended {
+    background-color: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.wplp-trial-widget-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wplp-trial-widget-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.wplp-trial-widget-title-active {
+    color: #074EA8;
+}
+
+.wplp-trial-widget-title-ended {
+    color: #64748b;
+}
+
+.wplp-trial-widget-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1875rem 0.5rem;
+    border-radius: 9999px;
+    color: #eff6ff;
+    font-size: 0.75rem;
+}
+
+.wplp-trial-widget-badge-active {
+    background-color: #074EA8;
+}
+
+.wplp-trial-widget-badge-ended {
+    background-color: #94a3b8;
+}
+
+.wplp-trial-widget-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    width: 100%;
+}
+
+.wplp-trial-widget-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.wplp-trial-widget-remaining {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.wplp-trial-widget-remaining-active {
+    color: #074EA8;
+}
+
+.wplp-trial-widget-remaining-ended {
+    color: #64748b;
+}
+
+.wplp-trial-widget-dates {
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+.wplp-trial-widget-dates-active {
+    color: #737373;
+}
+
+.wplp-trial-widget-dates-ended {
+    color: #94a3b8;
+}
+
+.wplp-trial-widget-progress-track {
+    width: 100%;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background-color: #cbd5e1;
+}
+
+.wplp-trial-widget-progress-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background-color: #053777;
+}
