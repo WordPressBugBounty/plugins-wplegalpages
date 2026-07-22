@@ -511,7 +511,7 @@ $trialEndDate         = $free_trial_data['trialEndDate'] ?? '';
 												<?php if( $api_user_plan === 'free' || $api_user_plan === 'Free' ) { ?>
 													<a class="wplp--scan-header-upgrade-plan gdpr-cookie-consent-admin-upgrade-button"><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_header_upgrade_icon.svg'; ?>" alt=""><?php echo esc_html('Upgrade', 'wplegalpages'); ?></a>
 												<?php } else { ?>
-													<a class="wplp-scan-header-add-sites gdpr-cookie-consent-admin-upgrade-button"><?php echo esc_html('Add More Sites', 'wplegalpages'); ?><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_add_site.svg'; ?>" alt=""></a>
+													<a class="wplp-scan-header-add-sites gdpr-cookie-consent-admin-upgrade-button"><?php echo esc_html('Upgrade site limit', 'wplegalpages'); ?><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/gdpr_add_site.svg'; ?>" alt=""></a>
 												<?php } ?>
 											</div>
 										</div>

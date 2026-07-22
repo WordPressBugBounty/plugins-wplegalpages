@@ -41,7 +41,7 @@ var gen = new Vue({
           appendField: ".wplegalpages-settings-container",
           customToolbarForm: [],
           domain: "",
-          generate: true,
+          generate: false,
           search: null,
           affiliate_disclosure: null,
           enable_block: null,
@@ -233,7 +233,7 @@ var gen = new Vue({
         },
         onChangeCredit(){
             this.generate= !this.generate;
-            this.$refs.generate.value = this.generate ? '1' : '0';
+            this.generate = this.$refs.hasOwnProperty('generate') ? this.$refs.generate.checked : false;
         },
         onChangeSearch(){
             this.search= !this.search;

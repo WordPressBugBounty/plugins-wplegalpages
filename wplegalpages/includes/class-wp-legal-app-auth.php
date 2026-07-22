@@ -256,7 +256,7 @@ class WP_Legal_Pages_App_Auth {
 		if ( ! $is_user_connected || $api_user_plan === 'free' ) {
 			$api_auth_url     = $this->get_api_url( 'pricing' );
 		}else{
-			$api_auth_url     = $this->get_api_url( 'my-account/active-plans/' );
+			$api_auth_url     = $this->get_api_url( 'app/active-plans/' );
 		}
 		if($is_user_from_connection_popup){
 			$auth_url = add_query_arg(

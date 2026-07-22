@@ -391,23 +391,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 					array(
 						'methods'  => 'POST',
 						'callback' => array($this, 'disconnect_account_request'), // Function to handle the request
-						'permission_callback' => function() {
-        				    
-        				    if (current_user_can('manage_options')) {
-        				        return true;
-        				    }
-						
-        				    $stored_secret = get_option('wplegalpages_api_secret');
-        				    $header_secret = isset($_SERVER['HTTP_X_WPLP_SECRET'])
-        				                        ? sanitize_text_field($_SERVER['HTTP_X_WPLP_SECRET'])
-        				                        : '';
-						
-        				    if ($stored_secret && $header_secret && $stored_secret === $header_secret) {
-        				        return true;
-        				    }
-						
-        				    return new WP_Error('rest_forbidden', 'Unauthorized access', array('status' => 403));
-        				},
+						'permission_callback' => array($this, 'permission_callback_for_react_app'),
 					)
 		);
 
@@ -765,6 +749,13 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		//get option first
 		$existing_data = get_option( 'wpeka_api_framework_app_settings', [] );
 		$data = array_replace_recursive( $existing_data, $data );
+
+		$is_free_trial 	= $payload['is_free_trial'] ?? 0;
+
+
+		if ( $is_free_trial === 0 || $is_free_trial === '0' || $is_free_trial === false || $is_free_trial === 'false' ) {
+			delete_option( 'wplp_free_trial_data' );
+		}
 		//update option
 		update_option( 'wpeka_api_framework_app_settings', $data );
 
@@ -982,7 +973,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		}
 
 		$business_info[] = array(
-			'domain'			=> $lp_general['domain'],
+			'domain' => !empty($lp_general['domain']) ? $lp_general['domain'] : get_bloginfo('url'),
 			'business'			=> $lp_general['business'],
 			'trading'			=> $lp_general['trading'],
 			'phone'				=> $lp_general['phone'],
@@ -1006,7 +997,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		$advanced_info[] = array(
 			'search'				=> $lp_general['search'],
 			'affiliate_disclosure'	=> $lp_general['affiliate-disclosure'],
-			'show_credits'			=> $lp_general['generate'],
+			'show_credits'          => isset($lp_general['generate']) ? !boolval($lp_general['generate']) : true,
 			'block_enabled'			=> get_option( 'wplegalpages_is_block_enabled' ),
 		);
 
@@ -1080,7 +1071,6 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				);
 			}
 		}
-
 		ob_end_clean();
 		return rest_ensure_response(
 			array(
@@ -3745,7 +3735,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$lp_general['return_period']        = isset( $data['lp-return-period'] ) ? sanitize_text_field( esc_attr( $data['lp-return-period'] ) ) : '';
 			$lp_general['duration']             = isset( $data['lp-duration'] ) ? sanitize_text_field( esc_attr( $data['lp-duration'] ) ) : '';
 			$lp_general['search']               = isset( $data['lp-search'] ) ? sanitize_text_field( esc_attr( $data['lp-search'] ) ) : 0;
-			$lp_general['generate']             = isset( $data['lp-generate'] ) ? sanitize_text_field( esc_attr( $data['lp-generate'] ) ) : 1;
+			$lp_general['generate']             = isset( $data['lp-generate'] ) ? sanitize_text_field( esc_attr( $data['lp-generate'] ) ) : 0;
 			$lp_general['is_adult']             = isset( $data['lp-is_adult'] ) ? sanitize_text_field( esc_attr( $data['lp-is_adult'] ) ) : 0;
 			$lp_general['is_popup']             = '1';
 			$lp_general['disable_comments']     = 1;

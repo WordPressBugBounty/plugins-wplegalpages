@@ -199,7 +199,7 @@ if ( '1' === $lpterms ) {
 													$is_disabled = (!$is_user_connected || $api_user_plan === 'free');
 												?>
 
-												<input type="hidden" name="lp-generate" v-model="generate">
+												<input type="hidden" name="lp-generate" :value="generate ? 'true' : 'false'">
 
 												<label for="inline-form-credits" class="c-switch form-check-label c-switch-3d-success c-switch-label">
 													<span class="screen-reader-text">
@@ -214,9 +214,9 @@ if ( '1' === $lpterms ) {
 														class="c-switch-input"
 														aria-label="Hide credits toggle"
 
-														<?php checked( !( isset( $lp_general['generate'] ) ? boolval( $lp_general['generate'] ) : false ) ); ?>
+														<?php checked( ( isset( $lp_general['generate'] ) ? boolval( $lp_general['generate'] ) : false ) ); ?>
 
-														<?php echo $is_disabled ? 'checked disabled' : ''; ?>
+														<?php echo $is_disabled ? 'disabled' : ''; ?>
 
 														@change="onChangeCredit(event)"
 													>
@@ -469,7 +469,7 @@ if ( '1' === $lpterms ) {
 									</c-col>
 										
 									<c-col class="col-sm-2">
-										<input type="hidden" name="lp-generate" v-model="generate">
+										<input type="hidden" name="lp-generate" :value="generate ? 'true' : 'false'">
 										<label for="inline-form-credits" class="c-switch form-check-label c-switch-3d-success c-switch-label">
 											<?php if ($is_disabled): ?>
 												<p class="wplp-hide-credit-message">
@@ -488,9 +488,9 @@ if ( '1' === $lpterms ) {
 												value="1"
 												class="c-switch-input"
 										
-												<?php checked( !( isset( $lp_general['generate'] ) ? boolval( $lp_general['generate'] ) : false ) ); ?>
+												<?php checked( ( isset( $lp_general['generate'] ) ? boolval( $lp_general['generate'] ) : false ) ); ?>
 										
-												<?php echo $is_disabled ? 'checked disabled' : ''; ?>
+												<?php echo $is_disabled ? 'disabled' : ''; ?>
 										
 												@change="onChangeCredit(event)"
 											>

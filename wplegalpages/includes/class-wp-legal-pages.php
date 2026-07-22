@@ -124,7 +124,7 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 
 			global $table_prefix;
 			$this->plugin_name = 'wp-legal-pages';
-			$this->version     = '3.6.8';
+			$this->version     = '3.6.9';
 			$this->tablename   = $table_prefix . 'legal_pages';
 			$this->popuptable  = $table_prefix . 'lp_popups';
 			$this->plugin_url  = plugin_dir_path( __DIR__ );
@@ -308,7 +308,7 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 			$plugin_public     = new WP_Legal_Pages_Public( $this->get_plugin_name(), $this->get_version() );
 			$lp_general        = get_option( 'lp_general' );
 			$lp_banner_options = get_option( 'lp_banner_options' );
-			if ( isset( $lp_general['generate'] ) && '1' === $lp_general['generate'] ) {
+			if ( !isset( $lp_general['generate'] ) || '0' === $lp_general['generate'] ) {
 				$this->loader->add_filter( 'the_content', $plugin_public, 'wplegal_post_generate' );
 			}
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_script' ) );
