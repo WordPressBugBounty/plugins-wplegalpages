@@ -4,13 +4,13 @@ body {
 	margin: 0;
 }
 .wplegal-container {
-	position: relative;
+	/* position: relative; */
 	/*min-height: 100vh;*/
 	font-size: 16px;
 	line-height: 1.6;
 	font-weight: normal;
 	width: 100%;
-	margin: 50px auto;
+	/* margin: 50px auto; */
 	margin-top: 0px;
 	background-color: #fff;
 }
@@ -572,7 +572,7 @@ c-container.wplegalpages-settings-container{
 	position: absolute;
     top: 10%;
     left: 40%;
-    transform: translate(-50%, -50%);
+    transform: translate(-40%, 5%);
     padding: 20px;
 	z-index: 101;
     border-radius: 5px;
@@ -631,10 +631,10 @@ c-container.wplegalpages-settings-container{
 }
 .wplegal-terms-card-overlay{
 	position: absolute;
-    top: -20%;
+    top: -36%;
     left: -50%;
     width: 160%;
-    height: 130%;
+    height: 140%;
 	z-index: 100;
     display: flex;
     flex-direction: column;

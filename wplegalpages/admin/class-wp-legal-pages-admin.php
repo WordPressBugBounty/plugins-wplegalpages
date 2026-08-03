@@ -1002,35 +1002,35 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		);
 
 		$compliances_info[] = array(
-			'footerSettings'	=> array(
-				'is_footer'				=> $lp_general['is_footer'],
-				'footer_pages'			=> $lp_footer_options['footer_legal_pages'] ?? [],
-				'legal_page_options'	=> $page_options_array ?? [],
-				'footer_bg_color'		=> $lp_footer_options['footer_bg_color'],
-				'footer_font'			=> $lp_footer_options['footer_font'],
-				'footer_font_size'		=> $lp_footer_options['footer_font_size'],
-				'footer_text_color'		=> $lp_footer_options['footer_text_color'],
-				'footer_text_align'		=> $lp_footer_options['footer_text_align'],
-				'footer_link_color'		=> $lp_footer_options['footer_link_color'],
-				'footer_separator'		=> $lp_footer_options['footer_separator'],
-				'footer_new_tab'		=> $lp_footer_options['footer_new_tab'],
-				'footer_custom_css'		=> $lp_footer_options['footer_custom_css'],
-			),
-			'announcementBannerSettings'	=> array(
-				'is_banner'					=> $lp_general['is_banner'],
-				'bar_position'				=> $lp_banner_options['bar_position'],
-				'bar_type'					=> $lp_banner_options['bar_type'],
-				'bar_num_of_days'			=> $lp_banner_options['bar_num_of_days'],
-				'banner_message'			=> $lp_banner_options['banner_message'] ?? '',
-				'banner_multiple_messages'	=> $lp_banner_options['banner_multiple_message'] ?? '',
-				'banner_close_message'		=> $lp_banner_options['banner_close_message'] ?? '',
-				'banner_bg_color'			=> $lp_banner_options['banner_bg_color'],
-				'banner_font'				=> $lp_banner_options['banner_font'],
-				'banner_font_size'			=> $lp_banner_options['banner_font_size'],
-				'banner_text_color'			=> $lp_banner_options['banner_text_color'],
-				'banner_link_color'			=> $lp_banner_options['banner_link_color'],
-				'banner_custom_css'			=> $lp_banner_options['banner_custom_css'],
-			),
+			'footerSettings'    => array(
+                'is_footer'                => $lp_general['is_footer'] ?? false,
+                'footer_pages'            => $lp_footer_options['footer_legal_pages'] ?? [],
+                'legal_page_options'    => $page_options_array ?? [],
+                'footer_bg_color'        => $lp_footer_options['footer_bg_color'] ?? "#ffffff",
+                'footer_font'            => $lp_footer_options['footer_font'] ?? "Open Sans",
+                'footer_font_size'        => $lp_footer_options['footer_font_size'] ?? "16",
+                'footer_text_color'        => $lp_footer_options['footer_text_color'] ?? "#333333",
+                'footer_text_align'        => $lp_footer_options['footer_text_align'] ?? "center",
+                'footer_link_color'        => $lp_footer_options['footer_link_color'] ?? "#333333",
+                'footer_separator'        => $lp_footer_options['footer_separator'] ?? "",
+                'footer_new_tab'        => $lp_footer_options['footer_new_tab'] ?? false,
+                'footer_custom_css'        => $lp_footer_options['footer_custom_css'] ?? "",
+            ),
+            'announcementBannerSettings'    => array(
+                'is_banner'                    => $lp_general['is_banner'] ?? false,
+                'bar_position'                => $lp_banner_options['bar_position'] ?? "top",
+                'bar_type'                    => $lp_banner_options['bar_type'] ?? "fixed",
+                'bar_num_of_days'            => $lp_banner_options['bar_num_of_days'] ?? "1",
+                'banner_message'            => $lp_banner_options['banner_message'] ?? "Our [wplegalpages_page_link] have been updated on [wplegalpages_last_updated].",
+                'banner_multiple_messages'    => $lp_banner_options['banner_multiple_message'] ?? "Our [wplegalpages_page_link] pages have recently been updated.",
+                'banner_close_message'        => $lp_banner_options['banner_close_message'] ?? "Close",
+                'banner_bg_color'            => $lp_banner_options['banner_bg_color'] ?? "#ffffff",
+                'banner_font'                => $lp_banner_options['banner_font'] ?? "Open Sans",
+                'banner_font_size'            => $lp_banner_options['banner_font_size'] ?? "16",
+                'banner_text_color'            => $lp_banner_options['banner_text_color'] ?? "#000000",
+                'banner_link_color'            => $lp_banner_options['banner_link_color'] ?? "#000000",
+                'banner_custom_css'            => $lp_banner_options['banner_custom_css'] ?? "",
+            ),
 			'ageVerificationSettings'	=> array(
 				'is_age'					=> $this->lp_get_option( '_lp_require_for', 'site' ),
 				'age_verify_for'			=> $this->lp_get_option( '_lp_always_verify', 'all' ),
@@ -2698,22 +2698,14 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		$is_gdpr_installed     = isset( $installed_plugins['gdpr-cookie-consent/gdpr-cookie-consent.php'] ) ? true : false;
 		?>
 		<div class="gdpr-install-activate-screen">
-			<img id="gdpr-install-activate-img"src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/cookie-consent-install-banner.jpg'; ?>" alt="WPLP Cookie Consent Logo"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
-			<div class="lp-popup-container">
-
-				<p class="lp-plugin-install-activation-text"><?php esc_html_e( 'WPLP Cookie Consent is currently inactive. Please install and activate the plugin to display the cookie banner and collect user consent.', 'wplegalpages' ); ?></p>
-				<?php 
+			<?php 
 				if(!$is_gdpr_installed) { ?>
-				<a style="width:27%;" href="<?php echo esc_url($gdpr_install_url); ?>">
-					<button id="lp-install-activate-btn"><?php esc_html_e('Install Now','wplegalpages') ?></button>
-				</a> 
-				<?php }
-				else { ?>
-					<a style="width:27%;" href="<?php echo esc_url($gdpr_activation_url); ?>">
-					<button id="lp-install-activate-btn"><?php esc_html_e('Activate Now','wplegalpages') ?></button>
-					</a> 
-				<?php } ?>
-        </div>
+			<a href="<?php echo esc_url($gdpr_install_url); ?>"><img id="gdpr-install-activate-img"src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/cookie-consent-install-banner-wplp.svg'; ?>" alt="WPLP Cookie Consent Logo"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?></a>
+			<?php }
+			else { ?>
+			<a href="<?php echo esc_url($gdpr_activation_url); ?>"><img id="gdpr-install-activate-img"src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/cookie-consent-activate-banner-wplp.svg'; ?>" alt="WPLP Cookie Consent Logo"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?></a>
+			<?php } ?>
+			
 		</div>
 		
 		<?php   wp_enqueue_style( $this->plugin_name . '-admin' );} 

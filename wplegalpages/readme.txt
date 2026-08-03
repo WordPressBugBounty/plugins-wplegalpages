@@ -7,7 +7,7 @@ Tags: privacy policy generator, terms and conditions, legal pages, GDPR, disclai
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 7.0.2
-Stable tag: 3.6.9
+Stable tag: 3.7.0
 
 Trusted by 10,000+ WordPress sites · 30+ ready-made legal templates · Set up your privacy policy in minutes, no coding or legal writing required.
 
@@ -225,6 +225,10 @@ The free version is limited to one site. Pro plans are available based on the nu
 Yes. Amazon Affiliate Disclosure and Earnings Disclaimer templates are available.
 
 == Changelog ==
+
+= 3.7.0 =
+* **Improvements**
+    *Improved the dashboard UI to provide a smoother and more intuitive onboarding experience.
 
 = 3.6.9 =
 * Minor bug fixes and improvements.

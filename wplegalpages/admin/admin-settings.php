@@ -391,7 +391,7 @@ if ( '1' === $lpterms ) {
 										<label><?php esc_attr_e( 'Affiliate Disclosure', 'wplegalpages' ); ?> <tooltip text="<?php esc_html_e( 'Enable this option to display an Affiliate Disclosure below each blog post, ensuring compliance with FTC guidelines.', 'wplegalpages' ); ?>"></tooltip></label>
 										<span class="wplegalpages-help-text">
 											<?php esc_html_e( 'If you have an affiliate site, having an affiliate disclosure is must.', 'wplegalpages' ); ?>
-											<a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wp-legal-pages/configurations/configuring-the-settings/' ); ?>" target="_blank" rel="noopener noreferrer">
+											<a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wplp-docs/guides/how-to-create-an-affiliate-disclosure-page/' ); ?>" target="_blank" rel="noopener noreferrer">
 											    <?php esc_html_e( 'Learn here how to add an affiliate disclosure', 'wplegalpages' ); ?>
 											</a>
 										</span>
