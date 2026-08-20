@@ -260,7 +260,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 													'wplegal_privacy_policy_page',
 													'wplegal_returns_refunds_policy_page',
 													'wplegal_impressum_page',
-													'wplegal_custom_legal_page'];
+													'wplegal_custom_legal_page',
+													'wplegal_cvd_page',
+													'wplegal_doc_page'
+												];
 
 								$post_id_arr = [];
 								$post_id_to_option_key = array();

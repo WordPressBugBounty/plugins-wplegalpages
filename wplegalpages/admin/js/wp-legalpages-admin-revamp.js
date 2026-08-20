@@ -731,30 +731,22 @@ document.addEventListener('DOMContentLoaded', function () {
 		var toggleBtn = document.getElementById('compliance-setup-chevron');
 		var content   = document.getElementById('compliance-setup-content');
 		var header    = document.getElementById('compliance-setup-toggle');
-		console.log(toggleBtn, "togglebtn");
-    console.log(content, "content");
-    console.log("header", header)
 		if (!toggleBtn || !content) {
-      console.log("not there")
 			return;
 		}
 
 		function toggleCompliancePanel() {
-      console.log("toggleCompliancePanel called");
 			var isCollapsed = content.classList.toggle('collapsed');
-      console.log("iscollapsed", isCollapsed);
 			toggleBtn.classList.toggle('rotated', isCollapsed);
 			toggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
 		}
 
 		toggleBtn.addEventListener('click', function (e) {
 			e.stopPropagation();
-      console.log("CALLED");
 			toggleCompliancePanel();
 		});
 
 		if (header) {
-      console.log("heeader called");
 			header.addEventListener('click', toggleCompliancePanel);
 		}
 	});

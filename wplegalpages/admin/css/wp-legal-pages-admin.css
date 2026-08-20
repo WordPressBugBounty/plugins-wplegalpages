@@ -3797,7 +3797,18 @@ table tbody tr td .table-link-alert:hover {
    width: fit-content;
   background-color: transparent;
 }
-
+.manage-wplp-button,
+.manage-wplp-button:hover{
+  padding: 6px 20px;
+  border: 1px solid #064799;
+  color: #064799;
+  border-radius: 10px;
+  align-self: flex-start;
+  font-weight: 500;
+  font-size: 14px;
+   width: fit-content;
+  background-color: transparent;
+}
 .compliance-connect-btn.disabled,
 .compliance-connect-btn.disabled:hover{
   padding: 12px 20px;
