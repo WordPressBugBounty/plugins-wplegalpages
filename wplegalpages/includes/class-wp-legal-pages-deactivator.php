@@ -63,6 +63,13 @@ if ( ! class_exists( 'WP_Legal_Pages_Deactivator' ) ) {
 
 			// to delete the particular option 
 			delete_option( 'wplp_review_pending');
+			$gdpr_plugin_name = 'gdpr-cookie-consent/gdpr-cookie-consent.php';
+			if ( ! is_plugin_active( $gdpr_plugin_name ) ) {
+				$timestamp = wp_next_scheduled( 'appwplp_secret_key_retry_event' );
+				if ( $timestamp ) {
+					wp_clear_scheduled_hook('appwplp_secret_key_retry_event' );
+				}
+			}
 		}
 
 	}

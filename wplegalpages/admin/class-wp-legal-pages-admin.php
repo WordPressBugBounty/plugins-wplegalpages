@@ -85,6 +85,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			add_action('rest_api_init', array($this, 'register_wpl_dashboard_route'));
 			add_action('rest_api_init', array($this, 'wplp_generate_api_secret'));
 			add_action('admin_init', array($this, 'handle_compliance_wizard_for_old_users'));
+			add_action( 'appwplp_secret_key_generated', array($this, 'appwplp_register_secret_key_with_server'));
 		}
 
 		/**
@@ -194,7 +195,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			header( 'Access-Control-Allow-Origin: ' . esc_url_raw($origin));
 			header( 'Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS' );
 			header( 'Access-Control-Allow-Credentials: true' );
-			header( 'Access-Control-Allow-Headers: Authorization, Content-Type, X-WP-Nonce, Origin, X-Requested-With, Accept' );
+			header( 'Access-Control-Allow-Headers: Authorization, Content-Type, X-WP-Nonce, Origin, X-Requested-With, Accept, X-WPLP-Timestamp, X-WPLP-Signature' );
 
 			// Handle preflight requests
 			if ( $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
@@ -206,7 +207,62 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 
 		}, 10, 4);
 	}
+	/**
+	 * PHASE 2: Shared HMAC signature verification helper.
+	 *
+	 * Called from all three permission callbacks. Verifies the incoming
+	 * request carries a valid X-WPLP-Timestamp + X-WPLP-Signature pair,
+	 * proving the caller holds this site's confirmed secret key - without
+	 * the key itself ever being transmitted.
+	 *
+	 * Returns true on success, or a WP_Error describing the failure.
+	 */
+	public function appwplp_verify_hmac_signature( WP_REST_Request $request ) {
+		$secret_key = get_option( APPWPLP_SECRET_KEY_OPTION );
+		$key_status = get_option( APPWPLP_SECRET_KEY_STATUS_OPTION );
+		if ( empty( $secret_key ) ) {
+			// This site hasn't completed phase-1 registration yet.
+			return new WP_Error(
+				'secret_key_not_configured',
+				'Secret key not configured on this site.',
+				array( 'status' => 401 )
+			);
+		}
 
+		$timestamp = $request->get_header( 'X-WPLP-Timestamp' );
+		$signature = $request->get_header( 'X-WPLP-Signature' );
+		if ( empty( $timestamp ) || empty( $signature ) ) {
+			return new WP_Error(
+				'missing_signature',
+				'Signature missing.',
+				array( 'status' => 401 )
+			);
+		}
+
+		// Replay protection: reject requests older than 5 minutes.
+		if ( abs( time() - (int) $timestamp ) > 300 ) {
+			return new WP_Error(
+				'stale_request',
+				'Request expired.',
+				array( 'status' => 401 )
+			);
+		}
+
+		$expected_signature = hash_hmac(
+			'sha256',
+			'wplc-req-v1|' . $timestamp . '|' . $request->get_body(),
+			$secret_key
+		);
+		if ( ! hash_equals( $expected_signature, $signature ) ) {
+			return new WP_Error(
+				'invalid_signature',
+				'Signature mismatch.',
+				array( 'status' => 401 )
+			);
+		}
+
+		return true;
+	}
 	/**
 	 * Handle Compliance wizard for existing users
 	 */
@@ -423,6 +479,48 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				)
 			);
 		}
+		register_rest_route(
+			$appwplp_namespace, 
+			'/verify_connection', 
+			array(
+				'methods'             => 'GET',
+				'callback'            => array($this, 'appwplp_verify_connection'),
+				'permission_callback' => '__return_true',
+				) 
+		);
+	}
+	function appwplp_verify_connection( WP_REST_Request $request ) {
+		$challenge = $request->get_param( 'challenge' );
+		$secret    = get_option( APPWPLP_SECRET_KEY_OPTION );
+		if ( empty( $challenge ) || empty( $secret ) ) {
+			return new WP_Error( 'invalid_request', 'Missing parameters.', array( 'status' => 400 ) );
+		}
+	
+		$response_hash = hash_hmac( 'sha256', 'wplc-pair-v1|' . $challenge, $secret );
+		return rest_ensure_response( array( 'response' => $response_hash ) );
+	}
+	function appwplp_register_secret_key_with_server( $site_key ) {
+		$site_url = site_url();
+		$response = wp_remote_post(
+			WPLEGAL_APP_URL . '/wp-json/appwplp/v1/register_secret_key',
+			array(
+				'timeout' => 15,
+				'headers' => array(
+					'Content-Type' => 'application/json'
+				),
+				'body'    => wp_json_encode( array(
+					'site_key' => $site_key,
+					'site_url' => $site_url,
+				) ),
+			)
+		);
+	
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			update_option( APPWPLP_SECRET_KEY_STATUS_OPTION, 'registration_failed', false );
+			return;
+		}
+	
+		update_option( APPWPLP_SECRET_KEY_STATUS_OPTION, 'confirmed', false );
 	}
 
 	public function permission_callback_for_react_app(WP_REST_Request $request) {
@@ -462,6 +560,12 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			return new WP_Error('invalid_master_key', 'Master key mismatch.', ['status' => 401]);
 		}
 		
+		// NEW: secret key signature check.
+		$signature_check = $this->appwplp_verify_hmac_signature( $request );
+		if ( is_wp_error( $signature_check ) ) {
+			return $signature_check;
+		}
+
 		return true; // All good → allow callback
 	}
 
@@ -531,7 +635,11 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
     	        [ 'status' => 403 ]
     	    );
     	}
-
+		// NEW: secret key signature check.
+		$signature_check = $this->appwplp_verify_hmac_signature( $request );
+		if ( is_wp_error( $signature_check ) ) {
+			return $signature_check;
+		}
     	return true;
 	}
 	public function permission_callback_with_master_key_validation_only( WP_REST_Request $request ) {
@@ -545,6 +653,11 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		}
 		if ( $master_key !== $incoming_key ) {
 			return new WP_Error('invalid_master_key', 'Master key mismatch.', ['status' => 401]);
+		}
+		// NEW: secret key signature check.
+		$signature_check = $this->appwplp_verify_hmac_signature( $request );
+		if ( is_wp_error( $signature_check ) ) {
+			return $signature_check;
 		}
 
 		return true;
@@ -1697,6 +1810,10 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		$lp_general = get_option( 'lp_general' );
 		$lp_footer_options = get_option( 'lp_footer_options' );
 		$lp_banner_options = get_option( 'lp_banner_options' );
+
+		$lp_general = is_array( $lp_general ) ? $lp_general : array();
+		$lp_footer_options = is_array( $lp_footer_options ) ? $lp_footer_options : array();
+		$lp_banner_options = is_array( $lp_banner_options ) ? $lp_banner_options : array();
 
 		$save_object = $request->get_param( 'save_object' ) ?: null;
 		$footer_object = $request->get_param( 'footer_object' ) ?: null;
