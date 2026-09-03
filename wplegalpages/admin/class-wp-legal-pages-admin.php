@@ -500,9 +500,34 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 		return rest_ensure_response( array( 'response' => $response_hash ) );
 	}
 	function appwplp_register_secret_key_with_server( $site_key ) {
+
+		/*
+		 * WP Cookie Consent and WPLegalPages both hook this action and post the
+		 * same key to the same endpoint. Whichever plugin gets here first owns
+		 * the attempt; the other one stands down until the retry cron is due.
+		 */
+		if ( function_exists( 'appwplp_claim_secret_key_registration' ) && ! appwplp_claim_secret_key_registration() ) {
+			return;
+		}
+
+		/*
+		 * Spend an attempt. Counted here rather than in the caller so the plugin
+		 * that stood down on the claim above does not burn one, and counted
+		 * before the post rather than after so a request that dies inside the 15
+		 * second timeout still spends it - otherwise a site that always dies
+		 * there would never exhaust the cap.
+		 */
+		if ( defined( 'APPWPLP_SECRET_KEY_ATTEMPTS_OPTION' ) ) {
+			update_option(
+				APPWPLP_SECRET_KEY_ATTEMPTS_OPTION,
+				(int) get_option( APPWPLP_SECRET_KEY_ATTEMPTS_OPTION, 0 ) + 1,
+				false
+			);
+		}
+
 		$site_url = site_url();
 		$response = wp_remote_post(
-			WPLEGAL_APP_URL . '/wp-json/appwplp/v1/register_secret_key',
+			WPLEGAL_APP_URL . '/wp-json/appwplp/v1/signed_key_registration',
 			array(
 				'timeout' => 15,
 				'headers' => array(
@@ -514,153 +539,252 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 				) ),
 			)
 		);
-	
 		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 			update_option( APPWPLP_SECRET_KEY_STATUS_OPTION, 'registration_failed', false );
 			return;
 		}
-	
 		update_option( APPWPLP_SECRET_KEY_STATUS_OPTION, 'confirmed', false );
 	}
 
+	/**
+	 * PHASE 2: Validates a bearer token with the app, caching the verdict.
+	 *
+	 * The round trip to /jwt-auth/v1/token/validate is the slowest part of
+	 * every permission check, so a successful verdict is cached against a
+	 * SHA-256 of the exact token string. A forged or altered token hashes to a
+	 * different key, misses the cache and is validated remotely - so the cache
+	 * can only ever short-circuit a token the app has already vouched for.
+	 *
+	 * The entry is capped by the token's own `exp` claim, so a cached verdict
+	 * can never outlive the token it was issued for.
+	 *
+	 * @param string $token Raw bearer token.
+	 * @return int|string|WP_Error App user id the token belongs to, or WP_Error.
+	 */
+	public function appwplp_validate_bearer_token( $token ) {
+		$cache_key = 'appwplp_jwt_' . hash( 'sha256', $token );
+
+		$cached_user_id = get_transient( $cache_key );
+		if ( false !== $cached_user_id ) {
+			return $cached_user_id;
+		}
+
+		$validate = wp_remote_post(
+			WPLEGAL_APP_URL . '/wp-json/jwt-auth/v1/token/validate',
+			array(
+				'headers' => array(
+					'Authorization' => 'Bearer ' . $token,
+					'Content-Type'  => 'application/json',
+				),
+				'timeout' => 15,
+			)
+		);
+
+		if ( is_wp_error( $validate ) ) {
+			return new WP_Error( 'token_validation_failed', $validate->get_error_message(), array( 'status' => 401 ) );
+		}
+
+		if ( 200 !== wp_remote_retrieve_response_code( $validate ) ) {
+			return new WP_Error( 'invalid_token', 'Token validation failed.', array( 'status' => 401 ) );
+		}
+
+		/*
+		 * Only now that the app has vouched for the token is its payload worth
+		 * reading - nothing in here verifies the signature locally.
+		 */
+		$parts = explode( '.', $token );
+		if ( 3 !== count( $parts ) ) {
+			return new WP_Error( 'malformed_token', 'Unauthorized.', array( 'status' => 401 ) );
+		}
+
+		$payload = json_decode( base64_decode( strtr( $parts[1], '-_', '+/' ) ) );
+		if ( ! $payload ) {
+			return new WP_Error( 'malformed_token', 'Unauthorized.', array( 'status' => 401 ) );
+		}
+
+		// Tmeister's plugin nests it here.
+		$saas_user_id = $payload->data->user->id ?? 0;
+		if ( ! is_scalar( $saas_user_id ) || '' === (string) $saas_user_id || 0 === (int) $saas_user_id ) {
+			return new WP_Error( 'malformed_token', 'Unauthorized.', array( 'status' => 401 ) );
+		}
+
+		$ttl = APPWPLP_JWT_CACHE_TTL;
+		if ( ! empty( $payload->exp ) ) {
+			$ttl = min( $ttl, (int) $payload->exp - time() );
+		}
+		if ( $ttl > 0 ) {
+			set_transient( $cache_key, $saas_user_id, $ttl );
+		}
+
+		return $saas_user_id;
+	}
+
+	/**
+	 * PHASE 2: Confirms a validated token belongs to the account connected here.
+	 *
+	 * A valid token only proves its bearer holds an account on the app - not
+	 * that it is *this* site's account, since the app issues tokens to every
+	 * customer. Comparing the token's user id against the connected account id
+	 * is what stops somebody pointing their own token at another site.
+	 *
+	 * Read against the account id as it stands right now, so disconnecting or
+	 * reconnecting to a different account invalidates cached verdicts for free.
+	 *
+	 * @param int|string $saas_user_id      Id the token belongs to.
+	 * @param bool       $allow_unconnected Skip the comparison when no account is
+	 *                                      connected yet - only the connect route.
+	 * @return true|WP_Error
+	 */
+	public function appwplp_verify_token_owner( $saas_user_id, $allow_unconnected = false ) {
+		$stored_user_id = $this->settings->get( 'account', 'id' );
+
+		// get() hands back an empty array, not a string, when the key is unset.
+		if ( ! is_scalar( $stored_user_id ) ) {
+			$stored_user_id = '';
+		}
+
+		if ( '' === (string) $stored_user_id ) {
+			/*
+			 * Nothing connected yet: the connect route has no owner to compare
+			 * against, every other route requires one.
+			 */
+			return $allow_unconnected
+				? true
+				: new WP_Error( 'token_validation_failed', 'Not the owner of the website!', array( 'status' => 401 ) );
+		}
+
+		if ( ! hash_equals( (string) $stored_user_id, (string) $saas_user_id ) ) {
+			return new WP_Error( 'token_validation_failed', 'Not the owner of the website!', array( 'status' => 401 ) );
+		}
+
+		return true;
+	}
 	public function permission_callback_for_react_app(WP_REST_Request $request) {
 		$this->settings = new WP_Legal_Pages_Settings();
 
-		$master_key = $this->settings->get('api','token');		
-		$auth_header = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '';
-		if ( ! preg_match('/Bearer\s(\S+)/', $auth_header, $matches) ) {
-			return new WP_Error('no_token', 'Authorization token missing.', ['status' => 401]);
+		// Signature first - see permission_callback_for_wplp_connect_site.
+		$signature_check = $this->appwplp_verify_hmac_signature( $request );
+		if ( is_wp_error( $signature_check ) ) {
+			return $signature_check;
 		}
-		$token = sanitize_text_field($matches[1]);
-		// 2. Validate token with central WP site
-		$validate = wp_remote_post(
-			WPLEGAL_APP_URL . '/wp-json/jwt-auth/v1/token/validate',
-			[
-				'headers' => [
-					'Authorization' => 'Bearer ' . $token,
-					'Content-Type'  => 'application/json'
-				],
-				'timeout' => 15
-			]
-		);
-		if ( is_wp_error($validate) ) {
-			return new WP_Error('token_validation_failed', $validate->get_error_message(), ['status' => 401]);
-		}
-		$code = wp_remote_retrieve_response_code($validate);
-		if ( $code !== 200 ) {
-			return new WP_Error('invalid_token', 'Token validation failed.', ['status' => 401]);
-		}
-		// 3. Extract master_key from the request body
+
+		$master_key = $this->settings->get('api','token');
+
+		// Master key next: also local, also cheap.
 		$body = $request->get_json_params();
 		$incoming_key = isset($body['master_key']) ? sanitize_text_field($body['master_key']) : '';
 		if ( empty($incoming_key) ) {
 			return new WP_Error('master_key_missing', 'Master key not provided.', ['status' => 401]);
 		}
-		if ( $master_key !== $incoming_key ) {
+		if ( ! is_scalar( $master_key ) || ! hash_equals( (string) $master_key, $incoming_key ) ) {
 			return new WP_Error('invalid_master_key', 'Master key mismatch.', ['status' => 401]);
 		}
-		
-		// NEW: secret key signature check.
-		$signature_check = $this->appwplp_verify_hmac_signature( $request );
-		if ( is_wp_error( $signature_check ) ) {
-			return $signature_check;
+
+		$auth_header = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '';
+		if ( ! preg_match('/Bearer\s(\S+)/', $auth_header, $matches) ) {
+			return new WP_Error('no_token', 'Authorization token missing.', ['status' => 401]);
+		}
+		$token = sanitize_text_field($matches[1]);
+
+		$saas_user_id = $this->appwplp_validate_bearer_token( $token );
+		if ( is_wp_error( $saas_user_id ) ) {
+			return $saas_user_id;
+		}
+
+		$owner_check = $this->appwplp_verify_token_owner( $saas_user_id );
+		if ( is_wp_error( $owner_check ) ) {
+			return $owner_check;
 		}
 
 		return true; // All good → allow callback
 	}
 
 	public function permission_callback_for_wplp_connect_site(WP_REST_Request $request) {
-		
-		$auth_header = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+		$this->settings = new WP_Legal_Pages_Settings();
 
-    	if ( ! preg_match( '/Bearer\s(\S+)/', $auth_header, $matches ) ) {
-    	    return new WP_Error(
-    	        'no_token',
-    	        'Authorization token missing.',
-    	        [ 'status' => 401 ]
-    	    );
-    	}
-
-    	$token = sanitize_text_field( $matches[1] );
-
-    	$validate = wp_remote_post(
-    	    WPLEGAL_APP_URL . '/wp-json/jwt-auth/v1/token/validate',
-    	    [
-    	        'headers' => [
-    	            'Authorization' => 'Bearer ' . $token,
-    	            'Content-Type'  => 'application/json',
-    	        ],
-    	        'timeout' => 15,
-    	    ]
-    	);
-
-    	if ( is_wp_error( $validate ) ) {
-    	    return new WP_Error(
-    	        'token_validation_failed',
-    	        $validate->get_error_message(),
-    	        [ 'status' => 401 ]
-    	    );
-    	}
-		
-		$code = wp_remote_retrieve_response_code( $validate );
-
-    	if ( $code !== 200 ) {
-    	    return new WP_Error(
-    	        'invalid_token',
-    	        'Token validation failed.',
-    	        [ 'status' => 401 ]
-    	    );
-    	}
-
-		$username = sanitize_text_field( $request->get_param( 'username' ) );
-
-    	$user = get_user_by( 'email', $username );
-
-    	if ( ! $user ) {
-    	    $user = get_user_by( 'login', $username );
-    	}
-
-    	if ( ! $user ) {
-    	    return new WP_Error(
-    	        'invalid_user',
-    	        'User does not exist.',
-    	        [ 'status' => 401 ]
-    	    );
-    	}
-
-    	if ( ! user_can( $user, 'manage_options' ) ) {
-    	    return new WP_Error(
-    	        'invalid_user',
-    	        'User is not an administrator.',
-    	        [ 'status' => 403 ]
-    	    );
-    	}
-		// NEW: secret key signature check.
+		/*
+		 * Signature first. It is local, and it is the check an unauthenticated
+		 * caller cannot get past, so nothing expensive - least of all an
+		 * outbound request to the app - runs ahead of it.
+		 */
 		$signature_check = $this->appwplp_verify_hmac_signature( $request );
 		if ( is_wp_error( $signature_check ) ) {
 			return $signature_check;
 		}
-    	return true;
+
+		$auth_header = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+
+		if ( ! preg_match( '/Bearer\s(\S+)/', $auth_header, $matches ) ) {
+			return new WP_Error(
+				'no_token',
+				'Authorization token missing.',
+				[ 'status' => 401 ]
+			);
+		}
+
+		$token = sanitize_text_field( $matches[1] );
+
+		$saas_user_id = $this->appwplp_validate_bearer_token( $token );
+		if ( is_wp_error( $saas_user_id ) ) {
+			return $saas_user_id;
+		}
+
+		// A site connecting for the first time has no owner on record yet.
+		$owner_check = $this->appwplp_verify_token_owner( $saas_user_id, true );
+		if ( is_wp_error( $owner_check ) ) {
+			return $owner_check;
+		}
+
+		$username = sanitize_email( $request->get_param( 'username' ) );
+
+		if ( ! is_email( $username ) ) {
+			return new WP_Error( 'invalid_email', 'A valid email address is required.', [ 'status' => 400 ] );
+		}
+
+		$user = get_user_by( 'email', $username );
+
+		if ( ! $user ) {
+			return new WP_Error(
+				'invalid_user',
+				'User does not exist.',
+				[ 'status' => 401 ]
+			);
+		}
+
+		if ( ! user_can( $user, 'manage_options' ) ) {
+			return new WP_Error(
+				'invalid_user',
+				'User is not an administrator.',
+				[ 'status' => 403 ]
+			);
+		}
+
+		return true;
 	}
 	public function permission_callback_with_master_key_validation_only( WP_REST_Request $request ) {
+		/*
+		 * No bearer token on this route - the app calls it directly - so there
+		 * is no token owner to check. The signature and the master key are the
+		 * whole gate, and the signature goes first.
+		 */
+		$signature_check = $this->appwplp_verify_hmac_signature( $request );
+		if ( is_wp_error( $signature_check ) ) {
+			return $signature_check;
+		}
+
 		$this->settings = new WP_Legal_Pages_Settings();
-		$master_key      = $this->settings->get( 'api', 'token' );
-		// 1.Extract master_key from the request body
+		$master_key     = $this->settings->get( 'api', 'token' );
+
 		$body = $request->get_json_params();
 		$incoming_key = isset($body['master_key']) ? sanitize_text_field($body['master_key']) : '';
 		if ( empty($incoming_key) ) {
 			return new WP_Error('master_key_missing', 'Master key not provided.', ['status' => 401]);
 		}
-		if ( $master_key !== $incoming_key ) {
+		if ( ! is_scalar( $master_key ) || ! hash_equals( (string) $master_key, $incoming_key ) ) {
 			return new WP_Error('invalid_master_key', 'Master key mismatch.', ['status' => 401]);
 		}
-		// NEW: secret key signature check.
-		$signature_check = $this->appwplp_verify_hmac_signature( $request );
-		if ( is_wp_error( $signature_check ) ) {
-			return $signature_check;
-		}
 
-		return true;
+		return true; // All good → allow callback
 	}
 	function wplp_generate_api_secret() {
 	    // Check if secret already exists

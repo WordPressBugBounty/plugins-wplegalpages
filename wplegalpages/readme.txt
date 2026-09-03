@@ -7,7 +7,7 @@ Tags: privacy policy generator, terms and conditions, legal pages, GDPR, disclai
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 7.0.2
-Stable tag: 3.7.2
+Stable tag: 3.7.3
 
 == DESCRIPTION ==
 
@@ -209,6 +209,13 @@ All of it. Pages open in the standard WordPress editor. Most site owners adjust 
 
 
 == Changelog ==
+
+= 3.7.3 =
+**Improvements**
+    * General stability and compatibility improvements.
+
+**Bug Fixes**
+    * Minor bug fixes and improvements.
 
 = 3.7.2 =
 * **Improvements**
