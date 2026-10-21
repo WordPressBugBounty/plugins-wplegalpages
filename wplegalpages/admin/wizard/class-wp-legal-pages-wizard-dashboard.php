@@ -10,6 +10,10 @@
  * @author     WPEka <support@wplegalpages.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'WP_Legal_Pages_Wizard_Dashboard' ) ) {
 
 	/**

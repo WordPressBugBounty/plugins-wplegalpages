@@ -77,12 +77,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					if ( $update ) {
 						?>
 				<div id="message">
-					<p><span class="label label-success myAlert"><?php esc_attr_e( 'Popup Successfully Updated.', 'wplegalpages' ); ?></span></p>
+					<p><span class="label label-success myAlert"><?php esc_html_e( 'Popup Successfully Updated.', 'wplegalpages' ); ?></span></p>
 				</div>
 							<?php
 					} else {
 						?>
-							<span class='label label-danger myAlert'> <?php esc_attr_e( 'Error Updating Template', 'wplegalpages' ); ?></span>
+							<span class='label label-danger myAlert'> <?php esc_html_e( 'Error Updating Template', 'wplegalpages' ); ?></span>
 						<?php
 					}
 				} else {
@@ -98,12 +98,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					if ( $wpdb->insert_id ) {
 						?>
 					<div id="message">
-						<p> <span class="label label-success myAlert"><?php esc_attr_e( 'Popup Successfully Created.', 'wplegalpages' ); ?></span></p>
+						<p> <span class="label label-success myAlert"><?php esc_html_e( 'Popup Successfully Created.', 'wplegalpages' ); ?></span></p>
 					</div>
 						<?php
 					} else {
 						?>
-						<span class='label label-danger myAlert'><?php esc_attr_e( 'Error Saving Popup', 'wplegalpages' ); ?></span>
+						<span class='label label-danger myAlert'><?php esc_html_e( 'Error Saving Popup', 'wplegalpages' ); ?></span>
 						<?php
 					}
 				}
@@ -175,14 +175,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 								width: 800px;
 							}
 						</style>
-						<h2 class="create-popup wplegalpages-popup-section-title"> <?php esc_attr_e( 'Available Popups', 'wplegalpages' ); ?></h2>
+						<h2 class="create-popup wplegalpages-popup-section-title"> <?php esc_html_e( 'Available Popups', 'wplegalpages' ); ?></h2>
 						<table class="widefat table table-bordered table-striped create-popup wplegalpages-popup-list-table">
 							<thead>
 								<tr>
-									<th width="5%"><?php esc_attr_e( 'S.No.', 'wplegalpages' ); ?></th>
-									<th width="30%"><?php esc_attr_e( 'Template Title', 'wplegalpages' ); ?></th>
-									<th width="20%"><?php esc_attr_e( 'Shortcode', 'wplegalpages' ); ?></th>
-									<th width="15%"><?php esc_attr_e( 'Action', 'wplegalpages' ); ?></th>
+									<th width="5%"><?php esc_html_e( 'S.No.', 'wplegalpages' ); ?></th>
+									<th width="30%"><?php esc_html_e( 'Template Title', 'wplegalpages' ); ?></th>
+									<th width="20%"><?php esc_html_e( 'Shortcode', 'wplegalpages' ); ?></th>
+									<th width="15%"><?php esc_html_e( 'Action', 'wplegalpages' ); ?></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -207,7 +207,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<?php echo '[wp-legalpopup pid=' . esc_attr( $res->id ) . ']'; ?>
 											</td>
 											</td>
-											<td><div class="wplegalpages-popup-list-table-actions"><a class="wplegalpages-popup-list-table-action-link" href="<?php echo esc_url( $baseurl ); ?>/wp-admin/admin.php?page=legal-pages&lpid=<?php echo esc_attr( $res->id ); ?>&mode=edit"><div class="wplegalpages-popup-list-table-action wplegalpages-popup-list-table-action-edit"><span class="dashicons dashicons-edit-page"></span><span class="wplegalpages-popup-list-table-action-title"><?php esc_attr_e( 'Edit', 'wplegalpages' ); ?></span></div></a><a class="wplegalpages-popup-list-table-action-link" href="<?php echo esc_url( $baseurl ); ?>/wp-admin/admin.php?page=legal-pages&nonce=<?php echo esc_attr( wp_create_nonce( 'lp-submit-create-popups' ) ); ?>&lpid=<?php echo esc_attr( $res->id ); ?>&mode=deletepopup" onclick="return confirm('Popup will be permanently deleted. Are you sure you want to delete?')"><div class="wplegalpages-popup-list-table-action wplegalpages-popup-list-table-action-delete" ><span class="dashicons dashicons-trash"></span><span class="wplegalpages-popup-list-table-action-title"><?php esc_attr_e( 'Delete', 'wplegalpages' ); ?></span></div></a></div></td>
+											<td><div class="wplegalpages-popup-list-table-actions"><a class="wplegalpages-popup-list-table-action-link" href="<?php echo esc_url( $baseurl ); ?>/wp-admin/admin.php?page=legal-pages&lpid=<?php echo esc_attr( $res->id ); ?>&mode=edit"><div class="wplegalpages-popup-list-table-action wplegalpages-popup-list-table-action-edit"><span class="dashicons dashicons-edit-page"></span><span class="wplegalpages-popup-list-table-action-title"><?php esc_html_e( 'Edit', 'wplegalpages' ); ?></span></div></a><a class="wplegalpages-popup-list-table-action-link" href="<?php echo esc_url( $baseurl ); ?>/wp-admin/admin.php?page=legal-pages&nonce=<?php echo esc_attr( wp_create_nonce( 'lp-submit-create-popups' ) ); ?>&lpid=<?php echo esc_attr( $res->id ); ?>&mode=deletepopup" onclick="return confirm('Popup will be permanently deleted. Are you sure you want to delete?')"><div class="wplegalpages-popup-list-table-action wplegalpages-popup-list-table-action-delete" ><span class="dashicons dashicons-trash"></span><span class="wplegalpages-popup-list-table-action-title"><?php esc_html_e( 'Delete', 'wplegalpages' ); ?></span></div></a></div></td>
 											</tr>
 										<?php
 										$count++;
@@ -215,15 +215,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 									?>
 												<?php } else { ?>
 													<tr>
-														<td colspan="4"><?php esc_attr_e( 'No popups yet', 'wplegalpages' ); ?></td>
+														<td colspan="4"><?php esc_html_e( 'No popups yet', 'wplegalpages' ); ?></td>
 													</tr>
 													<?php } ?>
 							</tbody>
 						</table>
 						<hr class="create-popup wplegalpages-popup-section-separator">
 						<div class="wplegalpages-popup-shortcode-section create-popup">
-							<h3 class="wplegalpages-popup-shortcode-section-title"><?php esc_attr_e( 'Use Template Shortcode', 'wplegalpages' ); ?></h3>
-							<div class="wplegalpages-popup-shortcode-section-container"><p class="wplegalpages-popup-shortcode-section-desc"><?php esc_attr_e( 'Select the template from below drop down for which you need to have popup and copy paste the shortcodes to the editor.', 'wplegalpages' ); ?></p>
+							<h3 class="wplegalpages-popup-shortcode-section-title"><?php esc_html_e( 'Use Template Shortcode', 'wplegalpages' ); ?></h3>
+							<div class="wplegalpages-popup-shortcode-section-container"><p class="wplegalpages-popup-shortcode-section-desc"><?php esc_html_e( 'Select the template from below drop down for which you need to have popup and copy paste the shortcodes to the editor.', 'wplegalpages' ); ?></p>
 								<?php
 								$all_page_options = ['wplegal_terms_of_use_page', 
 													'wplegal_terms_of_use_free_page', 
@@ -277,15 +277,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 								}
 
 								if (!empty($post_id_arr)) {
-								    $id_list = implode(',', $post_id_arr);
+								    $ids = array_map( 'absint', $post_id_arr );
 
-								    $res = $wpdb->get_results(
-								        $wpdb->prepare(
-								            "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID IN ($id_list) AND post_type = %s AND post_status = %s",
-								            'page',
-								            'publish'
-								        )
-								    );
+									$res = $wpdb->get_results(
+										$wpdb->prepare(
+											"SELECT ID, post_title FROM {$wpdb->posts} WHERE ID IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ') AND post_type = %s AND post_status = %s',
+											array_merge( $ids, array( 'page', 'publish' ) )
+										)
+									);
 								} else {
 								    $res = []; // no pages to fetch
 								}
@@ -308,7 +307,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									</script>
 									<form name="me" id="wplp-shortcode-select">
 										<select name="wplp" id="wplp" onChange="wplpfunc(this);" style="width:250px;">
-											<option value=""><?php esc_attr_e( 'Select', 'wplegalpages' ); ?></option>
+											<option value=""><?php esc_html_e( 'Select', 'wplegalpages' ); ?></option>
 											<?php
 
 											foreach ( $res as $ras ) {
@@ -324,7 +323,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 											?>
 										</select>
 									</form>
-									<label for="wplpcode" class="screen-reader-text"><?php esc_attr_e( 'Generated Legal Page Code','wplegalpages'); ?></label>
+									<label for="wplpcode" class="screen-reader-text"><?php esc_html_e( 'Generated Legal Page Code','wplegalpages'); ?></label>
 									<textarea id="wplpcode" onclick="document.getElementById('wplpcode').focus();document.getElementById('wplpcode').select();" readonly="readonly" style="width:250px;"></textarea>
 									<div style="clear:both;"></div>
 							</div>
@@ -341,12 +340,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 									$edit_popup_template = is_object( $row ) && isset( $row->popup_template ) ? $row->popup_template : '';
 								}
 								?>
-									<h3 class="wplegalpages-create-popup-section-title"><?php esc_attr_e( 'Create Popups', 'wplegalpages' ); ?></h3>
-									<p class="wplegalpages-create-popup-section-desc"><b><?php esc_attr_e( 'Note:', 'wplegalpages' ); ?> </b><?php esc_attr_e( 'You can use Available Template shortcodes inside the popup to display Legal Pages on Popup. Checkbox to agree for the legal pages is added at the end of every popup forcing the user to agree the legal contents to view the page.', 'wplegalpages' ); ?></p>
+									<h3 class="wplegalpages-create-popup-section-title"><?php esc_html_e( 'Create Popups', 'wplegalpages' ); ?></h3>
+									<p class="wplegalpages-create-popup-section-desc"><b><?php esc_html_e( 'Note:', 'wplegalpages' ); ?> </b><?php esc_html_e( 'You can use Available Template shortcodes inside the popup to display Legal Pages on Popup. Checkbox to agree for the legal pages is added at the end of every popup forcing the user to agree the legal contents to view the page.', 'wplegalpages' ); ?></p>
 									<div id="lp_generalid">
 										<form name="popup" method="post" enctype="multipart/form-data">
 											<p>
-												<label for="lp-name" class="screen-reader-text"><?php esc_attr_e( 'Name','wplegalpages'); ?></label>
+												<label for="lp-name" class="screen-reader-text"><?php esc_html_e( 'Name','wplegalpages'); ?></label>
 												<input type="text" class="form-control myText" name="lp-name" id="lp-name"
 														<?php if ( ! empty( $row ) ) { ?>
 															value="<?php echo esc_attr( $row->popup_name ); ?>"
@@ -378,7 +377,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 															}
 														}
 													</script>
-													<label for="lp-content" class="screen-reader-text"><?php esc_attr_e( 'Generated Legal Page Content','wplegalpages'); ?></label>
+													<label for="lp-content" class="screen-reader-text"><?php esc_html_e( 'Generated Legal Page Content','wplegalpages'); ?></label>
 													<textarea id="lp-content" name="lp-content" value="5" style="display:none" rows="10"></textarea>
 												</div>
 											</p>

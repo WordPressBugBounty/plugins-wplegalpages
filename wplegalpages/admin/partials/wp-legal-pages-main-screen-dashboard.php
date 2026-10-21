@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Provide a admin area view for the WP Legal Pages plugin
  *
@@ -10,6 +9,10 @@
  *
  * @package Wplegalpages
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 // // Instantiate a new object of the wplegal_Cookie_Consent_Settings class.
 $this->settings = new WP_Legal_Pages_Settings();
@@ -101,7 +104,7 @@ $trialEndDate         = $free_trial_data['trialEndDate'] ?? '';
 						</div>
 						
 					</div>
-					<!-- <div id="wplegalpages-save-settings-alert"><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/settings_saved.svg' ); ?>" alt="create legal" class="wplegal-save-settings-icon"><?php esc_attr_e( 'Settings saved successfully', 'wplegalpages' ); ?></div> --> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
+					<!-- <div id="wplegalpages-save-settings-alert"><img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/settings_saved.svg' ); ?>" alt="create legal" class="wplegal-save-settings-icon"><?php esc_html_e( 'Settings saved successfully', 'wplegalpages' ); ?></div> --> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 					<div class="wp-legalpages-admin-help-and-support">
 						<?php if ( $is_user_connected ) : ?>
 						<div class="wp-legalpages-new-dashboard-btn"><a href="<?php echo esc_url( 'https://app.wplegalpages.com/app/' ); ?>" target="_blank"><?php esc_html_e( 'Try New Dashboard', 'wplegalpages' ); ?> <span class="wplegalpages-admin-new-dashboard-btn-beta-span">BETA</span></a></div>
@@ -121,11 +124,11 @@ $trialEndDate         = $free_trial_data['trialEndDate'] ?? '';
 							<!-- //support  -->
 							<div class="wp-legalpages-admin-support-icon">
 								<!-- //image  -->
-								<a href="https://club.wpeka.com/contact/" target="_blank">
+								<a href="https://wplegalpages.com/contact-us/" target="_blank">
 								<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/wp_cookie_support.png'; ?>" alt="WP Cookie Consent Support"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 								</a>
 							</div>
-							<div class="wp-legalpages-admin-support-text"><a href="https://club.wpeka.com/contact/" target="_blank">
+							<div class="wp-legalpages-admin-support-text"><a href="https://wplegalpages.com/contact-us/" target="_blank">
 								Support</a>
 							</div>
 						</div>
@@ -375,8 +378,8 @@ $trialEndDate         = $free_trial_data['trialEndDate'] ?? '';
 												<?php
 												printf(
 													esc_html__( '%1$d of %2$d steps completed', 'wplegalpages' ),
-													$completed_steps,
-													$total_steps
+													absint( $completed_steps ),
+													absint( $total_steps )
 												);
 												?>
 											</span>

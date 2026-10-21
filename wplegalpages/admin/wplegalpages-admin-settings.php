@@ -10,6 +10,10 @@
  * @package    Wplegalpages
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 ?>
 <div id="wplegal-mascot-app"></div>
 <!-- <div style="clear:both;"></div> -->

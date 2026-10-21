@@ -221,6 +221,7 @@ jQuery(document).ready(function () {
           		        type: "POST",
           		        data: {
           		            action: "lp_save_free_trial_data",
+							_ajax_nonce : wplp_localize_data._ajax_nonce,
           		            free_trial: JSON.stringify(data.response.freeTrial),
           		        },
           		        complete: function () {

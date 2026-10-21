@@ -4,7 +4,7 @@
  * Plugin URI: https://club.wpeka.com/
  * Description: WPLegalPages is a simple 1 click legal page management plugin. You can quickly add in legal pages to your WordPress sites.
  * Author: WPLP Legal Pages
- * Version: 3.7.3
+ * Version: 3.8.0
  * Author URI: https://wplegalpages.com
  * License: GPL2
  * Text Domain: wplegalpages
@@ -39,7 +39,7 @@ if ( ! defined( 'WPLEGAL_APP_URL' ) ) {
 }
  
 if ( ! defined( 'APPWPLP_WPLP_SECRET_KEY_FEATURE_VERSION' ) ) {
-	define( 'APPWPLP_WPLP_SECRET_KEY_FEATURE_VERSION', '3.7.3' );
+	define( 'APPWPLP_WPLP_SECRET_KEY_FEATURE_VERSION', '3.8.0' );
 }
 
 /**
@@ -271,7 +271,8 @@ add_action( 'admin_init', 'wplp_appwplp_secret_key_version_check' );
 function activation_redirect_wplegalpages() {
 	if ( get_option( 'redirect_after_activation_option_lp', false ) ) {
 		delete_option( 'redirect_after_activation_option_lp' );
-		exit( esc_html( wp_redirect( admin_url( 'admin.php?page=legal-pages' ) ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=legal-pages' ) );
+		exit;
 	}
 }
 /**

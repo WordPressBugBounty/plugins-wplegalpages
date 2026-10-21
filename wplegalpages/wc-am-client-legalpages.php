@@ -350,7 +350,7 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 				);
 				$args       = wp_parse_args( $defaults, $args );
 				$target_url = esc_url_raw( $this->create_software_api_url( $args ) );
-				$request    = wp_safe_remote_post( $target_url, array( 'timeout' => 15 ) );
+				$request    = wp_safe_remote_post( $target_url, array( 'timeout' => 15 ) ); // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout 
 				if ( is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) != 200 ) {
 					// Request failed
 					return false;
@@ -372,7 +372,7 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 				);
 				$args       = wp_parse_args( $defaults, $args );
 				$target_url = esc_url_raw( $this->create_software_api_url( $args ) );
-				$request    = wp_safe_remote_post( $target_url, array( 'timeout' => 15 ) );
+				$request    = wp_safe_remote_post( $target_url, array( 'timeout' => 15 ) ); // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout 
 				$response = wp_remote_retrieve_body( $request );
 				return $response;
 			}
@@ -455,7 +455,7 @@ if ( ! class_exists( 'WC_AM_Client_2_7_WPLegalPages' ) ) {
 		 */
 		public function send_query( $args ) {
 			$target_url = esc_url_raw( add_query_arg( 'wc-api', 'wc-am-api', $this->api_url ) . '&' . http_build_query( $args ) );
-			$request    = wp_safe_remote_post( $target_url, array( 'timeout' => 15 ) );
+			$request    = wp_safe_remote_post( $target_url, array( 'timeout' => 15 ) ); // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout 
 
 			if ( is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) != 200 ) {
 				return false;

@@ -21,7 +21,7 @@ if ( '1' !== $lp_pro_active ) :
 <div style="">
 	<div style="line-height: 2.4em;" class='wplegalpages-pro-promotion'>
 		<a href="https://club.wpeka.com/product/wplegalpages/?utm_source=plugin&utm_medium=wplegalpages&utm_campaign=all-legal-pages&utm_content=upgrade-banner" target="_blank">
-			<img alt="Upgrade to Pro" src="<?php echo esc_attr( WPL_LITE_PLUGIN_URL ) . 'admin/images/wplegalpages-banner.png'; ?>"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
+			<img alt="Upgrade to Pro" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL ) . 'admin/images/wplegalpages-banner.png'; ?>"><?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 		</a>
 	</div>
 </div>
@@ -54,28 +54,28 @@ $current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_
 			<div class="wplegal-feature-icon" id="wplegal-settings-create-legal">
 				<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/create_legal_blue.svg' ); ?>" alt="create legal" class="wplegal-create-legal-icon"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 				<div class="wplegal-create-legal-subtext">
-					<p class="wplegal-create-legal-page-subheading"><?php esc_attr_e( 'Create Your Legal Page', 'wplegalpages' ); ?></p>
-					<p class="wplegal-create-legal-page-content"><?php esc_attr_e( 'Secure your site in 3 easy steps and generate a personalized legal policy page for enhanced protection.', 'wplegalpages' ); ?></p>
+					<p class="wplegal-create-legal-page-subheading"><?php esc_html_e( 'Create Your Legal Page', 'wplegalpages' ); ?></p>
+					<p class="wplegal-create-legal-page-content"><?php esc_html_e( 'Secure your site in 3 easy steps and generate a personalized legal policy page for enhanced protection.', 'wplegalpages' ); ?></p>
 				</div>
 			</div>
 			<div class="wplegal-create-legal-link">
 				<a href=<?php echo esc_url( admin_url( 'index.php?page=wplegal-wizard#/' ) ); ?> class="wplegal-create-legal-page-button">
-					<span><?php esc_attr_e( 'Create Page', 'wplegalpages' ); ?></span>
+					<span><?php esc_html_e( 'Create Page', 'wplegalpages' ); ?></span>
 					<img src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/right_arrow.svg' ); ?>" alt="right arrow"> <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 				</a>
 			</div>
 		</div>
-<h2 class="hndle myLabel-head all-pages"> <?php esc_attr_e( 'Available Pages', 'wplegalpages' ); ?> </h2>
+<h2 class="hndle myLabel-head all-pages"> <?php esc_html_e( 'Available Pages', 'wplegalpages' ); ?> </h2>
 <table class="widefat fixed comments table table-striped-all-pages all-pages">
 	<thead>
 		<tr class="wplegalpages-all-pages-heading">
-			<th width="6%" ><?php esc_attr_e( 'S.No.', 'wplegalpages' ); ?></th>
-			<th width="20%"><?php esc_attr_e( 'Page Title', 'wplegalpages' ); ?></th>
-			<th width="10%"><?php esc_attr_e( 'Page ID', 'wplegalpages' ); ?></th>
-			<th width="20%"><?php esc_attr_e( 'Shortcode', 'wplegalpages' ); ?></th>
-			<th width="10%"><?php esc_attr_e( 'Author', 'wplegalpages' ); ?></th>
-			<th width="10%"><?php esc_attr_e( 'Date', 'wplegalpages' ); ?></th>
-			<th width="15%" class="wplegalpages-all-pages-heading-last" ><?php esc_attr_e( 'Action', 'wplegalpages' ); ?></th>
+			<th width="6%" ><?php esc_html_e( 'S.No.', 'wplegalpages' ); ?></th>
+			<th width="20%"><?php esc_html_e( 'Page Title', 'wplegalpages' ); ?></th>
+			<th width="10%"><?php esc_html_e( 'Page ID', 'wplegalpages' ); ?></th>
+			<th width="20%"><?php esc_html_e( 'Shortcode', 'wplegalpages' ); ?></th>
+			<th width="10%"><?php esc_html_e( 'Author', 'wplegalpages' ); ?></th>
+			<th width="10%"><?php esc_html_e( 'Date', 'wplegalpages' ); ?></th>
+			<th width="15%" class="wplegalpages-all-pages-heading-last" ><?php esc_html_e( 'Action', 'wplegalpages' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -99,9 +99,9 @@ $current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_
 					$delurl .= "?pid=$res->ID&page=$current_page&mode=delete&_wpnonce=$nonce";
 				?>
 				<tr>
-					<td><?php echo esc_attr( $count ); ?></td>
-					<td><?php echo esc_attr( $res->post_title ); ?></td>
-					<td><?php echo esc_attr( $res->ID ); ?></td>
+					<td><?php echo esc_html( $count ); ?></td>
+					<td><?php echo esc_html( $res->post_title ); ?></td>
+					<td><?php echo esc_html( $res->ID ); ?></td>
 					<td><?php echo '[wplegalpage pid=' . esc_attr( $res->ID ) . ']'; ?></td>
 					<td>
 						<?php 
@@ -116,9 +116,9 @@ $current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_
 						echo esc_attr($username);
 						?>
 					</td>
-					<td><?php echo esc_attr( gmdate( 'Y/m/d', strtotime( $res->post_date ) ) ); ?></td>
+					<td><?php echo esc_html( gmdate( 'Y/m/d', strtotime( $res->post_date ) ) ); ?></td>
 					<td class="wplegal-table-link">
-						<a href="<?php echo esc_attr( get_admin_url() ); ?>/post.php?post=<?php echo esc_attr( $res->ID ); ?>&action=edit" class="table-link"><?php esc_attr_e( 'Edit ', 'wplegalpages' ); ?></a> | <a href="<?php echo esc_url_raw( $url ); ?>" class="table-link"><?php esc_attr_e( ' View ', 'wplegalpages' ); ?></a>| <a href="<?php echo esc_url_raw( $delurl ); ?>" class="table-link table-link-alert"><?php esc_attr_e( ' Trash', 'wplegalpages' ); ?></a>
+						<a href="<?php echo esc_url( get_admin_url() ); ?>/post.php?post=<?php echo esc_attr( $res->ID ); ?>&action=edit" class="table-link"><?php esc_html_e( 'Edit ', 'wplegalpages' ); ?></a> | <a href="<?php echo esc_url_raw( $url ); ?>" class="table-link"><?php esc_html_e( ' View ', 'wplegalpages' ); ?></a>| <a href="<?php echo esc_url_raw( $delurl ); ?>" class="table-link table-link-alert"><?php esc_html_e( ' Trash', 'wplegalpages' ); ?></a>
 					</td>
 				</tr>
 					<?php
@@ -128,7 +128,7 @@ $current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_
 
 		<?php } else { ?>
 		<tr>
-			<td colspan="7" class="wplegalpages-no-pages"><?php esc_attr_e( 'No page Available', 'wplegalpages' ); ?></td>
+			<td colspan="7" class="wplegalpages-no-pages"><?php esc_html_e( 'No page Available', 'wplegalpages' ); ?></td>
 		</tr>
 	<?php } ?>
 	</tbody>

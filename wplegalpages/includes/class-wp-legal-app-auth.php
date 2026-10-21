@@ -397,7 +397,10 @@ class WP_Legal_Pages_App_Auth {
 			wp_send_json_error( 'Unauthorized' );
 		}
 
-		$raw = wp_unslash( $_POST['free_trial'] ?? '' );
+		check_ajax_referer( 'wp-legal-pages', '_ajax_nonce' );
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Raw JSON string; each decoded field is sanitized individually below.
+		$raw = isset( $_POST['free_trial'] ) && is_string( $_POST['free_trial'] ) ? wp_unslash( $_POST['free_trial'] ) : '';
 
 		$free_trial = json_decode( $raw, true );
 

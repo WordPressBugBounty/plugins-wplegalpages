@@ -12,6 +12,10 @@
  * @subpackage WP_Legal_Pages/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Define the internationalization functionality.
  *

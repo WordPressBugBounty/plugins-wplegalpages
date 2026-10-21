@@ -9,6 +9,10 @@
  * @subpackage WP_Legal_Pages/widgets
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The widget-specific functionality for WPLegalPages.
  *
@@ -168,24 +172,24 @@ class WP_Widget_Legal_Pages extends WP_Widget {
 		);
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'wplegalpages' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'wplegalpages' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'sortby' ) ); ?>"><?php esc_attr_e( 'Sort by:', 'wplegalpages' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'sortby' ) ); ?>"><?php esc_html_e( 'Sort by:', 'wplegalpages' ); ?></label>
 			<select name="<?php echo esc_attr( $this->get_field_name( 'sortby' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'sortby' ) ); ?>" class="widefat">
-				<option value="post_title"<?php selected( $instance['sortby'], 'post_title' ); ?>><?php esc_attr_e( 'Page title', 'wplegalpages' ); ?></option>
-				<option value="menu_order"<?php selected( $instance['sortby'], 'menu_order' ); ?>><?php esc_attr_e( 'Page order', 'wplegalpages' ); ?></option>
-				<option value="ID"<?php selected( $instance['sortby'], 'ID' ); ?>><?php esc_attr_e( 'Page ID', 'wplegalpages' ); ?></option>
+				<option value="post_title"<?php selected( $instance['sortby'], 'post_title' ); ?>><?php esc_html_e( 'Page title', 'wplegalpages' ); ?></option>
+				<option value="menu_order"<?php selected( $instance['sortby'], 'menu_order' ); ?>><?php esc_html_e( 'Page order', 'wplegalpages' ); ?></option>
+				<option value="ID"<?php selected( $instance['sortby'], 'ID' ); ?>><?php esc_html_e( 'Page ID', 'wplegalpages' ); ?></option>
 			</select>
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'exclude' ) ); ?>"><?php esc_attr_e( 'Exclude:', 'wplegalpages' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'exclude' ) ); ?>"><?php esc_html_e( 'Exclude:', 'wplegalpages' ); ?></label>
 			<input type="text" value="<?php echo esc_attr( $instance['exclude'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'exclude' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'exclude' ) ); ?>" class="widefat" />
 			<br />
-			<small><?php esc_attr_e( 'Page IDs, separated by commas.', 'wplegalpages' ); ?></small>
+			<small><?php esc_html_e( 'Page IDs, separated by commas.', 'wplegalpages' ); ?></small>
 		</p>
 		<?php
 	}

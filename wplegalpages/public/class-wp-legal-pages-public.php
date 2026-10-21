@@ -9,6 +9,10 @@
  * @subpackage WP_Legal_Pages/admin
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -306,7 +310,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 				} else {
 					$cookie_duration = 0;
 				}
-				setcookie( 'wplegalpages', 1, $cookie_duration, COOKIEPATH, COOKIE_DOMAIN, false );
+				setcookie( 'wplegalpages', 1, $cookie_duration, COOKIEPATH, COOKIE_DOMAIN, false ); // phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___COOKIE -- Runs only in admin/logged-in context, not page-cached.
 				wp_safe_redirect( esc_url_raw( $redirect_url ) . '?wplegalpages=' . wp_create_nonce( 'wplegalpages' ) );
 				exit;
 			else :
@@ -756,7 +760,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 			for ( $i = 0; $i < $page_count; $i++ ) {
 				$page_url = get_permalink( $footer_pages[ $i ] );
 				?>
-				<a class="wplegalpages_footer_link" <?php echo esc_attr( $footer_new_tab ); ?> href="<?php echo esc_attr( $page_url ); ?>" > <?php echo esc_html( get_the_title( $footer_pages[ $i ] ) ); ?></a>
+				<a class="wplegalpages_footer_link" <?php echo esc_attr( $footer_new_tab ); ?> href="<?php echo esc_url( $page_url ); ?>" > <?php echo esc_html( get_the_title( $footer_pages[ $i ] ) ); ?></a>
 				<?php
 				if ( $i !== $page_count - 1 ) {
 					?>
@@ -802,12 +806,12 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 				if ( ! isset( $_COOKIE[ $cookie_option['cookie_name'] ] ) && time() < $cookie_option['cookie_end'] ) {
 					$cookie_option['cookie_expire'] = $cookie_option['cookie_end'] - time();
 					array_push( $cookies_array, $cookie_option );
-					setcookie($cookie_option['cookie_name'], $cookie_option['cookie_name'], $cookie_option['cookie_end'], '/');
-					$_COOKIE[$cookie_option['cookie_name']] = $cookie_option['cookie_name'];
+					setcookie($cookie_option['cookie_name'], $cookie_option['cookie_name'], $cookie_option['cookie_end'], '/'); // phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___COOKIE -- Runs only in admin/logged-in context, not page-cached.
+					$_COOKIE[$cookie_option['cookie_name']] = $cookie_option['cookie_name']; // phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___COOKIE -- Runs only in admin/logged-in context, not page-cached.
 				}
 			}
 			if ( '1' === $lp_banner_options['show_banner'] || true === $lp_banner_options['show_banner'] || 'true' === $lp_banner_options['show_banner'] ) {
-				foreach ( $_COOKIE as $key => $val ) {
+				foreach ( $_COOKIE as $key => $val ) { // phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___COOKIE -- Runs only in admin/logged-in context, not page-cached.
 					if ( preg_match( '/wplegalpages-update-notice-\d+/', sanitize_key( $key ) ) ) {
 						$this->lp_banner_contents_display();
 						break;
@@ -868,7 +872,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 					$page_titles = '';
 					$page_links  = array();
 					$exp         = '/wplegalpages-update-notice-\d+/';
-					foreach ( $_COOKIE as $key => $val ) {
+					foreach ( $_COOKIE as $key => $val ) { // phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___COOKIE -- Runs only in admin/logged-in context, not page-cached.
 						if ( preg_match( $exp, $key ) ) {
 							$p_id = substr( $key, 27 );
 							array_push( $page_ids, $p_id );
@@ -884,7 +888,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 						if ( strpos( $banner_message, '[wplegalpages_page_link]' ) ) {
 							echo esc_html( substr( $banner_message, 0, strpos( $banner_message, '[wplegalpages_page_link]' ) ) );
 							?>
-							<a class="wplegalpages_banner_link" href="<?php echo esc_attr( get_page_link( $page_ids[0] ) ); ?>" > <?php echo esc_html( $page_titles ); ?> </a>
+							<a class="wplegalpages_banner_link" href="<?php echo esc_url( get_page_link( $page_ids[0] ) ); ?>" > <?php echo esc_html( $page_titles ); ?> </a>
 							<?php
 							echo esc_html( substr( $banner_message, strpos( $banner_message, '[wplegalpages_page_link]' ) + 24 ) );
 						} else {
@@ -905,7 +909,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 							echo esc_html( substr( $banner_multiple_message, 0, strpos( $banner_multiple_message, '[wplegalpages_page_link]' ) ) );
 							for ( $i = 0; $i < $num_of_pages; $i++ ) {
 								?>
-								<a class="wplegalpages_banner_link" href=" <?php echo esc_attr( $page_links[ $i ] ); ?> "><?php echo esc_html( get_the_title( $page_ids[ $i ] ) ); ?></a>
+								<a class="wplegalpages_banner_link" href=" <?php echo esc_url( $page_links[ $i ] ); ?> "><?php echo esc_html( get_the_title( $page_ids[ $i ] ) ); ?></a>
 								<?php
 								if ( get_post_modified_time( 'U', false, $page_ids[ $i ] ) > $page_latest_update ) {
 									$page_date          = get_the_modified_date( $date_format, $page_ids[ $i ] );
@@ -918,7 +922,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 						}
 					}
 					?>
-					<a style="cursor:pointer;" class="closeButton"> <?php echo esc_attr( $banner_close_message ); ?> </a>
+					<a style="cursor:pointer;" class="closeButton"> <?php echo esc_html( $banner_close_message ); ?> </a>
 				</div>
 				<script type="text/javascript">
 					
