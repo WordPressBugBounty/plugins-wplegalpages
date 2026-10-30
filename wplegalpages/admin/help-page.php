@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                         <h3><?php esc_html_e( 'Video Tutorials', 'wplegalpages' ); ?></h3>
                         <p><?php esc_html_e( 'Prefer learning by watching? Explore our tutorials to see the plugin in action and learn how to use it effectively.', 'wplegalpages' ); ?></p>
-                        <a href="<?php echo esc_url( 'https://wplegalpages.com/docs/wp-cookie-consent/video-guides/video-resources/','wplegalpages' ); ?>" target="_blank"><?php esc_html_e( "Watch Now." ); ?><img class="gdpr-other-plugin-arrow" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/blue_right_arrow.svg' ); ?>"></a>
+                        <a href="<?php echo esc_url( 'https://www.youtube.com/playlist?list=PLdp1QH0BO8vk','wplegalpages' ); ?>" target="_blank"><?php esc_html_e( "Watch Now." ); ?><img class="gdpr-other-plugin-arrow" src="<?php echo esc_url( WPL_LITE_PLUGIN_URL . 'admin/js/vue/images/blue_right_arrow.svg' ); ?>"></a>
                       </div>
 
                       <div class="wplegalpages-help-card">

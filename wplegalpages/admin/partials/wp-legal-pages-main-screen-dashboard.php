@@ -136,7 +136,7 @@ $trialEndDate         = $free_trial_data['trialEndDate'] ?? '';
 						<div class="wp-legalpages-admin-login">
 							<div class="wp-legalpages-admin-login-icon">
 								<a <?php if ( $is_user_connected ) {
-									echo 'href="https://app.wplegalpages.com/my-account" target="_blank"';
+									echo 'href="https://app.wplegalpages.com/app" target="_blank"';
 								} else {
 									echo 'class="api-connect-to-account-btn"'; 
 								} ?> >
@@ -145,7 +145,7 @@ $trialEndDate         = $free_trial_data['trialEndDate'] ?? '';
 							</div>
 							<div class="wp-legalpages-admin-login-text">
 								<a <?php if ( $is_user_connected ) {
-									echo 'href="https://app.wplegalpages.com/my-account" target="_blank"';
+									echo 'href="https://app.wplegalpages.com/app" target="_blank"';
 								} else {
 									echo 'class="api-connect-to-account-btn"'; 
 								} ?> ><?php echo $is_user_connected ? esc_html('My Account', 'wplegalpages') :esc_html('Login', 'wplegalpages'); ?></a>

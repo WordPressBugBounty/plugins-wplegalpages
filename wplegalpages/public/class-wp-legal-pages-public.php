@@ -528,6 +528,9 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 			$pid            = $atts['pid'];
 
 			$res   = $wpdb->get_row( $wpdb->prepare( 'SELECT * from ' . $legalpages_pro->popuptable . ' where id= %d', $pid ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+			if ( ! $res ) {
+				return '';
+			}
 			$terms = '';
 			if ( isset( $res->content ) ) {
 				$terms = do_shortcode( $res->content );
@@ -727,7 +730,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 			$footer_font_id     = $lp_footer_options['footer_font_id'];
 			$footer_font_size   = $lp_footer_options['footer_font_size'];
 			$footer_custom_css  = $lp_footer_options['footer_custom_css'];
-			$footer_new_tab     = '1' === $lp_footer_options['footer_new_tab'] ? 'target="_blank"' : '';
+			$footer_target = '1' === ( $lp_footer_options['footer_new_tab'] ?? '' ) ? '_blank' : '';
 			$footer_pages       = $lp_footer_options['footer_legal_pages'];
 			$font_family_url    = 'http://fonts.googleapis.com/css?family=' . $footer_font_id;
 			if ( empty( $footer_pages ) || empty( $footer_pages[0] ) ) {
@@ -760,7 +763,7 @@ if ( ! class_exists( 'WP_Legal_Pages_Public' ) ) {
 			for ( $i = 0; $i < $page_count; $i++ ) {
 				$page_url = get_permalink( $footer_pages[ $i ] );
 				?>
-				<a class="wplegalpages_footer_link" <?php echo esc_attr( $footer_new_tab ); ?> href="<?php echo esc_url( $page_url ); ?>" > <?php echo esc_html( get_the_title( $footer_pages[ $i ] ) ); ?></a>
+				<a class="wplegalpages_footer_link" <?php if ( $footer_target ) : ?>target="<?php echo esc_attr( $footer_target ); ?>" rel="noopener noreferrer"<?php endif; ?> href="<?php echo esc_url( $page_url ); ?>"><?php echo esc_html( get_the_title( $footer_pages[ $i ] ) ); ?></a>
 				<?php
 				if ( $i !== $page_count - 1 ) {
 					?>

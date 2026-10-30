@@ -7,7 +7,7 @@ Tags: privacy policy, terms and conditions, ccpa, GDPR, disclaimer
 Requires at least: 6.2
 Requires PHP: 7.0
 Tested up to: 7.1.3
-Stable tag: 3.8.0
+Stable tag: 3.8.1
 
 Privacy policy and terms and conditions generator for WordPress. GDPR and CCPA templates, cookie policy, disclaimer. One click, many sites.
 
@@ -287,6 +287,15 @@ Yes. Edit any page in the WordPress editor, the same as any other page.
 
 
 == Changelog ==
+
+= 3.8.1 =
+**Improvements**
+    * Improved WooCommerce My Account page redirection and removed outdated account page references across the plugin.
+**Bug Fixes**
+    * Fixed an issue where the Connect Your Account popup appeared during legal page creation even when the account was already connected.
+    * Fixed social media links redirecting to incorrect URLs on legal pages.
+    * Fixed deleted popup shortcodes still rendering empty popups on the frontend.
+    * Fixed footer legal page links not opening in a new tab when configured.
 
 = 3.8.0 =
 **New**
@@ -743,4 +752,3 @@ Enhanced security
 
 = 1.0.0 =
 Base version of the plugin.
-

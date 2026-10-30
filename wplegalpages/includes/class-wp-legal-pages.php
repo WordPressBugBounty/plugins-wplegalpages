@@ -128,7 +128,7 @@ if ( ! class_exists( 'WP_Legal_Pages' ) ) {
 
 			global $table_prefix;
 			$this->plugin_name = 'wp-legal-pages';
-			$this->version     = '3.8.0';
+			$this->version     = '3.8.1';
 			$this->tablename   = $table_prefix . 'legal_pages';
 			$this->popuptable  = $table_prefix . 'lp_popups';
 			$this->plugin_url  = plugin_dir_path( __DIR__ );

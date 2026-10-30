@@ -4268,7 +4268,11 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$facebook_url = isset( $lp_general['facebook-url'] ) ? $lp_general['facebook-url'] : '';
 
 			if ( $facebook_url ) {
-				$facebook = array( 'facebook' => '<a style="width: 30px; height: 30px; display:inline-block" href="' . $facebook_url . '"><img src="' . WPL_LITE_PLUGIN_URL . 'admin/images/facebook.png"/></a>' ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
+				$facebook_url = trim( $facebook_url );
+				if ( ! preg_match( '#^https?://#i', $facebook_url ) ) {
+					$facebook_url = 'https://' . $facebook_url;
+				}
+				$facebook = array( 'facebook' => '<a style="width: 30px; height: 30px; display:inline-block" href="' . esc_url( $facebook_url ) . '"><img src="' . esc_url( WPL_LITE_PLUGIN_URL . 'admin/images/facebook.png' ) . '"/></a>' ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 			}
 			$lp_find_facebook = array( '[facebook]' );
 			$content          = str_replace( $lp_find_facebook, $facebook, stripslashes( $content ) );
@@ -4276,24 +4280,35 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 			$google_url = isset( $lp_general['google-url'] ) ? $lp_general['google-url'] : '';
 
 			if ( $google_url ) {
-
-				$google = array( 'google' => '<a style="width: 30px; height: 30px; display:inline-block" href="' . $google_url . '"><img src="' . WPL_LITE_PLUGIN_URL . 'admin/images/google.png"/></a>' ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
+				$google_url = trim( $google_url );
+				if ( ! preg_match( '#^https?://#i', $google_url ) ) {
+					$google_url = 'https://' . $google_url;
+				}
+				$google = array( 'google' => '<a style="width: 30px; height: 30px; display:inline-block" href="' . esc_url( $google_url ) . '"><img src="' . esc_url( WPL_LITE_PLUGIN_URL . 'admin/images/google.png' ) . '"/></a>' ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 			}
 			$lp_find_google = array( '[google]' );
 			$content        = str_replace( $lp_find_google, $google, stripslashes( $content ) );
 
 			$twitter_url = isset( $lp_general['twitter-url'] ) ? $lp_general['twitter-url'] : '';
 			if ( $twitter_url ) {
-
-				$twitter = array( 'twitter' => '<a style="width: 30px; height: 30px; display:inline-block" href="' . $twitter_url . '"><img src="' . WPL_LITE_PLUGIN_URL . 'admin/images/twitter.png"/></a>' ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
+				$twitter_url = trim( $twitter_url );
+				if ( ! preg_match( '#^https?://#i', $twitter_url ) ) {
+					$twitter_url = 'https://' . $twitter_url;
+				}
+				$twitter = array( 'twitter' => '<a style="width: 30px; height: 30px; display:inline-block" href="' . esc_url( $twitter_url ) . '"><img src="' . esc_url( WPL_LITE_PLUGIN_URL . 'admin/images/twitter.png' ) . '"/></a>' ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 			}
 			$lp_find_twitter = array( '[twitter]' );
 			$content         = str_replace( $lp_find_twitter, $twitter, stripslashes( $content ) );
 
 			$linkedin_url = isset( $lp_general['linkedin-url'] ) ? $lp_general['linkedin-url'] : '';
 			if ( $linkedin_url ) {
-				$linkedin = array( 'linkedin' => '<a style="width: 30px; height: 30px; display:inline-block" href="' . $linkedin_url . '"><img src="' . WPL_LITE_PLUGIN_URL . 'admin/images/linkedin.png"/></a>' ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
+				$linkedin_url = trim( $linkedin_url );
+				if ( ! preg_match( '#^https?://#i', $linkedin_url ) ) {
+					$linkedin_url = 'https://' . $linkedin_url;
+				}
+				$linkedin = array( 'linkedin' => '<a style="width: 30px; height: 30px; display:inline-block" href="' . esc_url( $linkedin_url ) . '"><img src="' . esc_url( WPL_LITE_PLUGIN_URL . 'admin/images/linkedin.png' ) . '"/></a>' ); //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 			}
+
 			$lp_find_linkedin = array( '[linkedin]' );
 			$content          = str_replace( $lp_find_linkedin, $linkedin, stripslashes( $content ) );
 			return $content;
@@ -5908,6 +5923,14 @@ if ( ! class_exists( 'WP_Legal_Pages_Admin' ) ) {
 						$general['is_adult']             = isset( $lp_general['is_adult'] ) ? $lp_general['is_adult'] : '0';
 						$general['is_footer']            = isset( $lp_general['is_footer'] ) ? $lp_general['is_footer'] : '0';
 						$general['is_banner']            = isset( $lp_general['is_banner'] ) ? $lp_general['is_banner'] : '0';
+						foreach ( array( 'facebook-url', 'google-url', 'twitter-url', 'linkedin-url' ) as $key ) {
+							if ( ! empty( $general[ $key ] ) ) {
+								$general[ $key ] = trim( $general[ $key ] );
+								if ( ! preg_match( '#^https?://#i', $general[ $key ] ) ) {
+									$general[ $key ] = 'https://' . ltrim( $general[ $key ], '/' );
+								}
+							}
+						}
 						update_option( 'lp_general', $general );
 						$result['success'] = true;
 					}
